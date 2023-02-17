@@ -1,0 +1,103 @@
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[left=2.2cm, right=2.2cm, top=2cm, bottom=1.6cm]{geometry}
+
+\setlength{\columnsep}{5mm}
+\geometry{a4paper}
+\setlength{\parindent}{0pt}
+\setlength{\belowcaptionskip}{0pt}
+\setlength{\abovecaptionskip}{5pt}             		
+%\setlength{\footskip}{34pt}			%lower page number
+\usepackage[bottom]{footmisc}		%put footnote at bottom
+\usepackage{graphicx}				% Use pdf, png, jpg with pdflatex; 				
+\usepackage{flafter}					%make sure graphics don't appear before text
+\usepackage{float}
+\usepackage{longtable}		
+\usepackage{caption}
+\usepackage{subcaption} % for subfigures
+\captionsetup{subrefformat=parens}
+
+\usepackage{hyperref}
+
+\usepackage{fancyhdr}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocodex}
+
+\usepackage[small]{titlesec}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titleformat*{\subsubsection}{\small\bfseries}
+\setcounter{secnumdepth}{2}
+
+
+\usepackage{textcomp}
+% \usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning,calc}
+
+\usepackage{acronym}
+\usepackage{mathtools, cuted}   %add support for using temporary onecolumn env
+\usepackage{multirow}
+
+
+\makeatletter
+\AtBeginDocument{%
+  \renewcommand*{\AC@hyperlink}[2]{%
+    \begingroup
+      \hypersetup{hidelinks}%
+      \hyperlink{#1}{#2}%
+    \endgroup
+  }%
+}
+\makeatother
+
+\usepackage{ragged2e}
+
+%\usepackage[style=numeric]{biblatex} % References (in footnotes)
+\usepackage[backend=bibtex, sorting=none,
+            minnames=2, maxnames=3,
+            uniquelist=true, giveninits=true, url=false, isbn=false]{biblatex}
+\addbibresource{\relativeRoot/ada.bib}
+
+								
+\usepackage{amsmath,amssymb,amstext}	
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}			%[english]
+
+\usepackage{physics}
+\usepackage{gensymb}
+\usepackage[separate-uncertainty = false,detect-weight=true, detect-family=true]{siunitx} %\si{Einheit}		
+
+
+\usepackage{hyperref}	%referencing in document
+\usepackage[all]{hypcap} %suppress wrong referencing
+\usepackage{scrextend}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage[version=4]{mhchem}
+\usepackage{subfiles}
+
+\usepackage{xcolor}
+\usepackage[many]{tcolorbox} % Colored boxes around equations
+\definecolor{boxgrey}{HTML}{D8D8D8}
+\definecolor{darkblue}{HTML}{0B0B61}
+
+
+
+\hypersetup{
+    colorlinks,
+    pdfpagemode=UseOutlines,	%produce a tableofcontents in pdf
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\newcommand{\HRulebeta}{\rule{\linewidth}{0mm}}
+
+
+\def\layersep{2.5cm}

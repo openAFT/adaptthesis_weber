@@ -1,0 +1,26 @@
+% Specify root of repository relative to this file.
+\providecommand{\relativeRoot}{.}
+
+\documentclass[10pt]{article}
+
+% Load preamble
+\input{preamble.tex}
+
+% Metadata
+\title{Adaptive Fractionation}
+\author{Janic Tom Weber}
+\date{\monthyeardate\today}
+
+% The actual document
+\begin{document}
+    \pagestyle{empty}
+    \subfile{titlepage.tex}
+    
+    \clearpage
+    \pagestyle{fancyplain}
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0 pt}
+    \rhead{\thepage}
+    \subfile{content.tex}
+
+\end{document}
