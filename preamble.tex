@@ -4,9 +4,7 @@
 
 \setlength{\columnsep}{5mm}
 \geometry{a4paper}
-\setlength{\parindent}{0pt}
-\setlength{\belowcaptionskip}{0pt}
-\setlength{\abovecaptionskip}{5pt}             		
+\setlength{\parindent}{0pt}           		
 %\setlength{\footskip}{34pt}			%lower page number
 \usepackage[bottom]{footmisc}		%put footnote at bottom
 \usepackage{graphicx}				% Use pdf, png, jpg with pdflatex; 				
@@ -15,7 +13,9 @@
 \usepackage{longtable}		
 \usepackage{caption}
 \usepackage{subcaption} % for subfigures
-\captionsetup{subrefformat=parens}
+\captionsetup{subrefformat=parens, labelfont=bf, font=footnotesize}
+\setlength{\belowcaptionskip}{-3pt}
+\setlength{\abovecaptionskip}{3pt}
 
 \usepackage{hyperref}
 
