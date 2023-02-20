@@ -25,12 +25,12 @@ First, install the dependencies from [adaptfx](https://github.com/openAFT/adaptf
 
 With the CLI of `adapsim` run
 ```
-ast -f graphics/*.json
+$ ast -f graphics/*.json
 ```
 
 
 And after this, you can build the entire document by running
 
 ```
-latexmk -synctex=1 -interaction=nonstopmode -file-line-error -pdf -outdir=_build ada.tex
+$ latexmk -bibtex -f -logfilewarnings -nobibfudge -outdir=./_build -pdf ada.tex
 ```
