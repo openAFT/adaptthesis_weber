@@ -8,13 +8,11 @@ This repository contains the source code for the Master Thesis of Janic Tom Webe
 
 ## Requirements
 
-1. Ideally TeX Live 2022
+To compile this thesis, one needs a TeX Live 2022 distribution. All figures in the thesis are compiled using scripts that are contained in this repository. This means, having installed the `adpatfx` and `adapsim` package, one can recreate all plots. The `adpatfx` package installs dependency automatically needed for plotting. For Python version 3.10 or later is necessary. Ideally one has also created a virtual environment. So in summary:
+
+1. TeX Live 2022
 2. Python 3.10 or Later
 3. `adaptfx` and `adapsim` package
-
-To compile this thesis, one needs a TeX distribution.
-
-All figures in the thesis are compiled using scripts that are contained in this repository. This means, having installed the `adpatfx` and `adapsim` package, one can recreate all plots. To recreate all figures, in addition to a TeX Live distribution, one needs Python 3.10 or later installed. Ideally one has also created a virtual environment.
 
 
 ## Reproduce
@@ -28,9 +26,7 @@ With the CLI of `adapsim` run
 $ ast -f graphics/*.json
 ```
 
-
 And after this, you can build the entire document by running
-
 ```
 $ latexmk -bibtex -f -logfilewarnings -nobibfudge -outdir=./_build -pdf ada.tex
 ```
