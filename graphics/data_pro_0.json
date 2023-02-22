@@ -1,0 +1,45 @@
+{
+"algorithm": "frac",
+"level": 1,
+"log": 0,
+"keys": 
+	{
+	"number_of_fractions": 5,
+	"fraction": 0,
+	"sparing_factors": [0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
+	"shape": "invalid",
+	"scale": "invalid",
+	"shape_inv": "invalid",
+	"scale_inv": "invalid",
+	"prob_update": 0,
+	"fixed_mean": 0.75,
+	"fixed_std": 0.001,
+	"accumulated_oar_dose": 0,
+	"accumulated_tumor_dose": 0,
+	"min_dose": 0,
+	"max_dose": -1,
+	"tumor_goal": 72,
+	"c": 0
+	},
+"settings":
+	{
+	"dose_stepsize": 0.1,
+	"state_stepsize": 0.1,
+	"sf_stepsize": 0.025,
+	"sf_low": 0.65,
+	"sf_high": 0.85,
+	"sf_prob_threshold": 0,
+	"plot_policy": 0,
+	"plot_values": 0,
+	"plot_remains": 0
+	},
+"algorithm_simulation": "single_distance",
+"keys_simulation":
+	{
+	"figsize": [6, 3.7],
+	"data_filepath": "~/Downloads/jupyter_env/adaptsim/data/sf_clean.csv",
+	"data_selection": ["oar", "rectum"],
+	"data_row_hue": "target",
+	"save": 1
+	}
+}
