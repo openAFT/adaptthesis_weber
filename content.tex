@@ -146,7 +146,7 @@ This reward model introduces iso-rewarding actions: for a fixed state there exis
     C \propto \left( \delta (d^* - d^{**}) + \frac{\delta^2 \left( {d^*}^2 - d^{**2} \right)}{(\alpha / \beta)_\text{N}} \right)
 \end{equation*}
 
-\begin{figure}[h]
+\begin{figure}[!htb]
     \begin{tikzpicture}x
     \begin{axis}
     [
@@ -228,7 +228,7 @@ Note that now there is no subscript to $B^{\text{N}}$ as it is a continuous func
 \end{equation*}
 In Fig.~\ref{fig:cost_function} for $n_{\text{pres}}=5$ prescribed number of fractions the parameter $C_5$ was determined.
 
-\begin{figure}[h]
+\begin{figure}[!htb]
     \begin{tikzpicture}x
     \begin{axis}
     [
@@ -354,16 +354,16 @@ The Bellman equation relates the value function in fraction $t$ to the optimal p
 \begin{equation}\label{eq:value_function}
     \begin{split}
     v_t(\delta, & B^{\text{T}}) = \underset{d}{\text{max}} \Biggr[
-    r_t(d, B^{\text{T}}_{t-1}) + \ldots \Biggr.\\
-    & \Biggr. \sum_{\delta'}P(\delta')v_{t+1}(\delta', B^{\text{T}}_{t-1} + d + \frac{d^2}{(\alpha / \beta)_\text{T}}) \Biggr]
+    r_t(d, B^{\text{T}}) + \ldots \Biggr.\\
+    & \Biggr. \sum_{\delta'}P(\delta')v_{t+1}(\delta', B^{\text{T}} + d + \frac{d^2}{(\alpha / \beta)_\text{T}}) \Biggr]
     \end{split}
 \end{equation}
 and the policy reads
 \begin{equation}\label{eq:policy_function}
     \begin{split}
     \pi_t(\delta, & B^{\text{T}}) = \underset{d}{\text{argmax}} \Biggr[
-    r_t(d, B^{\text{T}}_{t-1}) + \ldots \Biggr.\\
-    & \Biggr. \sum_{\delta'}P(\delta')v_{t+1}(\delta', B^{\text{T}}_{t-1} + d + \frac{d^2}{(\alpha / \beta)_\text{T}}) \Biggr]
+    r_t(d, B^{\text{T}}) + \ldots \Biggr.\\
+    & \Biggr. \sum_{\delta'}P(\delta')v_{t+1}(\delta', B^{\text{T}} + d + \frac{d^2}{(\alpha / \beta)_\text{T}}) \Biggr]
     \end{split}
 \end{equation}
 Value function and optimal policy can be calculated iteratively in one backward recursion starting from the last fraction. To enforce the cumulative tumor BED prescription $B_{\text{pres}}^\text{T}$, a terminal reward of -$\infty$ is assigned to all terminal states in which the cumulative tumor BED prescription is not met after the last fraction. To that end, the terminal reward corresponding the value function $v_{F+1}$ at the end of the treatment after all $F$ fractions are delivered, is initialised to
@@ -387,26 +387,22 @@ Where $s \gg B_{\text{pres}}^\text{T}$ is an arbitrary large number. This ensure
 The DP algorithm relies on a description of the environment to compute an optimal policy, in this case the probability distribution of the sparing factor $P(\delta)$, which we assume to be a Gaussian distribution truncated at $0$, with patient-specific parameters for mean and standard deviation. At the start of a treatment, only two sparing factors are available for that patient, from the planning scan and the first fraction. In each fraction, an additional sparing factor is measured, which can be used to calculate updated estimates $\mu_t$ and $\sigma_t$ for mean and standard deviation, respectively.
 
 \subsubsection{Maximum a Posteriori Estimation}
-In each fraction $t$, the maximum likelihood estimator of the mean of the sparing factor distribution given by
-
+In each fraction $t$, the maximum likelihood estimator of the mean of the sparing factor distribution is
 \begin{equation}\label{eq:mean}
 \mu_t = \frac{1}{t+1}\sum_{\tau=0}^t \delta_\tau
 \end{equation}
 
-where $\delta_0$ denotes the sparing factor from the planning MR. The estimator for the standard deviation, given the patient-specific sparing factors up to fraction $t$, follows a chi-squared distribution, and the maximum likelihood estimator is given by
-
+where $\delta_0$ denotes the sparing factor from the planning MR. The estimator for the standard deviation, given the patient-specific sparing factors up to fraction $t$, follows a chi-squared distribution, and the maximum likelihood estimator is
 \begin{equation}
 \sigma_t^{pat} = \sqrt{ \frac{1}{t+1}\sum_{\tau=0}^t \left( \delta_\tau - \mu_t \right)^2 }
 \end{equation}
 
 However, the standard deviation may be severely under- or overestimated if calculated from only two samples at the very beginning of the treatment. Therefore, we assume a population based prior for the standard deviation and compute the maximum a posterior estimator of $\sigma_t$ via Bayesian inference. As the sparing factors are assumed to follow a normal distribution with unknown variance, a gamma distribution is chosen as prior to estimate the standard deviation $\sigma$,
-
 \begin{equation}
     f(\sigma;k,\theta) = \frac{1}{\Gamma(k)\theta^k}\sigma^{k-1}\exp\left(\frac{-\sigma}{\theta}\right)
 \end{equation}
 
-with shape $k$ and scale $\theta$ the hyperparameters. The maximum a posterior estimator for the standard deviation in fraction $t$ is then given by
-
+with shape $k$ and scale $\theta$ the hyperparameters. The maximum a posterior estimator for the standard deviation in fraction $t$ is then
 \begin{equation}\label{eq:likelihoodmax}
 \resizebox{0.88\hsize}{!}{$
     \sigma_{t}=\underset{\sigma}{\operatorname{argmax}}\left[\frac{\sigma^{k-1}}{\sigma^{t-1}} \exp (\frac{-\sigma}{\theta}) \exp \left(\frac{-\left(\sigma_{t}^{p a t}\right)^{2}}{2 \frac{\sigma^{2}}{t}}\right)\right]
@@ -435,7 +431,8 @@ It should be noted that shape $k$ and scale $\theta$ too are hyperparameters, as
 \end{equation}
 \begin{equation}\label{eq:theta_hyper}
     \theta_t = \theta + \frac{1}{2} \sum_{\tau = 1}^t (\delta_{\tau} - \mu)^2    
-\end{equation}
+\end{equation}
+
 Resulting as the posterior predictive distribution will be a student t-distribution
 \begin{equation*}
     t_{\nu}(x)=\frac{\Gamma\left(\frac{\nu+1}{2}\right)}{\sqrt{\nu \pi} \Gamma\left(\frac{\nu}{2}\right)}\left(1+\frac{x^{2}}{\nu}\right)^{-(\nu+1) / 2}
@@ -503,7 +500,7 @@ Described and illustrated are the treatment model in regards to policy function,
 
 The optimal policy $\pi_t(\delta, B^{\text{T}})$ for a 5 fraction treatment with normal distribution $\mu=0.75$ and very low standard variation of $\sigma=0.001$ is given in Fig.~\ref{fig:treat_policy_sigma} and Fig.~\ref{fig:treat_policy_single}. The probability distribution $P(\delta)$ is fixed: i.e. the optimal policy for the entire treatment is solved without updating the probability distribution with progressing treatment.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_sigma.pdf}
     \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$ and $C=0$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the the sparing factor.}
@@ -512,7 +509,7 @@ The optimal policy $\pi_t(\delta, B^{\text{T}})$ for a 5 fraction treatment with
 
 For the same expected probability distribution but increasing $C$ gives the policy seen in Fig.~\ref{fig:treat_policy_c_plat} and~\ref{fig:treat_policy_single}. A feature of this policy is the appearance of plateaux and thus a discontinuous policy function.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_c_plat.pdf}
     \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$ and $C=1.9$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the the sparing factor.}
@@ -521,7 +518,7 @@ For the same expected probability distribution but increasing $C$ gives the poli
 
 Increasing expected variation in the sparing factor to a more realistic variation $\sigma=0.1$ and $C=0$ gives the optimal policy seen in Fig.~\ref{fig:treat_policy} and Fig.~\ref{fig:treat_policy_single}.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy.pdf}
     \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=0$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the the sparing factor.}
@@ -530,21 +527,21 @@ Increasing expected variation in the sparing factor to a more realistic variatio
 
 Increasing parameter $C$ to $1.2$ gives the optimal policy seen in Fig.~\ref{fig:treat_policy_c} and Fig.~\ref{fig:treat_policy_single}. Similar to Fig.~\ref{fig:treat_policy_c_plat} appearance of a plateau can be seen. In each fraction there is one plateau in each policy function. Landing on such a plateau in the state space the optimal policy is to deliver the dose necessary to finish the treatment in the current fraction.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_c.pdf}
     \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=1.2$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the the sparing factor.}
     \label{fig:treat_policy_c}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_single.pdf}
     \caption{Optimal policy in the last fraction for an arbitrary 5 fraction treatment. Policy in the last fraction applies the remaining dose regardless of the the sparing factor.}
     \label{fig:treat_policy_single}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_c_arte.pdf}
     \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=1.2$, polluted with artefacts due to interpolation.}
@@ -555,28 +552,28 @@ Increasing parameter $C$ to $1.2$ gives the optimal policy seen in Fig.~\ref{fig
 
 The value function $v_t(\delta, B^{\text{T}})$ does not reflect optimal policy for the treatment but rather shows best possible value the algorithm can secure in each state. The lower the value the less desirable a state. Shown here are the corresponding value functions to the policy functions.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_values_c_plat.pdf}
     \caption{Value function for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$ and $C=1.9$.}
     \label{fig:treat_values_c_plat}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_values_c_plat_single.pdf}
     \caption{Value function in the last fraction for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$ and arbitrary $C$.}
     \label{fig:treat_values_c_plat_single}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_values.pdf}
     \caption{Value function for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=0$.}
     \label{fig:treat_values}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_values_single.pdf}
     \caption{Value function in the last fraction for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and arbitrary $C$.}
@@ -587,7 +584,7 @@ The value function $v_t(\delta, B^{\text{T}})$ does not reflect optimal policy f
 
 Since the policy is known for every state the expected remaining number of fractions can be calculated for every fraction. In Fig.~\ref{fig:treat_remains_c_plat} the remaining number of fractions are shown to the policy in Fig.~\ref{fig:treat_policy_c_plat} shown before. The bottom plateau in the policy correspond to the states where the treatment is will be finished in the current fraction. One plateau above correspond to all states where it is expected to finish treatment the next fraction. The further along in the treatment, the less fractions are remaining and thus plateaux disappear. The number of plateaux in a fraction is equal to the number of fractions remaining including the current fraction.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_remains_c_plat.pdf}
     \caption{Expected remaining number of fractions for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$ and $C=1.9$. Last fraction is not shown as it is zero for every state.}
@@ -596,7 +593,7 @@ Since the policy is known for every state the expected remaining number of fract
 
 For the case in which $C=0$ and $\sigma=0.1$ there appears one and very narrow plateau on the bottom of the policy space for states close to the prescribed tumor dose. This plateau in the policy correspond to the states where the treatment is will be finished in the current fraction. Realistically this plateau will not be reached if the optimal dose in the previous fraction is delivered. Also seen can be gradient in the expected remaining number of fractions from states between at $72$ Gy to $67$ Gy. One plateau above correspond to all states where it is expected to finish treatment the next fraction. The further along in the treatment, the less fractions are remaining and thus plateaux disappear. The number of plateaux in a fraction is equal to the number of fractions remaining including the current fraction.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_remains.pdf}
     \caption{Expected remaining number of fractions for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=0$. Last fraction is not shown as it is zero for every state.}
@@ -605,7 +602,7 @@ For the case in which $C=0$ and $\sigma=0.1$ there appears one and very narrow p
 
 In Fig.~\ref{fig:treat_remains_c} the case $C=1.2$, $\sigma=0.1$ is displayed. Compared to Fig.~\ref{fig:treat_remains} the plateau in each fraction spans through nearly all of the accumulated dose states $B^{\text{T}}$. And compared to Fig.~\ref{fig:treat_remains_c_plat} no plateau steps but rather a pronounced gradient to larger expected remaining number of fractions appear. In fraction $t=4$ the expected remaining number is binary, as the treatment either finishes in the current fraction $t=4$ or one additional fraction will be used, such that the treatment is finished in fraction $t=5$.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_remains_c.pdf}
     \caption{Expected remaining number of fractions for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=1.2$. Last fraction is not shown as it is zero for every state.}
@@ -619,7 +616,7 @@ Described and illustrated are the treatment models applied to a synthetic patien
 
 \subsubsection{Constant Sparing Factor}
 If a synthetic patient shows no deviation at all with sparing factors appearing at $\mu = 0.75$. A uniformly fractionated treatment plan yields the limiting $90$ Gy cumulative OAR BED $B_5^{\text{N}}$ for a tumor prescription dose of $72$ Gy. Assuming an Adaptive Fractionation treatment model with a low variation in sparing factors, such that practically there is no variation expected at all and a constant $C=0$ (see Fig.~\ref{fig:treat_fraction_0}), the policy conforms to uniform fractionation. Increasing $C$ yields uniform fractionation policy using fewer fractions and resulting in higher $B_5^{\text{N}}$.
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_fraction_0.pdf}
     \caption{Adaptive fractionated therapy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$. Sparing factor is the same for every fraction including planning.}
@@ -628,7 +625,7 @@ If a synthetic patient shows no deviation at all with sparing factors appearing 
 
 Increasing the expected variation in sparing factors to a standard deviation of $\sigma=0.05$ seen in Fig.~\ref{fig:treat_fraction_1} for otherwise equal treatment model, yields higher cumulative BED $B_5^{\text{N}}$ compared to a $\sigma=0.001$. For $C=0$ less dose is applied in the first three fractions compared to the treatment model with $\sigma=0.001$, as a variation in favour of lower sparing factors is expected. As no lower sparing factors appear the dose is steadily increased. Looking at the treatment model with $C=4.4$ the treatment is finished after 4 fractions with a cumulative BED $B_5^{\text{N}}$ $3.5$ Gy higher compared to uniform fractionation.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_fraction_1.pdf}
     \caption{Adaptive fractionated therapy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.05$. Sparing factor is the same for every fraction including planning.}
@@ -637,7 +634,7 @@ Increasing the expected variation in sparing factors to a standard deviation of 
 
 Increasing the expected variation in sparing factors even further to to a standard deviation of $\sigma=0.1$ and $\sigma=0.15$ seen in Fig.~\ref{fig:treat_fraction_2} and Fig.~\ref{fig:treat_fraction_3} for otherwise equal treatment model for $C=4.4$ and $C=5.0$ parameters only one fraction is omitted.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_fraction_2.pdf}
     \caption{Adaptive fractionated therapy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$. Sparing factor is the same for every fraction including planning.}
@@ -646,7 +643,7 @@ Increasing the expected variation in sparing factors even further to to a standa
 
 For a patient model with zero variation in sparing factor and treatment model with large expected variation the optimal policy yields a suboptimal dose delivery reflected by the higher cumulative BED $B_5^{\text{N}}$ compared to a treatment model that assumes low variation.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_fraction_3.pdf}
     \caption{Adaptive fractionated therapy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.15$. Sparing factor is the same for every fraction including planning.}
@@ -659,14 +656,14 @@ Applying a treatment model with an expected standard deviation $\sigma=0.1$ to a
 
 Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ finish the treatment with $4$ and $2$ fractions (see Fig.~\ref{fig:treat_fraction_4}) while still delivering less cumulative BED $B_5^{\text{N}}$ than uniform fractionation and reaching prescribed tumor dose of $72$ Gy. In Tab.~\ref{tab:result_treat_fraction_4} the comparison is summarised.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_fraction_4.pdf}
     \caption{Adaptive fractionated therapy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$. Sparing factor in the second fraction is a standard deviation higher from the mean.}
     \label{fig:treat_fraction_4}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[!htb]
     \centering
     \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_t=0.65$}
     \begin{tabular}{l|cc}
@@ -687,14 +684,14 @@ Applying the same treatment model to a patient model with a sparing factor seque
 
 Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not finish the treatment earlier than 5 fractions (see Fig.~\ref{fig:treat_fraction_5}) and deliver the same cumulative BED $B_5^{\text{N}}$ as the treatment model with $C=0$. Nevertheless the cumulative BED $B_5^{\text{N}}$ is still lower than uniform fractionation while reaching prescribed tumor dose of $72$ Gy. The optimal policy does not allow to increase dose to omit fractions, due to the exceptional high sparing factor of $0.85$. In Tab.~\ref{tab:result_treat_fraction_5} the comparison is summarised.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_fraction_5.pdf}
     \caption{Adaptive fractionated therapy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$. Sparing factor in the second fraction is a standard deviation higher from the mean.}
     \label{fig:treat_fraction_5}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[!htb]
     \centering
     \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_t=0.85$}
     \begin{tabular}{l|cc}
@@ -714,9 +711,9 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
 
 \section{Patient Data and Treatment Plans}
 
-?? explain collection and data
+?? explain collection and data, distance $w$, overlap, OAR
 
-\begin{table}[H]
+\begin{table}[!htb]
     \centering
     \caption{Indicators of the patient collected at the MR-Linac. Explained are target dose definition and volume. Targets are PAN (pancreas), ADN (adrenal glands), prostate (PRO) and BST (prostate boost volume)}
     \begin{tabular}{l|ccll}
@@ -733,40 +730,90 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
     \label{tab:indicators_data}
 \end{table}
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
-    \includegraphics[width=1\linewidth]{graphics/1.pdf}
+    \includegraphics[width=1\linewidth]{graphics/data_adn_0.pdf}
     \caption{Adrenal gland all tumor target with three OAR, shown are sparing factors dependent on distance between OAR and tumor.}
-    \label{fig:1}
+    \label{fig:0}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
-    \includegraphics[width=1\linewidth]{graphics/2.pdf}
+    \includegraphics[width=1\linewidth]{graphics/data_adn_1.pdf}
     \caption{Adrenal gland main tumor target with three OAR, shown are sparing factors dependent on distance between OAR and tumor.}
-    \label{fig:2}
+    \label{fig:data_adn_1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
-    \includegraphics[width=1\linewidth]{graphics/3.pdf}
-    \caption{Adrenal gland tumor target with three OAR shown are sparing factors dependent on distance between OAR and tumor.}
-    \label{fig:3}
+    \includegraphics[width=1\linewidth]{graphics/data_adn_2.pdf}
+    \caption{Adrenal gland all tumor target with three OAR shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_adn_2}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
-    \includegraphics[width=1\linewidth]{graphics/4.pdf}
-    \caption{Adrenal gland tumor target with three OAR shown are sparing factors dependent on distance between OAR and tumor.}
-    \label{fig:4}
+    \includegraphics[width=1\linewidth]{graphics/data_adn_3.pdf}
+    \caption{Adrenal gland main tumor target with three OAR shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_adn_3}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
-    \includegraphics[width=1\linewidth]{graphics/5.pdf}
-    \caption{Adrenal gland tumor target with three OAR shown are sparing factors dependent on distance between OAR and tumor.}
-    \label{fig:5}
+    \includegraphics[width=1\linewidth]{graphics/data_pan_0.pdf}
+    \caption{Pancreas all tumor target with three OAR, shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_pan_0}
 \end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_pan_1.pdf}
+    \caption{Pancreas main tumor target with three OAR, shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_pan_1}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_pan_2.pdf}
+    \caption{Pancreas all tumor target with three OAR shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_pan_2}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_pan_3.pdf}
+    \caption{Pancreas main tumor target with three OAR shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_pan_3}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_pro_0.pdf}
+    \caption{Prostate all tumor target with three OAR, shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_pro_0}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_pro_1.pdf}
+    \caption{Prostate main tumor target with three OAR, shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_pro_1}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_pro_2.pdf}
+    \caption{Prostate all tumor target with three OAR shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_pro_2}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_pro_3.pdf}
+    \caption{Prostate main tumor target with three OAR shown are sparing factors dependent on distance between OAR and tumor.}
+    \label{fig:data_pro_3}
+\end{figure}
+
 
 
 \clearpage
@@ -792,7 +839,7 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
 
 \subsection{Pseudocode}\label{sec:pseudocode}
 
-\begin{algorithm}[H]
+\begin{algorithm}[!htb]
     \caption{Number of fraction minimisation}
     \begin{algorithmic}
         \Ensure{$T \leq t \leq F$} \Comment{$T$ is the fraction for which optimal policy shall be found}
