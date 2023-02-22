@@ -38,8 +38,8 @@
 	{
 	"figsize": [5, 3.1],
 	"data_filepath": "~/Downloads/jupyter_env/adaptsim/data/sf_clean.csv",
-	"data_selection": ["oar", "rectum", 0, 0],
-	"data_row_hue": "target",
+	"data_selection": ["OAR", "Rectum", 0, 0],
+	"data_row_hue": "Target",
 	"save": 1
 	}
 }

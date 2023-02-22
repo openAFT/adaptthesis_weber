@@ -38,8 +38,8 @@
 	{
 	"figsize": [5, 3.1],
 	"data_filepath": "~/Downloads/jupyter_env/adaptsim/data/sf_clean.csv",
-	"data_selection": ["target", "adrenal_glands", "limiting", 1],
-	"data_row_hue": "oar",
+	"data_selection": ["Target", "Adrenal Glands", "Limiting", 1],
+	"data_row_hue": "OAR",
 	"save": 1
 	}
 }
