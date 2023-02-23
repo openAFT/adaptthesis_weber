@@ -47,14 +47,14 @@ Fractionated therapy typically delivers equal dose in every fraction to the tumo
 Adaptive Fractionation \cite{lu_adaptI}\cite{chen_adaptII}\cite{ramakrishnan_adaptIII} is one approach to exploit inter-fractional motion. In a recently published work from Pérez Haas et al. \cite{perezhaas_adaptive} an approach to adaptive fractionation has been devised and demonstrated with patient data at an MR-Linac.
 Adaptive Fractionation extends the existing adaptive therapy paradigm to dose modification of the tumor dose in each fraction: the dose is increased on favourable treatment days, i.e. when the distance between tumor and dose-limiting OAR is relatively large; and the dose is reduced for unfavourable geometries, i.e. when the tumor and OAR are closer. Thereby, the ratio between total dose delivered to the OAR versus total dose delivered to the tumor may be improved compared to uniform treatments that deliver the same dose in each fraction \cite{perezhaas_adaptive}. In the following the preliminary work is explained to get an understanding of what has been achieved previously.
 
-\subsection{Sparing Factors}
+\subsection{Sparing Factors}\label{sec:sparing_factors}
 For the purpose of adaptive fractionation, treatment plans and the daily geometric variations are described in terms of sparing factors $\delta$
 
 \begin{equation*}
     \delta_{t} = \frac{d_{t}^{\text{N}}}{d_{t}}
 \end{equation*}
 
-where $d_{t}^N$ denotes the dose received by the dose-limiting OAR in fraction $t$ and $d_{t}$ the dose delivered to the tumor. Clinical practice of dose prescription and constraint specification is followed for the definition of $d_{t}^N$ and $d_{t}$: The dose to the OAR $d^N$ is defined as the dose exceeded in $1$cc of the OAR ($D_{1\text{cc}}$), which is a commonly used dose parameter for bowel, stomach or duodenum in SBRT treatments. The tumor dose $d_{t}$ is defined as the dose exceeded in $95\%$ of the PTV volume ($D_{95\%}$), which is a commonly used dose parameter for dose prescription and reporting \cite{ICRU50}\cite{ICRU62}.
+where $d_{t}^{\text{N}}$ denotes the dose received by the dose-limiting OAR in fraction $t$ and $d_{t}$ the dose delivered to the tumor. Clinical practice of dose prescription and constraint specification is followed for the definition of $d_{t}^{\text{N}}$ and $d_{t}$: The dose to the OAR $d^{\text{N}}$ is defined as the dose exceeded in $1$cc of the OAR ($D_{1\text{cc}}$), which is a commonly used dose parameter for bowel, stomach or duodenum in SBRT treatments. The tumor dose $d_{t}$ is defined as the dose exceeded in $95\%$ of the PTV volume ($D_{95\%}$), which is a commonly used dose parameter for dose prescription and reporting \cite{ICRU50}\cite{ICRU62}.
 
 Each patient is thus described via a sequence of six sparing factors corresponding to the planning MR and the five treatment fractions. For each tumor every OAR was tracked, that was deemed potentially dose-limiting. For applying adaptive fractionation only patients with not changing dose-limiting OAR were analysed. Further assumed is that inter-fractional motion is random, such that $\delta$ is normal distributed with a patient specific mean $\mu$ and standard deviation $\sigma$
 \begin{equation*}
@@ -191,7 +191,7 @@ This reward model introduces iso-rewarding actions: for a fixed state there exis
     
     \end{axis}
 \end{tikzpicture}
-\caption{Composition of Reward Function}
+\caption{Qualitative description of reward function by composing negative reward from BED$_{3}$ without penalty $C$ and BED$_{3}$ with penalty term $C$.}
 \end{figure}
 
 A characteristic of the specified MDP model is that the cumulative BED delivered to the OAR is not part of the state $s$. It is only integrated in the reward $r_t$ as a penalty. The reason being, that the optimal policy does not depend on the OAR state, i.e. the optimal dose to deliver does not depend on the previously accumulated BED in the OAR. Intuitively it is aimed to minimise future OAR BED, in each state and fraction, independently of the previously accumulated BED in the OAR. However, if the goal was to deliver a fixed OAR BED constraint by the end of the treatment, the cumulative OAR BED would be part of the state.\\
@@ -709,40 +709,38 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
 
 \section{Patient Data and Treatment Plans}
 
-Considered are patients with abdominal tumors in proximity to either the bowel, stomach, or duodenum and prostate cancer in proximity to the rectum. For prostate cases urethra and bladder are ignored. These patients received 5-fraction SBRT treatments at the MR-Linac system (MRIdian, Viewray). All patients were planned and treated according to institutional practice. In addition to the simulation MR and CT scans, daily MR scans were performed for online adaptive radiotherapy. Tumors and OARs in a 2 cm ring around the tumor were recontoured according to institutional guidelines and daily adaptive treatment plans were created. In each fraction the dose distributions were reoptimised, to adapt to inter-fractional changes, without altering the prescription dose.
+Considered are patients with abdominal tumors in proximity to either the bowel, stomach, or duodenum and prostate cancer in proximity to the rectum. For prostate cases urethra and bladder are ignored. These patients received 5-fraction SBRT treatments at the MR-Linac system (MRIdian, Viewray). All patients were planned and treated according to institutional practice. In addition to the simulation MR and CT scans, daily MR scans were performed for online adaptive radiotherapy. Tumors and OARs in a $2$cm ring around the tumor were recontoured according to institutional guidelines and daily adaptive treatment plans were created. In each fraction the dose distributions were reoptimised, to adapt to inter-fractional changes, without altering the prescription dose.
 
 \subsection{Motivation}
-Goal was to find out for which target reducing number of fractions is attractive or suitable. Search for a tumor site that is a prospective candidate to apply the reduce number of fractions. Whether it is possible to reduce number of fraction we look at correlation between distance and sparing factors and look at order of sparing factor.
+?? Having provided a model one goal is to apply it retrospectively to patient data and quantify/discuss benefit for patients. Another goal was to find out for which target reducing number of fractions is attractive/suitable. Search for a tumor site that is a prospective candidate to apply the reduce number of fractions. Decided to look at correlation between spatial distance and sparing factor to discuss if distance can be used as indicator for sparing factor. Whether it is possible to reduce number of fraction we look for beneficial sparing factor distributions - large variation - likely appearance of low sparing factors.??
 
 
 \subsection{Methods}
-Patient data was collected in a manual manner to get an overview of the distance between OAR and tumor volumes in relation to sparing factor. In total $30$ patients were extracted manually from the treatment planning system, $10$ for each target. In case of the prostate target for $5$ patients the target was the prostate CTV and $5$ patients for boost target volume. For each patient extracted were:\\
+Patient data was collected manually from the treatment planning system to get an overview of the distance between OAR and tumor volumes in relation to sparing factor. In total $30$ patients were extracted from the treatment planning system, $10$ for each target. In case of the prostate target $5$ patients with CTV as volume of interest and $5$ patients with boost target volume as volume of interest were collected. For each patient also extracted were the following variables:\\
 
-\textbf{Target:} $10$ patients were extracted for each tumor called target that was either pancreas, adrenal glands or prostate.
+\textbf{Target:} $10$ patients were extracted for each tumor that was either pancreas, adrenal glands or prostate cancer. Depending on the predictor the volume for the target was defined for either GTV, PTV, CTV or DIL the volume for prostate boost volume (?? explain boost and cite).\\
 
-\textbf{OAR:} For each patient at least one of the OAR was extracted. There were two criteria which qualified OAR to be registered. The first was if the OAR was dose-limiting and the second if the OAR was in close vicinity: Every OAR in one patient that was as close to the tumor as the dose-limiting OAR in at least one fraction, was tracked as well. Only patients were collected, where the dose-limiting OAR did not change during the treatment.\\
+\textbf{OAR:} For each patient at least one of the OAR in proximity was extracted. There were two criteria which qualified an OAR to be registered. The first was if the OAR was dose-limiting and the second if the OAR was in close vicinity: Every OAR in one patient that was as close to the tumor as the dose-limiting OAR in at least one fraction, was tracked as well. Only patients were collected, where the dose-limiting OAR did not change during the treatment.\\
 
 \textbf{Overlap Status:} The overlap was chosen as indicator whether the distance $w$ will be small between target and OAR. In the treatment planning system it was checked if in one of the sagittal, transversal or coronal plane there was an overlap between the target volume and OAR.\\
 
-\textbf{Distance:} Distance between target and OAR was the shortest measured distance of the sagittal, transversal or coronal plane. In principal it there was no overlap allowed between GTV and OAR. However if there was an overlap the furthest radial distance of the overlap was measured.\\
+\textbf{Distance:} Distance between target and OAR was the shortest measured distance in all of the sagittal, transversal or coronal plane. In principal no overlap was allowed between GTV and OAR. However if there was an overlap the furthest radial distance of the overlap was measured.\\
 
-\textbf{Dose to Normal Tissue:} $d^\text{N}$ was measured in the dose exceeded in percentage of volume. This information could directly be extracted from the DVH calculated in the treatment planning system.\\
+\textbf{Dose to OAR and Target:} For pancreas and adrenal glands dose to OAR $d^{\text{N}}$ and dose to target $d$ were measured according to the definition in Sec.~\ref{sec:sparing_factors}. For prostate the parameter definition was different and can be found in Tab.~\ref{tab:indicators_data} alongside pancreas and adrenal glands parameter definition. The predictors were directly extracted from the DVH in physical dose calculated in the treatment planning system.\\
 
-\textbf{Dose to Target:} $d^\text{T}$ was measured in the dose exceeded in $95\%$ of the target volume.\\
-
-A table of which indicators for which target was chosen can be seen in Tab.~\ref{tab:indicators_data}. The predictors were extracted for each tumor-OAR pair for $6$ treatment plans in each patient, corresponding to the the $5$ delivered plans and the initial plan based on the planning MR.
+A table for which indicators for each target was chosen can be seen in Tab.~\ref{tab:indicators_data}. The predictors were extracted for each tumor-OAR pair for $6$ treatment plans in each patient, corresponding to the the $5$ delivered plans and the initial plan based on the planning MR.
 
 \begin{table}[!htb]
     \centering
-    \caption{Indicators of the patient collected at the MR-Linac. Explained are target dose definition and volume. Targets are PAN (pancreas), ADN (adrenal glands), prostate (PRO) and BST (prostate boost volume)}
-    \begin{tabular}{l|ccll}
+    \caption{Indicators of the patient collected at the MR-Linac. Explained are target dose definition and volume. Targets are PAN (pancreas), ADN (adrenal glands), prostate (PRO) and BST (prostate boost volume). Overlap specifies the volume upon which the binary status was checked to OAR.}
+    \begin{tabular}{l|llll}
     \toprule
-        Target & Overlap & $w$ & $d_N$ [Gy] & $d_T$ [Gy] \\
+        Target & Overlap & $w$ & $d^{\text{N}}$ [Gy] & $d$ [Gy] \\
     \midrule
-       PAN & PTV & GTV & $d_{1\text{cc}}$   & $d_{95}$ PTV \\
-       ADN & PTV & GTV & $d_{1\text{cc}}$   & $d_{95}$ PTV \\
-       PRO & PTV & CTV & $d_{1\text{cc}}$   & $d_{95}$ PTV \\
-       BST & DIL & DIL & $d_{0.1\text{cc}}$ & $d_{95}$ DIL \\
+       PAN & PTV & GTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
+       ADN & PTV & GTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
+       PRO & PTV & CTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
+       BST & DIL & DIL & $D_{0.1\text{cc}}$ & $D_{95}$ DIL \\
      
     \bottomrule
     \end{tabular}
@@ -752,7 +750,7 @@ A table of which indicators for which target was chosen can be seen in Tab.~\ref
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_pan_0.pdf}
-    \caption{10 pancreas patients treated at the MR-Linac. Sparing factors dependent on distance $w$ grouped by OAR. Multiple OAR were collected per patient and not only the dose-limiting OAR.}
+    \caption{10 pancreas patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by OAR. Multiple OAR were collected per patient and not only the dose-limiting OAR.}
     \label{fig:data_pan_0}
 \end{figure}
 
@@ -781,7 +779,7 @@ A table of which indicators for which target was chosen can be seen in Tab.~\ref
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_adn_0.pdf}
-    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors dependent on distance $w$ grouped by OAR. Multiple OAR were collected per patient and not only the dose-limiting OAR.}
+    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by OAR. Multiple OAR were collected per patient and not only the dose-limiting OAR.}
     \label{fig:0}
 \end{figure}
 
@@ -809,7 +807,7 @@ A table of which indicators for which target was chosen can be seen in Tab.~\ref
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_pro_0.pdf}
-    \caption{10 prostate patients treated at the MR-Linac. Sparing factors dependent on distance $w$ grouped by target volume BST (prostate boost volume) and PRO (prostate CTV).}
+    \caption{10 prostate patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by target volume BST (prostate boost volume) and PRO (prostate CTV).}
     \label{fig:data_pro_0}
 \end{figure}
 
