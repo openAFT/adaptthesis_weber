@@ -28,12 +28,11 @@ Once the tumor and OARs have been outlined, an optimal dose distribution can be 
 
 \subsection{Image guided radiotherapy}
 
-Central to the advances in radiotherapy delivery is the development of medical imaging technologies that provide the 3D delineation of the target volumes and OAR. The development of state-­of-­the-­art imaging methods have enabled modern radiotherapy to develop into a highly personalised, tailored treatment \cite{jaffray_imageguided}. Technologies for image guided radiotherapy include CT, MRI, and PET imaging, where MR images offers superior soft-tissue contrast compared to CT \cite{acharya_onlinemrguided}. Image functionalities provide additional information, that can be used to confirm patient positioning, monitor and mitigate anatomical changes. This enables conforming the treatment plan to new patient geometry \cite{jaffray_imageguided}. However, the conformal dose distribution is only achieved on the reference image which is the planning image, a snapshot of patient anatomy. Inter-fraction and intra-faction anatomy changes from the planning image may deteriorate the dose conformity in actual delivered dose distribution \cite{seungjong_deformable}. The use of more frequent on-line imaging, such as cone beam computerised tomography \cite{jaffray_conebeam} and integrated magnetic resonance imaging \cite{lagendijk_integration}, allows to detect these anatomic changes and aid in correcting or minimising the effect of changes in geometry. Image guidance is used to define the target more accurately and helps minimising the margins of the PTV which give rise to stereotactic body radiotherapy \cite{guckenberger_escalate}. In each fraction through the course of the SBRT treatment at our MR-Linac, the patient is imaged with MRI. The MR image is aligned with deformable image registration to the reference planning CT image. In the presence of large geometry changes compared to reference it is decided whether the dose plan needs to be reoptimised to ensure dose conformity.
+Central to the advances in radiotherapy delivery is the development of medical imaging technologies that provide the 3D delineation of the target volumes and OAR. The development of state-­of-­the-­art imaging methods have enabled modern radiotherapy to develop into a highly personalised, tailored treatment \cite{jaffray_imageguided}. Technologies for image guided radiotherapy include CT, MRI, and PET imaging, where MR images offers superior soft-tissue contrast compared to CT \cite{acharya_onlinemrguided}. Image functionalities provide additional information, that can be used to confirm patient positioning, monitor and mitigate anatomical changes. This enables conforming the treatment plan to new patient geometry \cite{jaffray_imageguided}. However, the conformal dose distribution is only achieved on the reference image which is the planning image, a snapshot of patient anatomy. Inter-fractional and intra-factional anatomy changes from the planning image may deteriorate the dose conformity in actual delivered dose distribution \cite{seungjong_deformable}. The use of more frequent on-line imaging, such as cone beam computerised tomography \cite{jaffray_conebeam} and integrated magnetic resonance imaging \cite{lagendijk_integration}, allows to detect these anatomic changes and aid in correcting or minimising the effect of changes in geometry. Image guidance is used to define the target more accurately and helps minimising the margins of the PTV which give rise to stereotactic body radiotherapy \cite{guckenberger_escalate}. In each fraction through the course of the SBRT treatment at our MR-Linac, the patient is imaged with MRI. The MR image is aligned with deformable image registration to the reference planning CT image. In the presence of large geometry changes compared to reference it is decided whether the dose plan needs to be reoptimised to ensure dose conformity.
 
 \subsection{Uniform Fractionation}
 
 As mentioned before one strategy of normal tissue sparing involves fractionation. In uniform fractionation the prescribed dose is divided into dose fractions of equal size, which are delivered in multiple sessions. To enable comparison between different fractionation schedules the biological effective dose (BED) model is used. More precisely, BED allows to determine iso-effective dose fractionation schedules. It is regarded as a measure of the true biological dose delivered by a particular combination of equal dose per fraction $D/n$ and total dose $D$ in $n$ fractions to a given tissue \cite{jones_bedrole}
-
 \begin{equation*}
 	B = D\left(1+\frac{D / n}{\alpha / \beta}\right)
 \end{equation*}
@@ -42,22 +41,22 @@ where $\alpha$ and $\beta$ are radio-sensitivity coefficients: cells with a high
 
 \section{Prior Work}
 
-Fractionated therapy typically delivers equal dose in every fraction to the tumor when treated with uniform fractionation. Since the plan is fractionated and treatment spans several days to week, inter-fraction motion arises. This motion is seen as a handicap to treatments as it can degrade the quality of dose plans and calls for mitigation strategies such as adaptive radiotherapy. Rather than viewing inter-fraction motion as a handicap, it can be seen as an opportunity: the variation in geometry due to motion may be exploited to achieve better treatment quality compared to uniform fractionation.
+Fractionated therapy typically delivers equal dose in every fraction to the tumor when treated with uniform fractionation. Since the plan is fractionated and treatment spans several days to week, inter-fractional motion arises. This motion is seen as a handicap to treatments as it can degrade the quality of dose plans and calls for mitigation strategies such as adaptive radiotherapy. Rather than viewing inter-fractional motion as a handicap, it can be seen as an opportunity: the variation in geometry due to motion may be exploited to achieve better treatment quality compared to uniform fractionation.
 
 \subsection{Concept}
-Adaptive Fractionation \cite{lu_adaptI}\cite{chen_adaptII}\cite{ramakrishnan_adaptIII} is one approach to exploit inter-fraction motion. In a recently published work from Pérez Haas et al. \cite{perezhaas_adaptive} an approach to adaptive fractionation has been devised and demonstrated with patient data at an MR-Linac.
+Adaptive Fractionation \cite{lu_adaptI}\cite{chen_adaptII}\cite{ramakrishnan_adaptIII} is one approach to exploit inter-fractional motion. In a recently published work from Pérez Haas et al. \cite{perezhaas_adaptive} an approach to adaptive fractionation has been devised and demonstrated with patient data at an MR-Linac.
 Adaptive Fractionation extends the existing adaptive therapy paradigm to dose modification of the tumor dose in each fraction: the dose is increased on favourable treatment days, i.e. when the distance between tumor and dose-limiting OAR is relatively large; and the dose is reduced for unfavourable geometries, i.e. when the tumor and OAR are closer. Thereby, the ratio between total dose delivered to the OAR versus total dose delivered to the tumor may be improved compared to uniform treatments that deliver the same dose in each fraction \cite{perezhaas_adaptive}. In the following the preliminary work is explained to get an understanding of what has been achieved previously.
 
 \subsection{Sparing Factors}
 For the purpose of adaptive fractionation, treatment plans and the daily geometric variations are described in terms of sparing factors $\delta$
 
 \begin{equation*}
-    \delta_{t} = \frac{d_{t}^N}{d_{t}}
+    \delta_{t} = \frac{d_{t}^{\text{N}}}{d_{t}}
 \end{equation*}
 
 where $d_{t}^N$ denotes the dose received by the dose-limiting OAR in fraction $t$ and $d_{t}$ the dose delivered to the tumor. Clinical practice of dose prescription and constraint specification is followed for the definition of $d_{t}^N$ and $d_{t}$: The dose to the OAR $d^N$ is defined as the dose exceeded in $1$cc of the OAR ($D_{1\text{cc}}$), which is a commonly used dose parameter for bowel, stomach or duodenum in SBRT treatments. The tumor dose $d_{t}$ is defined as the dose exceeded in $95\%$ of the PTV volume ($D_{95\%}$), which is a commonly used dose parameter for dose prescription and reporting \cite{ICRU50}\cite{ICRU62}.
 
-Each patient is thus described via a sequence of six sparing factors corresponding to the planning MR and the five treatment fractions. For each tumor every OAR was tracked, that was deemed potentially dose-limiting. For applying adaptive fractionation only patients with not changing dose-limiting OAR were analysed. Further assumed is that inter-fraction motion is random, such that $\delta$ is normal distributed with a patient specific mean $\mu$ and standard deviation $\sigma$
+Each patient is thus described via a sequence of six sparing factors corresponding to the planning MR and the five treatment fractions. For each tumor every OAR was tracked, that was deemed potentially dose-limiting. For applying adaptive fractionation only patients with not changing dose-limiting OAR were analysed. Further assumed is that inter-fractional motion is random, such that $\delta$ is normal distributed with a patient specific mean $\mu$ and standard deviation $\sigma$
 \begin{equation*}
 \delta_t \sim \mathcal{N}(\mu,\sigma^2)
 \end{equation*}
@@ -341,7 +340,7 @@ In Fig.~\ref{fig:cost_function} for $n_{\text{pres}}=5$ prescribed number of fra
     
     \end{axis}
 \end{tikzpicture}
-\caption{Cost function $B^{\text{N}}_n$ for a gaussian sparing factor distribution $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Sampled are $1000$ patients with sparing factors sampled from a gaussian distribution with $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Values fitted with $B^{\text{N}}(n; \delta)$.}
+\caption{Cost function $B^{\text{N}}_n$ for a gaussian sparing factor distribution $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Sampled are $1000$ patients with 6 sparing factors each that stem from a gaussian distribution with $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Values fitted with $B^{\text{N}}(n; \delta)$.}
 \label{fig:cost_function}
 \end{figure}
 
@@ -708,10 +707,30 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
     \label{tab:result_treat_fraction_5}
 \end{table}
 
-
 \section{Patient Data and Treatment Plans}
 
-?? explain collection and data, distance $w$, overlap, OAR
+Considered are patients with abdominal tumors in proximity to either the bowel, stomach, or duodenum and prostate cancer in proximity to the rectum. For prostate cases urethra and bladder are ignored. These patients received 5-fraction SBRT treatments at the MR-Linac system (MRIdian, Viewray). All patients were planned and treated according to institutional practice. In addition to the simulation MR and CT scans, daily MR scans were performed for online adaptive radiotherapy. Tumors and OARs in a 2 cm ring around the tumor were recontoured according to institutional guidelines and daily adaptive treatment plans were created. In each fraction the dose distributions were reoptimised, to adapt to inter-fractional changes, without altering the prescription dose.
+
+\subsection{Motivation}
+Goal was to find out for which target reducing number of fractions is attractive or suitable. Search for a tumor site that is a prospective candidate to apply the reduce number of fractions. Whether it is possible to reduce number of fraction we look at correlation between distance and sparing factors and look at order of sparing factor.
+
+
+\subsection{Methods}
+Patient data was collected in a manual manner to get an overview of the distance between OAR and tumor volumes in relation to sparing factor. In total $30$ patients were extracted manually from the treatment planning system, $10$ for each target. In case of the prostate target for $5$ patients the target was the prostate CTV and $5$ patients for boost target volume. For each patient extracted were:\\
+
+\textbf{Target:} $10$ patients were extracted for each tumor called target that was either pancreas, adrenal glands or prostate.
+
+\textbf{OAR:} For each patient at least one of the OAR was extracted. There were two criteria which qualified OAR to be registered. The first was if the OAR was dose-limiting and the second if the OAR was in close vicinity: Every OAR in one patient that was as close to the tumor as the dose-limiting OAR in at least one fraction, was tracked as well. Only patients were collected, where the dose-limiting OAR did not change during the treatment.\\
+
+\textbf{Overlap Status:} The overlap was chosen as indicator whether the distance $w$ will be small between target and OAR. In the treatment planning system it was checked if in one of the sagittal, transversal or coronal plane there was an overlap between the target volume and OAR.\\
+
+\textbf{Distance:} Distance between target and OAR was the shortest measured distance of the sagittal, transversal or coronal plane. In principal it there was no overlap allowed between GTV and OAR. However if there was an overlap the furthest radial distance of the overlap was measured.\\
+
+\textbf{Dose to Normal Tissue:} $d^\text{N}$ was measured in the dose exceeded in percentage of volume. This information could directly be extracted from the DVH calculated in the treatment planning system.\\
+
+\textbf{Dose to Target:} $d^\text{T}$ was measured in the dose exceeded in $95\%$ of the target volume.\\
+
+A table of which indicators for which target was chosen can be seen in Tab.~\ref{tab:indicators_data}. The predictors were extracted for each tumor-OAR pair for $6$ treatment plans in each patient, corresponding to the the $5$ delivered plans and the initial plan based on the planning MR.
 
 \begin{table}[!htb]
     \centering
@@ -732,36 +751,8 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=1\linewidth]{graphics/data_adn_0.pdf}
-    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors dependent on distance $w$ grouped by OAR. Multiple OAR per patient were collected and not only the dose-limiting OAR.}
-    \label{fig:0}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=1\linewidth]{graphics/data_adn_1.pdf}
-    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by patient. Row shows dose-limiting OAR.}
-    \label{fig:data_adn_1}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=1\linewidth]{graphics/data_adn_2.pdf}
-    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors $\delta$ for each patient grouped by dose-limiting OAR.}
-    \label{fig:data_adn_2}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=1\linewidth]{graphics/data_adn_3.pdf}
-    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors $\delta$ (shown as triangles) and distance $w$ shown (as lines) displayed for each fraction grouped by patient. Row shows OAR which is dose-limiting.}
-    \label{fig:data_adn_3}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
     \includegraphics[width=1\linewidth]{graphics/data_pan_0.pdf}
-    \caption{10 pancreas patients treated at the MR-Linac. Sparing factors dependent on distance $w$ grouped by OAR. Multiple OAR per patient were collected and not only the dose-limiting OAR.}
+    \caption{10 pancreas patients treated at the MR-Linac. Sparing factors dependent on distance $w$ grouped by OAR. Multiple OAR were collected per patient and not only the dose-limiting OAR.}
     \label{fig:data_pan_0}
 \end{figure}
 
@@ -769,7 +760,7 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_pan_1.pdf}
     
-    \caption{10 pancreas patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by patient. Row shows dose-limiting OAR.}
+    \caption{10 pancreas patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by patient. Row shows all collected OAR per patient.}
     \label{fig:data_pan_1}
 \end{figure}
 
@@ -783,35 +774,63 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_pan_3.pdf}
-    \caption{10 pancreas patients treated at the MR-Linac. Sparing factors $\delta$ (shown as triangles) and distance $w$ (shown as lines) displayed for each fraction grouped by patient. Row shows OAR which is dose-limiting.}
+    \caption{10 pancreas patients treated at the MR-Linac. Sparing factors $\delta$ (shown as triangles) and distance $w$ (shown as lines) displayed for each fraction grouped by patient. Row shows dose-limiting OAR.}
     \label{fig:data_pan_3}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
+    \includegraphics[width=1\linewidth]{graphics/data_adn_0.pdf}
+    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors dependent on distance $w$ grouped by OAR. Multiple OAR were collected per patient and not only the dose-limiting OAR.}
+    \label{fig:0}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_adn_1.pdf}
+    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by patient. Row shows all collected OAR per patient.}
+    \label{fig:data_adn_1}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_adn_2.pdf}
+    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors $\delta$ for each patient grouped by dose-limiting OAR.}
+    \label{fig:data_adn_2}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{graphics/data_adn_3.pdf}
+    \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors $\delta$ (shown as triangles) and distance $w$ shown (as lines) displayed for each fraction grouped by patient. Row shows dose-limiting OAR.}
+    \label{fig:data_adn_3}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
     \includegraphics[width=1\linewidth]{graphics/data_pro_0.pdf}
-    \caption{10 prostate patients treated at the MR-Linac. Sparing factors dependent on distance $w$ grouped by target volume DIL (prostate boost volume) and PRO (prostate volume).}
+    \caption{10 prostate patients treated at the MR-Linac. Sparing factors dependent on distance $w$ grouped by target volume BST (prostate boost volume) and PRO (prostate CTV).}
     \label{fig:data_pro_0}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_pro_1.pdf}
-    \caption{10 prostate patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by target volume DIL (prostate boost volume) and PRO (prostate volume)}
+    \caption{10 prostate patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by target volume BST (prostate boost volume) and PRO (prostate CTV)}
     \label{fig:data_pro_1}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_pro_2.pdf}
-    \caption{10 prostate patients treated at the MR-Linac. Sparing factors for each patient grouped by target volume DIL (prostate boost volume) and PRO (prostate volume).}
+    \caption{10 prostate patients treated at the MR-Linac. Sparing factors for each patient grouped by target volume BST (prostate boost volume) and PRO (prostate CTV).}
     \label{fig:data_pro_2}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_pro_3.pdf}
-    \caption{10 prostate patients treated at the MR-Linac. Sparing factors $\delta$ (shown as triangles) and distance $w$ (shown as lines) displayed for each fraction grouped by target volume DIL (prostate boost volume) and PRO (prostate volume)}
+    \caption{10 prostate patients treated at the MR-Linac. Sparing factors $\delta$ (shown as triangles) and distance $w$ (shown as lines) displayed for each fraction grouped by target volume BST (prostate boost volume) and PRO (prostate CTV)}
     \label{fig:data_pro_3}
 \end{figure}
 
