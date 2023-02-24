@@ -379,7 +379,7 @@ This initialises the value function and optimal policy in the last fraction $F$.
 v_{F+1}(\delta_{F+1}, B^\text{T}_{F}) = 
 - s \cdot \left| B^\text{T}_F - B_{\text{pres}}^\text{T} \right|
 \end{equation*}
-Where $s \gg B_{\text{pres}}^\text{T}$ is an arbitrary large number. This ensures that the policy in the last fraction is to ensure the difference of cumulative BED is as small as possible. Artefacts from not reaching exactly the prescription in the last fraction due to discretisation of the actions are avoided.
+Where $s \gg B_{\text{pres}}^\text{T}$ is an arbitrary large number. This ensures that the policy in the last fraction is to apply the dose that minimises the difference between cumulative and prescribed BED. Policy artefacts from not reaching exactly the prescription in the last fraction due to discretisation of the actions can thus be avoided.
 
 \subsection{Probability Updating}
 \label{sec:probupdate}
