@@ -1,3 +1,4 @@
+% !TeX root = ./ada.tex
 \providecommand{\relativeRoot}{.}
 \documentclass[\relativeRoot/ada.tex]{subfiles}
 \graphicspath{
@@ -558,16 +559,16 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
 
 \section{Patient Data and Treatment Plans}
 
-Considered are patients with abdominal tumors in proximity to either the bowel, stomach, or duodenum and prostate cancer in proximity to the rectum. For prostate cases urethra and bladder are ignored. These patients received 5-fraction SBRT treatments at the MR-Linac system (MRIdian, Viewray). All patients were planned and treated according to institutional practice. In addition to the simulation MR and CT scans, daily MR scans were performed for online adaptive radiotherapy. Tumors and OARs in a $2$cm ring around the tumor were recontoured according to institutional guidelines and daily adaptive treatment plans were created. In each fraction the dose distributions were reoptimised, to adapt to inter-fractional changes, without altering the prescription dose.
+Considered are patients with abdominal tumors in proximity to either bowel, stomach or duodenum and prostate cancer in proximity to the rectum. For prostate cases urethra and bladder are ignored. These patients received 5-fraction SBRT treatments at the MR-Linac system (MRIdian, Viewray). All patients were planned and treated according to institutional practice. In addition to the simulation MR and CT scans, daily MR scans were performed for online adaptive radiotherapy. Tumors and OARs in a $2$cm ring around the tumor were recontoured according to institutional guidelines and daily adaptive treatment plans were created. In each fraction the dose distributions were reoptimised, to adapt to inter-fractional changes, without altering the prescription dose.
 
 \subsection{Motivation}
-?? Having provided a model one goal is to apply it retrospectively to patient data and quantify/discuss benefit for patients. Another goal was to find out for which target reducing number of fractions is attractive/suitable. Search for a tumor site that is a prospective candidate to apply the reduce number of fractions. Decided to look at correlation between spatial distance and sparing factor to discuss if distance can be used as indicator for sparing factor. Whether it is possible to reduce number of fraction we look for beneficial sparing factor distributions - large variation - likely appearance of low sparing factors.??
+Thus far we described and demonstrated the optimal policy with examplary synthetic patients (sparing factors). In a next step the goal was to find a target in clinical practice which is suitable for applying the model. A prospective candidate target ideally shows large expected variation in sparing factors. We decided to also look at correlation between spatial distance in target-OAR pair and sparing factor to see if one can intuitively guess the quality of the sparing factor.
 
 
 \subsection{Methods}
-Patient data was collected manually from the treatment planning system to get an overview of the distance between OAR and tumor volumes in relation to sparing factor. In total $30$ patients were extracted from the treatment planning system, $10$ for each target. In case of the prostate target $5$ patients with CTV as volume of interest and $5$ patients with boost target volume as volume of interest were collected. For each patient also extracted were the following variables:\\
+Patient data was collected manually from the treatment planning system to get an overview of the distance between OAR and tumor volumes in relation to sparing factor. In total $30$ patients were extracted from the treatment planning system, $10$ for each target. In case of the prostate target $5$ patients with CTV as volume of interest and $5$ patients with boost target volume as volume of interest were collected. Boost target volumes were collected for patients treated with simultaneous integrated boost strategy \cite{orlandi_sib_clinical} \cite{mohan_sib}. For each patient also extracted were the following variables:\\
 
-\textbf{Target:} $10$ patients were extracted for each tumor that was either pancreas, adrenal glands or prostate cancer. Depending on the predictor the volume for the target was defined for either GTV, PTV, CTV or DIL the volume for prostate boost volume (?? explain boost and cite).\\
+\textbf{Target:} $10$ patients were extracted for each tumor that was either pancreas, adrenal glands or prostate cancer. Depending on the predictor the volume for the target was defined for either GTV, PTV, CTV or DIL the volume for prostate boost volume.\\
 
 \textbf{OAR:} For each patient at least one of the OAR in proximity was extracted. There were two criteria which qualified an OAR to be registered. The first was if the OAR was dose-limiting and the second if the OAR was in close vicinity: Every OAR in one patient that was as close to the tumor as the dose-limiting OAR in at least one fraction, was tracked as well. Only patients were collected, where the dose-limiting OAR did not change during the treatment.\\
 
@@ -577,7 +578,7 @@ Patient data was collected manually from the treatment planning system to get an
 
 \textbf{Dose to OAR and Target:} For pancreas and adrenal glands dose to OAR $d^{\text{N}}$ and dose to target $d$ were measured according to the definition in Sec.~\ref{sec:sparing_factors}. For prostate the parameter definition was different and can be found in Tab.~\ref{tab:indicators_data} alongside pancreas and adrenal glands parameter definition. The predictors were directly extracted from the DVH in physical dose calculated in the treatment planning system.\\
 
-A table for which indicators for each target was chosen can be seen in Tab.~\ref{tab:indicators_data}. The predictors were extracted for each tumor-OAR pair for $6$ treatment plans in each patient, corresponding to the the $5$ delivered plans and the initial plan based on the planning MR.
+A table with which indicators for each target was chosen can be seen in Tab.~\ref{tab:indicators_data}. The predictors were extracted for each tumor-OAR pair for $6$ treatment plans in each patient, corresponding to the the $5$ delivered plans and the initial plan based on the planning MR.
 
 \begin{table}[!htb]
     \centering
@@ -595,6 +596,10 @@ A table for which indicators for each target was chosen can be seen in Tab.~\ref
     \end{tabular}
     \label{tab:indicators_data}
 \end{table}
+
+\subsection*{Patient Data}
+
+Sparing factors dependent on spatial distance between target-OAR pair are shown in Fig.~\ref{fig:data_pan_0} for pancreas patients. Sparing factors that were near $1.1$ also showed overlap in GTV and OAR. Fig.~\ref{fig:data_pan_1} shows the same same picture but this time additionally grouped by patients. Patient sparing factors are always closely clustered together. This clustering for each patient is also visible in Fig.~\ref{fig:data_pan_2}, where sparing factors are grouped only by patients without spatial distance. Displayed in Fig.~\ref{fig:data_pan_3}, is the temporal course of the sparing factors and spatial distances. Tendency is that sparing factor is lower if distance is larger, however not always the case.
 
 \begin{figure}[!htb]
     \centering
@@ -625,11 +630,14 @@ A table for which indicators for each target was chosen can be seen in Tab.~\ref
     \label{fig:data_pan_3}
 \end{figure}
 
+Sparing factors dependent on spatial distance between target-OAR pair are shown in Fig.~\ref{fig:data_adn_0} for adrenal glands patients. There are no sparing factors that are larger than $1$ and also no overlaps registered in GTV and OAR. Fig.~\ref{fig:data_adn_1} displays the same picture as Fig.~\ref{fig:data_pan_1} but this time additionally grouped by patients. Sparing factors are closer clustered together for each patient visible in Fig.~\ref{fig:data_adn_2} compared to Fig.~\ref{fig:data_pan_2}. Important to note is that sparing factors range from $0.2$ to $1.0$.
+
+
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_adn_0.pdf}
     \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by OAR. Multiple OAR were collected per patient and not only the dose-limiting OAR.}
-    \label{fig:0}
+    \label{fig:data_adn_0}
 \end{figure}
 
 \begin{figure}[!htb]
@@ -652,6 +660,8 @@ A table for which indicators for each target was chosen can be seen in Tab.~\ref
     \caption{10 adrenal gland patients treated at the MR-Linac. Sparing factors $\delta$ (shown as triangles) and distance $w$ shown (as lines) displayed for each fraction grouped by patient. Row shows dose-limiting OAR.}
     \label{fig:data_adn_3}
 \end{figure}
+
+Prostate cases are not grouped by OAR but rather specific target volume, since the OAR registered was only rectum. There is no variation in spatial distance when looking at prostate CTV in Fig.~\ref{fig:data_pro_0}. The volumes always touched but did not overlap in any fraction. Sparing factors ranged between $0.97$ to $1.06$. For prostate boost target the variation in spatial distance is larger compared to prostate CTV but the sparing factors had a range between $0.89$ to $0.97$. In Fig.~\ref{fig:data_pro_3} it is well visible that there is no variation in spatial distance for each patient, when looking at patients with prostate CTV registered.
 
 \begin{figure}[!htb]
     \centering
