@@ -319,7 +319,7 @@ The treatment plans given by Adaptive Fractionation is compared benchmarked with
 
 \subsection{Code Repository}
 
-The model described in this work was implemented into the existing codebase an can be found in the public repository \cite{adaptfx_package}. Furthermore, the codebase was rebuilt the suit a command line interface, speed up calculation and streamline logic flow. These changes and extensions are given by:\\
+The model described in this work was implemented into the existing codebase that can be found in the public repository \cite{adaptfx_package}. Furthermore, the codebase was rebuilt the suit a command line interface, speed up calculation and streamline logic flow. These changes and extensions are given by:\\
 
 \textbf{Hardcoded Settings:} Probability distribution, states and actions are discrete. Parameters defining step sizes, upper- and lower bounds for these variables were previously hardcoded whereas now they can be chosen by the user. So the resolution of the optimal policy can be adapted to a specific problem. The user can also quickly generate plots of optimal policy, value function and expected remaining number of fractions.\\
 
@@ -331,7 +331,7 @@ The model described in this work was implemented into the existing codebase an c
 
 \textbf{Command Line Interface:} To utilise the package in the command line, an executable is shipped that is invoked with the parameters in the \texttt{json} file. The user can specify whether to log output data during the calculation or plot information, settings of the action, policy etc. and keys for choosing optimisation method, objective  and constraints.\\
 
-\textbf{Parallelisation:} Previously in parts of the basic functions parallel computation for the value function was introduced. However large components were still missing parallelisation. While streamlining the helper and basic functions, computation of the value function was parallelised, by introducing computation that fully supports vectorised matrix multiplication. Storing the future value function $v_{t+1}$ within each step of the iteration, allows to compute the current value function in parallel over all possible states. Parallelisation was also introduced for sampling and the probability distribution which before used first order loop. The run-time of the algorithm was improved by $8-16$ times compared to the previous approach. It runs in the order of $10^{-2}$ seconds (order of $10^{0}$ seconds before).
+\textbf{Parallelisation:} Previously in parts of the basic functions parallel computation for the value function was introduced. However, large components were still missing parallelisation. While streamlining the helper and basic functions, computation of the value function was parallelised, by introducing computation that fully supports vectorised matrix multiplication. Storing the future value function $v_{t+1}$ within each step of the iteration, allows to compute the current value function in parallel over all possible states. Parallelisation was also introduced for sampling and the probability distribution which before used first order loop. The run-time of the algorithm was improved by $8-16$ times compared to the previous approach. It runs in the order of $10^{-2}$ seconds (order of $10^{0}$ seconds before).
 
 \subsection{Results}
 
@@ -343,7 +343,7 @@ For demonstration purposes a synthetic patient and an according treatment model 
 
 \subsection{Treatment Model}
 
-Described and illustrated are the treatment model in regards to policy function, value function and expected remaining number of fractions.
+Described and illustrated are the treatment model regarding policy function, value function and expected remaining number of fractions.
 
 \subsubsection{Policy Functions}
 
@@ -352,7 +352,7 @@ The optimal policy $\pi_t(\delta, B^{\text{T}})$ for a 5 fraction treatment with
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_sigma.pdf}
-    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$ and $C=0$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the the sparing factor.}
+    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$ and $C=0$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the sparing factor.}
     \label{fig:treat_policy_sigma}
 \end{figure}
 
@@ -361,7 +361,7 @@ For the same expected probability distribution but increasing $C$ gives the poli
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_c_plat.pdf}
-    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$ and $C=1.9$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the the sparing factor.}
+    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.001$ and $C=1.9$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the sparing factor.}
     \label{fig:treat_policy_c_plat}
 \end{figure}
 
@@ -370,7 +370,7 @@ Increasing expected variation in the sparing factor to a more realistic variatio
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy.pdf}
-    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=0$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the the sparing factor.}
+    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=0$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the sparing factor.}
     \label{fig:treat_policy}
 \end{figure}
 
@@ -379,14 +379,14 @@ Increasing parameter $C$ to $1.2$ gives the optimal policy seen in Fig.~\ref{fig
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_c.pdf}
-    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=1.2$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the the sparing factor.}
+    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=1.2$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the sparing factor.}
     \label{fig:treat_policy_c}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_single.pdf}
-    \caption{Optimal policy in the last fraction for an arbitrary 5 fraction treatment. Policy in the last fraction applies the remaining dose regardless of the the sparing factor.}
+    \caption{Optimal policy in the last fraction for an arbitrary 5 fraction treatment. Policy in the last fraction applies the remaining dose regardless of the sparing factor.}
     \label{fig:treat_policy_single}
 \end{figure}
 
@@ -399,7 +399,7 @@ Increasing parameter $C$ to $1.2$ gives the optimal policy seen in Fig.~\ref{fig
 
 \subsubsection{Value Functions}
 
-The value function $v_t(\delta, B^{\text{T}})$ does not reflect optimal policy for the treatment but rather shows best possible value the algorithm can secure in each state. The lower the value the less desirable a state. Shown here are the corresponding value functions to the policy functions.
+The value function $v_t(\delta, B^{\text{T}})$ does not reflect optimal policy for the treatment but rather shows the best possible value the algorithm can secure in each state. The lower the value the less desirable a state. Shown here are the corresponding value functions to the policy functions.
 
 \begin{figure}[!htb]
     \centering
@@ -449,7 +449,7 @@ For the case in which $C=0$ and $\sigma=0.1$ there appears one and very narrow p
     \label{fig:treat_remains}
 \end{figure}
 
-In Fig.~\ref{fig:treat_remains_c} the case $C=1.2$, $\sigma=0.1$ is displayed. Compared to Fig.~\ref{fig:treat_remains} the plateau in each fraction spans through nearly all of the accumulated dose states $B^{\text{T}}$. And compared to Fig.~\ref{fig:treat_remains_c_plat} no plateau steps but rather a pronounced gradient to larger expected remaining number of fractions appear. In fraction $t=4$ the expected remaining number is binary, as the treatment either finishes in the current fraction $t=4$ or one additional fraction will be used, such that the treatment is finished in fraction $t=5$.
+In Fig.~\ref{fig:treat_remains_c} the case $C=1.2$, $\sigma=0.1$ is displayed. Compared to Fig.~\ref{fig:treat_remains} the plateau in each fraction spans through nearly all the accumulated dose states $B^{\text{T}}$. And compared to Fig.~\ref{fig:treat_remains_c_plat} no plateau steps but rather a pronounced gradient to larger expected remaining number of fractions appear. In fraction $t=4$ the expected remaining number is binary, as the treatment either finishes in the current fraction $t=4$ or one additional fraction will be used, such that the treatment is finished in fraction $t=5$.
 
 \begin{figure}[!htb]
     \centering
@@ -574,7 +574,7 @@ Patient data was collected manually from the treatment planning system to get an
 
 \textbf{Overlap Status:} The overlap was chosen as indicator whether the distance $w$ will be small between target and OAR. In the treatment planning system it was checked if in one of the sagittal, transversal or coronal plane there was an overlap between the target volume and OAR.\\
 
-\textbf{Distance:} Distance between target and OAR was the shortest measured distance in all of the sagittal, transversal or coronal plane. In principal no overlap was allowed between GTV and OAR. However, if there was an overlap the furthest radial distance of the overlap was measured.\\
+\textbf{Distance:} Distance between target and OAR was the shortest measured distance in all the sagittal, transversal or coronal plane. In principle no overlap was allowed between GTV and OAR. However, if there was an overlap the furthest radial distance of the overlap was measured.\\
 
 \textbf{Dose to OAR and Target:} For pancreas and adrenal glands dose to OAR $d^{\text{N}}$ and dose to target $d$ were measured according to the definition in Sec.~\ref{sec:sparing_factors}. For prostate the parameter definition was different and can be found in Tab.~\ref{tab:indicators_data} alongside pancreas and adrenal glands parameter definition. The predictors were directly extracted from the DVH in physical dose calculated in the treatment planning system.\\
 
