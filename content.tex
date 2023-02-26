@@ -599,7 +599,9 @@ A table with which indicators for each target was chosen can be seen in Tab.~\re
 
 \subsection{Patient Data}
 
-Sparing factors dependent on spatial distance between target-OAR pair are shown in Fig.~\ref{fig:data_pan_0} for pancreas patients. Sparing factors that were near $1.1$ also showed overlap in GTV and OAR. Fig.~\ref{fig:data_pan_1} shows the same picture, but this time additionally grouped by patients. Patient sparing factors are always closely clustered together. This clustering for each patient is also visible in Fig.~\ref{fig:data_pan_2}, where sparing factors are grouped only by patients without spatial distance. Displayed in Fig.~\ref{fig:data_pan_3}, is the temporal course of the sparing factors and spatial distances. Tendency is that sparing factor is lower if distance is larger, however not always the case.
+\subsubsection{Pancreas Patients}
+
+Sparing factors dependent on spatial distance between target-OAR pair are shown in Fig.~\ref{fig:data_pan_0} for pancreas patients. Sparing factors that were near $1.1$ also showed overlap in GTV and OAR. An example of such overlap would be patient $1$ for whom sparing factors both with duodenum and stomach are distributed around $1.0$ and distance between $0.0$ to $-0.3$ cm. Note that for patient $1$ the stomach was the dose-limiting OAR. Information of sparing factors grouped by patients are shown in Fig.~\ref{fig:data_pan_1}. Other notable cases are patient $6$ and $8$ which show only dose-limiting OAR with almost no variation in distance. Patient sparing factors are always closely clustered together. This close clustering for each patient is also visible in Fig.~\ref{fig:data_pan_2}, where sparing factors are grouped only by patients without spatial distance. Sparing factors in dose-limiting OAR range from $0.56$ to $1.1$. Displayed in Fig.~\ref{fig:data_pan_3}, is the temporal course of the sparing factors and spatial distances. Tendency is that sparing factor is lower if distance is larger, however not always the case. When looking at patients $6$ and $8$ where distances are similar, the sparing factor ranges from $1.0$ to $1.1$ for patient $6$ and $0.85$ to $1.0$ for patient $8$.
 
 \begin{figure}[!htb]
     \centering
@@ -630,7 +632,9 @@ Sparing factors dependent on spatial distance between target-OAR pair are shown 
     \label{fig:data_pan_3}
 \end{figure}
 
-Sparing factors dependent on spatial distance between target-OAR pair are shown in Fig.~\ref{fig:data_adn_0} for adrenal glands patients. There are no sparing factors that are larger than $1$ and also no overlaps registered in GTV and OAR. Fig.~\ref{fig:data_adn_1} displays the same picture as Fig.~\ref{fig:data_pan_1} but this time additionally grouped by patients. Sparing factors are closer clustered together for each patient visible in Fig.~\ref{fig:data_adn_2} compared to Fig.~\ref{fig:data_pan_2}. Important to note is that sparing factors range from $0.2$ to $1.0$.
+\subsubsection{Adrenal Glands Patients}
+
+Sparing factors dependent on spatial distance between target-OAR pair are shown in Fig.~\ref{fig:data_adn_0} for adrenal glands patients. There are no sparing factors that are larger than $1$ and also no overlaps registered in GTV and OAR. Fig.~\ref{fig:data_adn_1} displays the same picture as Fig.~\ref{fig:data_pan_1} but this time additionally grouped by patients. Important to note is that sparing factors range from $0.2$ to $1.0$ in stomach and  $0.05$ to $1.0$ in bowel. Sparing factors per patient are closely clustered together but across the cohort shows a much wider spread of the variation in sparing factors. Looking at the sparing factors for each patient and only dose-limiting OAR in Fig.~\ref{fig:data_adn_2}, it is also visible that they are closer clustered together for each patient compared to Fig.~\ref{fig:data_pan_2}. Sparing factors in dose-limiting OAR range from $0.2$ to $1.0$. Displayed in Fig.~\ref{fig:data_pan_3}, is the temporal course of the sparing factors and spatial distances. Tendency is that sparing factor is lower if distance is larger, however not always the case. When looking at patients $6$ and $8$ where distances are similar, the sparing factor ranges from $1.0$ to $1.1$ respectively $0.85$ to $1.0$.
 
 
 \begin{figure}[!htb]
@@ -661,7 +665,9 @@ Sparing factors dependent on spatial distance between target-OAR pair are shown 
     \label{fig:data_adn_3}
 \end{figure}
 
-Prostate cases are not grouped by OAR but rather specific target volume, since the OAR registered was only rectum. There is no variation in spatial distance when looking at prostate CTV in Fig.~\ref{fig:data_pro_0}. The volumes always touched but did not overlap in any fraction. Sparing factors ranged between $0.97$ to $1.06$. For prostate boost target the variation in spatial distance is larger compared to prostate CTV, but the sparing factors had a range between $0.89$ to $0.97$. In Fig.~\ref{fig:data_pro_3} it is well visible that there is no variation in spatial distance for each patient, when looking at patients with prostate CTV registered.
+\subsubsection{Prostate Patients}
+
+Prostate cases are not grouped by OAR but rather specific target volume, since the OAR registered was only rectum. There is no variation in spatial distance when looking at prostate CTV in Fig.~\ref{fig:data_pro_0}. The volumes always touched but did not overlap in any fraction. Fig.~\ref{fig:data_pro_1} and Fig.~\ref{fig:data_pro_2} shows sparing factors ranging between $0.97$ to $1.06$ for prostate CTV and $0.89$ to $0.97$ for boost volume which is lower. Sparing factors between the two target volumes are overall similar in variation, however Fig.~\ref{fig:data_pro_1} displays larger variation in spatial distance in boost volume compared to prostate CTV. In Fig.~\ref{fig:data_pro_3} it is well visible that there is no variation in spatial distance for each patient, when looking at patients with prostate CTV registered.
 
 \begin{figure}[!htb]
     \centering
@@ -673,7 +679,7 @@ Prostate cases are not grouped by OAR but rather specific target volume, since t
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_pro_1.pdf}
-    \caption{10 prostate patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by target volume BST (prostate boost volume) and PRO (prostate CTV)}
+    \caption{10 prostate patients treated at the MR-Linac. Sparing factors $\delta$ dependent on distance $w$ grouped by target volume BST (prostate boost volume) and PRO (prostate CTV).}
     \label{fig:data_pro_1}
 \end{figure}
 
