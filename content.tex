@@ -279,7 +279,7 @@ It should be noted that shape $k$ and scale $\theta$ too are hyperparameters, as
     k_t = k +\frac{t}{2}
 \end{equation}
 \begin{equation}\label{eq:theta_hyper}
-    \theta_t = \theta + \frac{1}{2} \sum_{\tau = 1}^t (\delta_{\tau} - \mu)^2    
+    \theta_t = \theta + \frac{1}{2} \sum_{\tau = 0}^t (\delta_{\tau} - \mu)^2
 \end{equation}
 
 Resulting as the posterior predictive distribution will be a student t-distribution
