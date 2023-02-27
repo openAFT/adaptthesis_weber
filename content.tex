@@ -572,17 +572,17 @@ Patient data was collected manually from the treatment planning system to get an
 
 \textbf{OAR:} For each patient at least one of the OAR in proximity was extracted. There were two criteria which qualified an OAR to be registered. The first was if the OAR was dose-limiting and the second if the OAR was in close vicinity: Every OAR in one patient that was as close to the tumor as the dose-limiting OAR in at least one fraction, was tracked as well. Only patients were collected, where the dose-limiting OAR did not change during the treatment.\\
 
-\textbf{Overlap Status:} The overlap was chosen as indicator whether the distance $w$ will be small between target and OAR. In the treatment planning system it was checked if in one of the sagittal, transversal or coronal plane there was an overlap between the target volume and OAR.\\
+\textbf{Overlap Status:} The overlap was chosen as predictor whether the distance $w$ will be small between target and OAR. In the treatment planning system it was checked if in one of the sagittal, transversal or coronal plane there was an overlap between the target volume and OAR.\\
 
 \textbf{Distance:} Distance between target and OAR was the shortest measured distance in all the sagittal, transversal or coronal plane. In principle no overlap was allowed between GTV and OAR. However, if there was an overlap the furthest radial distance of the overlap was measured.\\
 
-\textbf{Dose to OAR and Target:} For pancreas and adrenal glands dose to OAR $d^{\text{N}}$ and dose to target $d$ were measured according to the definition in Sec.~\ref{sec:sparing_factors}. For prostate the parameter definition was different and can be found in Tab.~\ref{tab:indicators_data} alongside pancreas and adrenal glands parameter definition. The predictors were directly extracted from the DVH in physical dose calculated in the treatment planning system.\\
+\textbf{Dose to OAR and Target:} For pancreas and adrenal glands dose to OAR $d^{\text{N}}$ and dose to target $d$ were measured according to the definition in Sec.~\ref{sec:sparing_factors}. For prostate the parameter definition was different and can be found in Tab.~\ref{tab:operational_quantity} alongside pancreas and adrenal glands parameter definition. The predictors were directly extracted from the DVH in physical dose calculated in the treatment planning system.\\
 
-A table with which indicators for each target was chosen can be seen in Tab.~\ref{tab:indicators_data}. The predictors were extracted for each tumor-OAR pair for $6$ treatment plans in each patient, corresponding to the $5$ delivered plans and the initial plan based on the planning MR.
+A table with which operational quantities for each target were chosen as predictors can be seen in Tab.~\ref{tab:operational_quantity}. The predictors were extracted for each tumor-OAR pair for $6$ treatment plans in each patient, corresponding to the $5$ delivered plans and the initial plan based on the planning MR.
 
 \begin{table}[!htb]
     \centering
-    \caption{Indicators of the patient collected at the MR-Linac. Explained are target dose definition and volume. Targets are PAN (pancreas), ADN (adrenal glands), prostate (PRO) and BST (prostate boost volume). Overlap specifies the volume upon which the binary status was checked to OAR.}
+    \caption{Operational quantities collected at the MR-Linac. Explained are target dose definition and volume. Targets are PAN (pancreas), ADN (adrenal glands), prostate (PRO) and BST (prostate boost volume). Overlap specifies the volume upon which the binary status was checked to OAR.}
     \begin{tabular}{l|llll}
     \toprule
         Target & Overlap & $w$ & $d^{\text{N}}$ [Gy] & $d$ [Gy] \\
@@ -594,7 +594,7 @@ A table with which indicators for each target was chosen can be seen in Tab.~\re
      
     \bottomrule
     \end{tabular}
-    \label{tab:indicators_data}
+    \label{tab:operational_quantity}
 \end{table}
 
 \subsection{Patient Data}
@@ -632,6 +632,22 @@ Sparing factors dependent on spatial distance between target-OAR pair are shown 
     \label{fig:data_pan_3}
 \end{figure}
 
+\begin{table}[!htb]
+    \centering
+    \caption{Variability and average of sparing factors in the pancreas data. Average is measured in mean $\mu$ and variability in standard deviation $\sigma$ for each dose-limiting OAR.}
+    \begin{tabular}{l|cc}
+    \toprule
+        OAR & $\mu$ & mean of $\sigma$ \\
+    \midrule
+       Bowel    &  $0.854$ & $0.053$ \\
+       Duodenum &  $0.821$ & $0.031$ \\
+       Stomach  &  $0.884$ & $0.050$ \\
+     
+    \bottomrule
+    \end{tabular}
+    \label{tab:pancreas_sparing_factors}
+\end{table}
+
 \subsubsection{Adrenal Glands Patients}
 
 Sparing factors dependent on spatial distance between target-OAR pair are shown in Fig.~\ref{fig:data_adn_0} for adrenal glands patients. There are no sparing factors that are larger than $1$ and also no overlaps registered in GTV and OAR. Fig.~\ref{fig:data_adn_1} displays the same picture as Fig.~\ref{fig:data_pan_1} but this time additionally grouped by patients. Important to note is that sparing factors range from $0.2$ to $1.0$ in stomach and  $0.05$ to $1.0$ in bowel. Sparing factors per patient are closely clustered together but across the cohort shows a much wider spread of the variation in sparing factors. Looking at the sparing factors for each patient and only dose-limiting OAR in Fig.~\ref{fig:data_adn_2}, it is also visible that they are closer clustered together for each patient compared to Fig.~\ref{fig:data_pan_2}. Sparing factors in dose-limiting OAR range from $0.2$ to $1.0$. Displayed in Fig.~\ref{fig:data_pan_3}, is the temporal course of the sparing factors and spatial distances. Tendency is that sparing factor is lower if distance is larger, however not always the case. When looking at patients $6$ and $8$ where distances are similar, the sparing factor ranges from $1.0$ to $1.1$ respectively $0.85$ to $1.0$.
@@ -665,6 +681,22 @@ Sparing factors dependent on spatial distance between target-OAR pair are shown 
     \label{fig:data_adn_3}
 \end{figure}
 
+\begin{table}[!htb]
+    \centering
+    \caption{Variability and average of sparing factors in the adrenal glands data. Average is measured in mean $\mu$ and variability in standard deviation $\sigma$ for each dose-limiting OAR.}
+    \begin{tabular}{l|cc}
+    \toprule
+        OAR & $\mu$ & mean of $\sigma$ \\
+    \midrule
+       Bowel    &  $0.711$ & $0.032$ \\
+       Duodenum &  $0.582$ & $0.043$ \\
+       Stomach  &  $0.692$ & $0.032$ \\
+     
+    \bottomrule
+    \end{tabular}
+    \label{tab:adrenal_glands_sparing_factors}
+\end{table}
+
 \subsubsection{Prostate Patients}
 
 Prostate cases are not grouped by OAR but rather specific target volume, since the OAR registered was only rectum. There is no variation in spatial distance when looking at prostate CTV in Fig.~\ref{fig:data_pro_0}. The volumes always touched but did not overlap in any fraction. Fig.~\ref{fig:data_pro_1} and Fig.~\ref{fig:data_pro_2} shows sparing factors ranging between $0.97$ to $1.06$ for prostate CTV and $0.89$ to $0.97$ for boost volume which is lower. Sparing factors between the two target volumes are overall similar in variation, however Fig.~\ref{fig:data_pro_1} displays larger variation in spatial distance in boost volume compared to prostate CTV. In Fig.~\ref{fig:data_pro_3} it is well visible that there is no variation in spatial distance for each patient, when looking at patients with prostate CTV registered.
@@ -696,6 +728,21 @@ Prostate cases are not grouped by OAR but rather specific target volume, since t
     \caption{10 prostate patients treated at the MR-Linac. Sparing factors $\delta$ (shown as triangles) and distance $w$ (shown as lines) displayed for each fraction grouped by target volume BST (prostate boost volume) and PRO (prostate CTV)}
     \label{fig:data_pro_3}
 \end{figure}
+
+\begin{table}[!htb]
+    \centering
+    \caption{Variability and average of sparing factors in the prostate data. Average is measured in mean $\mu$ and variability in standard deviation $\sigma$ for each target.}
+    \begin{tabular}{l|cc}
+    \toprule
+        Target & $\mu$ & mean of $\sigma$ \\
+    \midrule
+       PRO    &  $0.932$ & $0.015$ \\
+       BST    &  $1.024$ & $0.014$ \\
+     
+    \bottomrule
+    \end{tabular}
+    \label{tab:prostate_sparing_factors}
+\end{table}
 
 
 
