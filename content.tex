@@ -202,7 +202,7 @@ The Bellman equation relates the value function in fraction $t$ to the optimal p
     \begin{split}
     v_t(\delta, & B^{\text{T}}) = \underset{d}{\text{max}} \Biggr[
     r_t(d, B^{\text{T}}) + \ldots \Biggr.\\
-    & \Biggr. \sum_{\delta'}P(\delta')v_{t+1}(\delta', B^{\text{T}} + d + \frac{d^2}{(\alpha / \beta)_\text{T}}) \Biggr]
+    & \Biggr. \sum_{\delta'}P(\delta')v_{t+1} \left( \delta', B^{\text{T}} + d + \frac{d^2}{(\alpha / \beta)_\text{T}} \right) \Biggr]
     \end{split}
 \end{equation}
 and the policy reads
@@ -210,7 +210,7 @@ and the policy reads
     \begin{split}
     \pi_t(\delta, & B^{\text{T}}) = \underset{d}{\text{argmax}} \Biggr[
     r_t(d, B^{\text{T}}) + \ldots \Biggr.\\
-    & \Biggr. \sum_{\delta'}P(\delta')v_{t+1}(\delta', B^{\text{T}} + d + \frac{d^2}{(\alpha / \beta)_\text{T}}) \Biggr]
+    & \Biggr. \sum_{\delta'}P(\delta')v_{t+1} \left( \delta', B^{\text{T}} + d + \frac{d^2}{(\alpha / \beta)_\text{T}} \right) \Biggr]
     \end{split}
 \end{equation}
 The value function $v_t(\delta, B^{\text{T}})$ is the sum of the immediate reward and the future expected reward, maximised with respect to the dose. The immediate reward consists of reward from immediate OAR BED and weighted reward from not terminating the treatment in the current fraction. The future expected reward is the future value weighted with the sparing factor probability. Abstractly speaking, the value function displays the best possible immediate and future reward summed, the algorithm can secure in each state.
@@ -231,23 +231,28 @@ v_{F+1}(\delta_{F+1}, B^\text{T}_{F}) =
 \end{equation*}
 Where $s \gg B_{\text{pres}}^\text{T}$ is an arbitrary large number. This ensures that the policy in the last fraction is to apply the dose that minimises the difference between cumulative and prescribed BED. Policy artefacts from not reaching exactly the prescription in the last fraction due to discretisation of the actions can thus be avoided.
 
-\subsection{Remaining Number of Fractions}
-As the value function is composed of OAR BED rewards and reward for not terminating, it is difficult to interpret regarding the weight $C$. Thus, we calculated expected remaining number of fractions in the state space. The remaining number of fractions display for each fraction the remaining number of fractions, that are expected in the state with respect to the assumed probability distribution.
+\subsection{Expected Remaining Number of Fractions}
+As the value function is composed of OAR BED rewards and reward for not terminating, it is difficult to interpret regarding the weight $C$. Thus, we calculated expected remaining number of fractions in the state space. The remaining number of fractions display for each fraction the remaining number of fractions, that are expected in the state with respect to the assumed probability distribution. It is necessary to have solved the optimal policy already. Note that the optimal policy $\pi_t$ here is in units of BED.
 \begin{equation}\label{eq:remains_function}
     \begin{split}
-    \varepsilon_t(\delta, & B^{\text{T}}) = \underset{d}{\text{max}} \Biggr[
-    r_t(d, B^{\text{T}}) + \ldots \Biggr.\\
-    & \Biggr. \sum_{\delta'}P(\delta') \varepsilon_{t+1}(\delta', B^{\text{T}} + d + \frac{d^2}{(\alpha / \beta)_\text{T}}) \Biggr]
+    \varepsilon_t(\delta, & B^{\text{T}}) =
+    \eta _t (\delta, B^{\text{T}}) + \ldots \Biggr.\\
+    & \Biggr. \sum_{\delta'}P(\delta') \varepsilon_{t+1} \left( \delta', B^{\text{T}} + \text{BED}_{10} \left[ \pi_t(\delta, B^{\text{T}}) \right] \right)
     \end{split}
+\end{equation}
+where $\eta$ is a binary function that specifies, if under the optimal policy in the current fraction the prescription dose is achieved or not.
+\begin{equation}\label{eq:current_remains}
+    \eta_t (\delta, B^{\text{T}}) =
+    \begin{cases}
+        0 & \text{if } \pi_t(\delta, B^{\text{T}}) \geq B_{\text{pres}}^{\text{T}} - B^{\text{T}} \\
+        1 & \text{else}
+    \end{cases}
 \end{equation}
 The terminal remaining number of fraction is initialised to
 \begin{equation*}
-    \varepsilon_{F+1}(\delta_{F+1}, B^\text{T}_{F}) = 
-    \begin{cases}
-    0 & \text{if } B^\text{T}_F = B_{\text{pres}}^\text{T} \\
-    -\infty & \text{else}
-    \end{cases}
-    \end{equation*}
+    \varepsilon_{F+1}(\delta_{F+1}, B^\text{T}_{F}) = 0
+\end{equation*}
+as the in the last fraction no additional fractions can be added.
 
 \subsection{Probability Updating}
 \label{sec:probupdate}
