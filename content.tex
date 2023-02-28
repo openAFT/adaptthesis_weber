@@ -37,20 +37,20 @@ Central to the advances in radiotherapy delivery is the development of medical i
 
 \subsection{Uniform Fractionation}
 
-As mentioned before one strategy of normal tissue sparing involves fractionation. In uniform fractionation the prescribed dose is divided into dose fractions of equal size, which are delivered in multiple sessions. To enable comparison between different fractionation schedules the biological effective dose (BED) model is used. More precisely, BED allows determining iso-effective dose fractionation schedules. It is regarded as a measure of the true biological dose delivered by a particular combination of equal dose per fraction $D/n$ and total dose $D$ in $n$ fractions to a given tissue \cite{jones_bedrole}
+As mentioned before one strategy of normal tissue sparing involves fractionation. In uniform fractionation the prescribed dose is divided into dose fractions of equal size, which are delivered in multiple sessions. To enable comparison between different fractionation schedules the biological effective dose (BED) model is used. More precisely, BED allows determining iso-effective dose fractionation schedules. It is regarded as a measure of the biological dose delivered by a particular combination of equal dose per fraction $D/n$ and total dose $D$ in $n$ fractions to a given tissue \cite{jones_bedrole}. It is defined as
 \begin{equation*}
 	B = D\left(1+\frac{D / n}{\alpha / \beta}\right)
 \end{equation*}
 
-where $\alpha$ and $\beta$ are radio-sensitivity coefficients: cells with a higher $\alpha / \beta$ ratio are less sensitive to the sparing effect of fractionation. Thus, two adjacent tissues with different $\alpha / \beta$ ratio values, each receiving the same dose and fractionation, will be associated with different BEDs. This does not necessarily mean that one tissue sustains more biological damage than the other. The BED for each tissue is simply a measure of the extent to which the dose can be escalated (while maintaining iso-effect on that tissue) if treating with very small fraction sizes. \cite{jones_bedrole}
+where $\alpha$ and $\beta$ are coefficient that stem from the Track-Event-Model which in low dose regions in approximated with the BED model. The $\alpha / \beta$ ratio is a measure the repair capability : cells with a high $\alpha / \beta$ values respond earlier i.e. show reactions such as proliferative impairment or loss of function earlier. Thus, two adjacent tissues with different $\alpha / \beta$ ratio values, each receiving the same dose and fractionation, will be associated with different BEDs. This does not necessarily mean that one tissue sustains more biological damage than the other. \cite{jones_bedrole}
 
 \section{Prior Work}
 
-Fractionated therapy typically delivers equal dose in every fraction to the tumor when treated with uniform fractionation. Since the plan is fractionated and treatment spans several days to week, inter-fractional motion arises. This motion is seen as a handicap to treatments as it can degrade the quality of dose plans and calls for mitigation strategies such as adaptive radiotherapy. Rather than viewing inter-fractional motion as a handicap, it can be seen as an opportunity: the variation in geometry due to motion may be exploited to achieve better treatment quality compared to uniform fractionation.
+Fractionated therapy typically delivers equal dose in every fraction to the tumor when treated with uniform fractionation. Since the plan is fractionated and treatment spans several days or weeks, inter-fractional motion arises. This motion is seen as a handicap to treatments as it can degrade the quality of dose plans and calls for mitigation strategies such as adaptive radiotherapy. Rather than viewing inter-fractional motion as a handicap, it can be seen as an opportunity: the variation in geometry due to motion may be exploited to achieve better treatment quality compared to uniform fractionation.
 
 \subsection{Concept}
-Adaptive Fractionation \cite{lu_adaptI}\cite{chen_adaptII}\cite{ramakrishnan_adaptIII} is one approach to exploit inter-fractional motion. In a recently published work from Pérez Haas et al. \cite{perezhaas_adaptive} an approach to adaptive fractionation has been devised and demonstrated with patient data at an MR-Linac.
-Adaptive Fractionation extends the existing adaptive therapy paradigm to dose modification of the tumor dose in each fraction: the dose is increased on favourable treatment days, i.e. when the distance between tumor and dose-limiting OAR is relatively large; and the dose is reduced for unfavourable geometries, i.e. when the tumor and OAR are closer. Thereby, the ratio between total dose delivered to the OAR versus total dose delivered to the tumor may be improved compared to uniform treatments that deliver the same dose in each fraction \cite{perezhaas_adaptive}. In the following the preliminary work is explained to get an understanding of what has been achieved previously.
+Adaptive Fractionation \cite{lu_adaptI}\cite{chen_adaptII}\cite{ramakrishnan_adaptIII} is one approach to exploit inter-fractional motion. In a recently published work from Pérez Haas et al. \cite{perezhaas_adaptive} an approach to adaptive fractionation has been devised and demonstrated with patient data from an MR-Linac.
+Adaptive Fractionation extends the existing adaptive therapy paradigm to modification of the tumor dose in each fraction: the dose is increased on favourable treatment days, i.e. when the distance between tumor and dose-limiting OAR is relatively large; and the dose is reduced for unfavourable geometries, i.e. when the tumor and OAR are closer. Thereby, the ratio between total dose delivered to the OAR versus total dose delivered to the tumor may be improved compared to uniform treatments that deliver the same dose in each fraction \cite{perezhaas_adaptive}. In the following the preliminary work is explained to get an understanding of what has been achieved previously.
 
 \subsection{Sparing Factors}\label{sec:sparing_factors}
 For the purpose of adaptive fractionation, treatment plans and the daily geometric variations are described in terms of sparing factors $\delta$
@@ -74,7 +74,7 @@ From a practical perspective, this approach to adaptive fractionation would be i
 
 \subsection{Methods}
 
-Pérez Haas \cite{perezhaas_adaptive} presented in his paper how the framework of Markov decision process is applied and the stochastic optimal control problem formulated. For that states, actions, state transitions and reward functions to describe interaction with the environment are introduced. Depending on the clinical objective that should be accomplished, in the master thesis \cite{perezhaas_master} three optimisation types with different objectives are presented:
+Pérez Haas \cite{perezhaas_adaptive} presented in his paper how the framework of Markov decision process is applied and how the stochastic optimal control problem is formulated. For that states, actions, state transitions and reward functions to describe interaction with the environment are introduced. Depending on the clinical objective that should be accomplished, in the master thesis \cite{perezhaas_master} three optimisation types with different objectives are presented:
 \begin{enumerate}
     \item To treat a tumor where the desired prescription dose cannot be reached as the OAR is too close to the tumor, the goal was set to maximise the cumulative BED delivered to the tumor subject to the constraint on the cumulative OAR BED.
     \item In a case where tumor and OAR are farther apart, the prescribed tumor dose can be obtained without risking the overdosage of the OAR. Therefore, the goal is to minimise the cumulative BED delivered to the OAR subject to delivering the prescribed dose to the tumor.
@@ -83,7 +83,7 @@ Pérez Haas \cite{perezhaas_adaptive} presented in his paper how the framework o
 
 The paper presented results from the optimal policy applied real patient data using some assumptions about the probability distributions. Also described are optimal policy applied to simulated patient data to show the difference of accumulated tumor BED to reference plan.
 
-In this work the $2.$ description of OAR BED minimisation will be discussed again with the modifications for adapting number of fractions. For that states, actions, state transitions and reward functions to describe interaction with the environment are introduced. Additionally, two approaches to update the model of the environment are presented.
+In this work, the $2.$ description of OAR BED minimisation will be discussed again with the modifications for adapting the number of fractions. For that states, actions, state transitions and reward functions to describe interaction with the environment are introduced. Additionally, two approaches to update the model of the environment are presented.
 
 
 \subsection{Implementation}
@@ -91,10 +91,10 @@ In this work the $2.$ description of OAR BED minimisation will be discussed agai
 In the paper of Pérez Haas \cite{perezhaas_adaptive} a codebase was built and made available to the public.  Essentially the code was built around solving the Bellmann Equations introduced in Eq.~\ref{eq:value_function} and Eq.~\ref{eq:policy_function}. The codebase architecture design follows a functional oriented programming design; the program is constructed by applying and composing functions. Helper functions sample action space, convert between BED and physical dose, fit hyperparameters to patient data and sample probability distributions. Basic functions define states and reward and calculate the optimal policy with a tabular search solving the Bellmann Equation in a backwards recursive manner; the value function  in fraction $t$ is dependent on the future value $v_{t+1}$ marginalised over the sparing factor distribution. The basic functions calculate the optimal policy for a single fraction and are called by treatment functions that calculate a complete treatment in retrospective. Treatment functions iterate through basic functions and feed current states, previous sparing factors and current sparing factors to the basic function, while keeping future sparing factors hidden. State, actions, environment model and value functions are described by discrete values. Thus, the policy function is sampled discretely with parameters defining step sizes. In the master thesis of Pérez Haas \cite{perezhaas_master} there were developed multiple basic functions that are different types to calculate the optimal policy.
 
 \section{Adapting Number of Fractions}
-The concept introduced in this work, is to not only adapt the dose delivered to the tumor; the number of fractions used in the treatment is subject to adaptation as well. The underlying model to adapt number of fractions is based on the approach discussed in Pérez Haas et al. \cite{perezhaas_adaptive}. Conceptually adapting number of fractions is achieved by employing the same paradigm from adaptive fractionation, but to further increase dose on favourable treatment days, to possibly shorten total treatment time. That is increasing the dose on favourable geometries, such that it might be possible to finish the treatment in an earlier fraction than the prescribed maximum number of fractions; and reduce the dose for unfavourable geometries, such that the treatment conforms to the dose modification presented in \cite{perezhaas_adaptive} where no fractions are omitted for the treatment. This concept demands constitution a model, that steers the trade-off between using fewer number of fractions and optimising dose delivered to OAR compared to uniform treatments.
+The concept introduced in this work, is to not only adapt the dose delivered to the tumor; the number of fractions used in the treatment is subject to adaptation as well. The underlying model to adapt number of fractions is based on the approach discussed in Pérez Haas et al. \cite{perezhaas_adaptive}. Conceptually adapting number of fractions is achieved by employing the same paradigm from adaptive fractionation, but to further increase dose on favourable treatment days, to possibly shorten total treatment time. That is increasing the dose on favourable geometries, such that it might be possible to finish the treatment in an earlier fraction than the prescribed maximum number of fractions; and reduce the dose for unfavourable geometries, such that the treatment conforms to the dose modification presented in \cite{perezhaas_adaptive} where no fractions are omitted for the treatment. This concept demands constiting a model, that steers the trade-off between using fewer number of fractions and optimising dose delivered to OAR compared to uniform treatments.
 
 \subsection{Motivation}
-Prolonged total treatment time often presents a burden to patient and discomfort. For patients in an image guided radiotherapy treatment with dose plan adaptation this means lying in treatment position for more than half an hour, with visiting time extending to almost an hour in each fraction, when including preparation for positioning. In many cases patients undergo additional cancer treatment modalities other than radiotherapy, further weakening individuals and radiotherapy causing even greater discomfort. If fractions could be omitted while sustaining the same therapeutic ratio to uniform fractionation, treatment time slots are freed which could be filled by other patients. In summary shortening total treatment time could relieve patients of discomfort caused by the treatment session and free treatment allocation slots at the accelerator potentially saving costs for hospitals.
+Prolonged total treatment time often presents a burden to patient and discomfort. For patients in an image guided radiotherapy treatment with plan adaptation this means lying in treatment position for more than half an hour, with visiting time extending to almost an hour in each fraction, when including preparation for positioning. In many cases patients undergo additional cancer treatment modalities other than radiotherapy, further weakening individuals and radiotherapy causing even greater discomfort. If fractions could be omitted while sustaining the same therapeutic ratio to uniform fractionation, treatment time slots are freed which could be filled by other patients. In summary shortening total treatment time could relieve patients of discomfort caused by the treatment session and free treatment allocation slots at the accelerator providing access to the MR-Linac for additional patients.
 
 \subsection{Methods}
 \subsubsection{Extended BED Model}
@@ -123,20 +123,17 @@ To determine the  optimal doses $d_t$, we apply the framework of Markov decision
 
 \textbf{Action and policy:} The actions correspond to the physical doses $d_t$ that are delivered to the tumor in a fraction. Thus, a policy specifies for each fraction $t$ and possible state of the treatment, the dose that should be delivered in this state. Tumor doses are constrained by a maximum dose per fraction $d^{max}$ and a minimum dose per fraction $d^{min}$.\\
 
-%In the results below, we assume $d^{min}=0$ Gy and $d^{max}=23$ Gy. A single dose of 23 Gy allows to deliver the BED$_{10}$ equivalent of a typical prescription dose of 40 Gy in 5 fractions in a single fraction. This range was chosen to explore the full potential of adaptive fractionation. The impact of tighter constraints on the dose per fraction, which may be considered in a clinical implementation, is discussed in section~\ref{sec:constraints}.
-
 \textbf{State transition:} If, in fraction $t$, the treatment is in state $s_t = (\delta_t, B^T_{t-1})$ and a dose $d_t$ is delivered to the tumor, the state transitions to
 \begin{equation*}
     s_{t+1} = \left(\delta_{t+1}, B^\text{T}_{t-1} + d_t+\frac{d_t^2}{(\alpha / \beta)_\text{T}} \right)
 \end{equation*}
-
 in fraction $t+1$. The BED-component of the future state is calculated by adding the tumor BED delivered in fraction $t$ to the previously delivered BED $B^{\text{T}}_{t-1}$, which is assumed deterministic (i.e. we don't consider uncertainty in dose delivery). The sparing factor in fraction $t+1$ is random, making the state transition probabilistic. The probability distribution for the state transition is simply given by the probability distribution over the sparing factors, $P(\delta)$.\\
 
-\textbf{Reward:} In each fraction $t$, the immediate reward $r_t$ is given by the BED delivered to the OAR in that fraction
+\textbf{Immediate Reward:} In each fraction $t$, the immediate reward $r_t$ is given by the BED delivered to the OAR in that fraction
 \begin{equation*}
     r_t(d, \delta, B^{\text{T}}) = - \left( \delta_t d + \frac{\delta^2 d^2}{(\alpha / \beta)_\text{N}} \right) - c(d, B^{\text{T}})
 \end{equation*}
-Where $c(d, B^{\text{T}})$ is a general penalty term for every action and accumulated tumor BED state, in which the future prescribed tumor dose is not met. Constructed is a penalty with a numeric value $C$
+Where $c(d, B^{\text{T}})$ is a general penalty term, which is a function of the action and accumulated tumor BED state, in which the future prescribed tumor dose is not met. Constructed is a penalty with a numeric value $C$
 \begin{equation}\label{eq:penalty}
     c(d, B^{\text{T}}) =
     \begin{cases}
@@ -145,22 +142,22 @@ Where $c(d, B^{\text{T}})$ is a general penalty term for every action and accumu
     \end{cases}
 \end{equation}
 
-This reward model introduces iso-rewarding actions: for a fixed state there exist two actions that yield the same reward. Assuming the dose $d^{*}$ reaches the prescription dose and yields the reward $r^{*}$. There exists a lower dose $d^{**}$ with the same reward. The dose $d^{**}$ acts as a threshold dose, for finishing the treatment in the current fraction: That is when a dose equal and or larger of $d^{**}$ maximises the value function $v$ the dose $d^{*}$ is the dose maximising $v$. The greater the parameter $C$ the lower this threshold dose will be to reach the fixed $r^{*}$. Parameter $C$ acts as an inverse scaling factor for this threshold.
+This reward model introduces iso-rewarding actions: for a fixed state there exist two actions that yield the same reward. Assuming the dose $d^{*}$ reaches the prescription dose and yields the reward $r^{*}$. There exists a lower dose $d^{**}$ with the same reward. The dose $d^{**}$ acts as a threshold dose, for finishing the treatment in the current fraction: doses equal or larger than the threshold $d^{**}$ and smaller than $d^{*}$ are never applied. The greater the parameter $C$ the lower this threshold dose will be to reach the fixed $r^{*}$. Parameter $C$ acts as an inverse scaling factor for this threshold.
 \begin{equation*}
     C \propto \left( \delta (d^* - d^{**}) + \frac{\delta^2 \left( {d^*}^2 - d^{**2} \right)}{(\alpha / \beta)_\text{N}} \right)
 \end{equation*}
 
 \begin{figure}[!htb]
     \input{tikz_graphics/reward_function.tex}
-\caption{Qualitative description of reward function by composing negative reward from BED$_{3}$ without penalty $C$ and BED$_{3}$ with penalty term $C$.}
+\caption{Qualitative description of reward function by composing negative immediate reward from BED$_{3}$ without penalty $C$ and BED$_{3}$ with penalty term $C$.}
 \end{figure}
 
-A characteristic of the specified MDP model is that the cumulative BED delivered to the OAR is not part of the state $s$. It is only integrated in the reward $r_t$ as a penalty. The reason being, that the optimal policy does not depend on the OAR state, i.e. the optimal dose to deliver does not depend on the previously accumulated BED in the OAR. Intuitively it is aimed to minimise future OAR BED, in each state and fraction, independently of the previously accumulated BED in the OAR. However, if the goal was to deliver a fixed OAR BED constraint by the end of the treatment, the cumulative OAR BED would be part of the state.\\
+A characteristic of the specified MDP model is that the cumulative BED delivered to the OAR is not part of the state $s$. It is only integrated in the reward $r_t$ as a penalty. The reason being, that the optimal policy does not depend on the OAR state, i.e. the optimal dose to deliver does not depend on the previously accumulated BED in the OAR. Intuitively it is aimed to minimise future OAR BED, in each state and fraction, independently of the previously accumulated BED in the OAR. However, if the goal was to escalated tumor dose while delivering a fixed OAR BED, the cumulative OAR BED would be part of the state.\\
 
 \textbf{Environment Model:} The model of the environment provides the probability of    arriving in state $s_{t+1} = (\delta_{t+1}, B^T_{t})$ with reward $r_t$, starting from state $s_t$ and choosing action $d_t$. Arriving at the cumulative tumor BED $B^T_{t}$ is deterministic, as it is dependent on the previous delivered tumor BED plus action $d_t$. Arriving at the sparing factor $\delta_{t+1}$ however is a stochastic process, where $\delta$ is assumed to be normal distributed. Establishing an assumption of the environment model, completely characterises the dynamics of the Markov Process.
 
 \subsubsection{Reward Construction}
-Achieved should be an adaptive fractionation model that accurately steers the expected number of fractions necessary to attain a prescription tumor BED for a treatment. To determine the optimal parameter $C$ a discrete optimisation problem is formulated. To that end a penalty in the form of Eq.~\eqref{eq:penalty} with $C=0$, prescription dose $B_{\text{pres}}^{\text{T}}$ and expected probability distribution $P(\delta)$ is set. Defining a treatment for $n$ number of fractions, calculating the Bellmann Equations with these stipulations and applying the optimal policy to a set of sparing factors $\{\delta_\tau\}_{\tau=1}^{n}$, yields a cost function for terminal cumulative BED $B^{\text{N}}_n$. Repeating this process by sampling sets of $\{\delta_\tau\}_{\tau=1}^{n}$ and averaging $B^{\text{N}}_n$ yields an estimate of the average terminal accumulated BED in the OAR written as $\bar{B}^{\text{N}}_n$. In Fig.~\ref{fig:treat_policy_sigma} the qualitative example with terminal cumulative BED's $B^{\text{N}}_n$ can be seen.
+??be more clear about rational?? Achieved should be an adaptive fractionation model that accurately steers the expected number of fractions necessary to attain a prescription tumor BED for a treatment. To determine the optimal parameter $C$ a discrete optimisation problem is formulated. To that end a penalty in the form of Eq.~\eqref{eq:penalty} with $C=0$, prescription dose $B_{\text{pres}}^{\text{T}}$ and expected probability distribution $P(\delta)$ is set. Defining a treatment for $n$ number of fractions, calculating the Bellmann Equations with these stipulations and applying the optimal policy to a set of sparing factors $\{\delta_\tau\}_{\tau=1}^{n}$, yields terminal cumulative BED $B^{\text{N}}_n$. Repeating this process by sampling sets of $\{\delta_\tau\}_{\tau=1}^{n}$ and averaging $B^{\text{N}}_n$ yields an estimate of the average terminal accumulated BED in the OAR written as $\bar{B}^{\text{N}}_n$. This is interpreted as a cost function, seeked to be minimal. In Fig.~\ref{fig:treat_policy_sigma} the qualitative example with terminal cumulative BED's $B^{\text{N}}_n$ can be seen.
 
 To finishing the treatment with prescribed number of fraction $n_{\text{pres}}$ the reward function is constructed with a penalty parameter. The penalty parameter is given by $C$ and penalises each additional fraction  that is used for the treatment. The cost can thus be extended by linearly adding $C$ for every fraction $n$ to $\bar{B}^{\text{N}}_n$ which yields the total cost function
 \begin{equation*}
@@ -178,6 +175,7 @@ To translate the problem into a continuous optimisation problem, the average ter
 \begin{equation}
     B^{\text{N}}(n; \delta) = \delta^2 n d_T(n) \left[ \frac{1}{\delta} - \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}\right]
 \end{equation}
+?? plot $\delta=\mu$ and compare for averaged $B_n$, also explain how one has derived on this??
 where $d_T$ is the physical dose
 \begin{equation*}
     d_T(n) = \frac{\sqrt{n (\alpha / \beta)_T (n (\alpha / \beta)_T + 4 B_{\text{pres}}^{\text{T}})} - n (\alpha / \beta)_T}{2n}
@@ -190,14 +188,14 @@ In Fig.~\ref{fig:cost_function} for $n_{\text{pres}}=5$ prescribed number of fra
 
 \begin{figure}[!htb]
     \input{tikz_graphics/cost_function.tex}
-\caption{Cost function $B^{\text{N}}_n$ for a gaussian sparing factor distribution $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Sampled are $1000$ patients with 6 sparing factors each that stem from a gaussian distribution with $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Values fitted with $B^{\text{N}}(n; \delta)$.}
+\caption{Cost function $B^{\text{N}}_n$ for a gaussian sparing factor distribution $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Sampled are $1000$ patients with 5 fractiona each that stem from a gaussian distribution with $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Values fitted with $B^{\text{N}}(n; \delta)$.}
 \label{fig:cost_function}
 \end{figure}
 
 
 \subsection{Dynamic Programming Algorithm}
 \label{sec:DP}
-A dynamic programming (DP) algorithm can be used to compute the optimal policy with the help of a value function \cite{sutton_reinforcement}. The value function $v_t$ describes how desirable it is to be in state $s_t$ in fraction $t$ and, therefore, it contains the information whether an action should be taken to reach that state. In this application, the value for each state represents the expected cumulative BED that can be delivered to the tumor in the remaining fractions, starting from that state and acting according to the optimal policy.\\
+A dynamic programming (DP) algorithm can be used to compute the optimal policy with the help of a value function \cite{sutton_reinforcement}. The value function $v_t$ describes how desirable it is to be in state $s_t$ in fraction $t$ and, therefore, it contains the information whether an action should be taken to reach that state. In this application, the value for each state represents the expected cumulative BED that can be delivered to the tumor in the remaining fractions, starting from that state and acting according to the optimal policy.
 
 The Bellman equation relates the value function in fraction $t$ to the optimal policy and the value function in the subsequent fraction, which for this application reads
 \begin{equation}\label{eq:value_function}
@@ -337,15 +335,15 @@ The model described in this work was implemented into the existing codebase that
 
 For demonstration purposes a synthetic patient and an according treatment model is composed. Demonstrations based on the synthetic patient and treatment model include: calculation of the optimal policy and retrospective application of this policy to the synthetic patient.
 
-\textbf{Treatment model:} The treatment model is defined as the prescribed treatment plan, including assumptions for the sparing factor distribution. It is composed of a defined total number of fractions that can be used, a constant $C$ steering the desired number of fractions that should be used, tumor dose prescription and an assumption of the sparing factor probability distribution. Planned is a treatment with five fractions with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. In principle cumulative BED of $90$ Gy to the dose-limiting OAR may not be exceeded. For the parameter $C$ multiple values are chosen to show how the optimal policy behaves. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = \{ 0.05, 0.01, 0.15\}$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinically interesting case, where the tumor dose may be compromised due to the risk of reaching OAR dose constraint. Provided enough variation in such a case Adaptive Fractionation could bring a benefit to patients, by reducing cumulative dose to OAR.\\
+\textbf{Treatment model:} The treatment model is defined as the prescribed treatment plan, including assumptions for the sparing factor distribution. It is composed of a defined total number of fractions that can be used, a constant $C$ steering the desired number of fractions that should be used, tumor dose prescription and an assumption of the sparing factor probability distribution. Planned is a treatment with five fractions with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. In principle cumulative BED of $90$ Gy to the dose-limiting OAR may not be exceeded. For the parameter $C$ multiple values are chosen to show how the optimal policy behaves. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = \{ 0.05, 0.10, 0.15\}$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinically interesting case, where the tumor dose may be compromised due to the risk of reaching OAR dose constraint. Provided enough variation in such a case Adaptive Fractionation could bring a benefit to patients, by reducing cumulative dose to OAR.\\
 
-\textbf{Patient model:} The patient model defines a simulated sequence of sparing factors, chosen to demonstrate adaptive fractionation. Through the retrospective treatment observed sparing factors of this synthetic patient are $\{\delta_\tau\}_{\tau=0}^{t=5} = \{\mu, \mu, \mu \pm \sigma, \mu,\mu, \mu \}$. In the second fraction a deviation from the mean sparing factor will appear to demonstrate the applied policy. Note the first sparing factor in fraction $\tau=0$ is the planning sparing factor.
+\textbf{Patient model:} The patient model defines a simulated sequence of sparing factors, chosen to demonstrate adaptive fractionation. Through the retrospective treatment observed sparing factors of this synthetic patient are $\{\delta_\tau\}_{\tau=1}^{t=5} = \{\mu, \mu \pm \sigma, \mu,\mu, \mu \}$. The planning sparing factor is not sampled, as it is not used. In the second fraction a deviation from the mean sparing factor will appear to demonstrate the applied policy. Note the first sparing factor in fraction $\tau=0$ is the planning sparing factor.
 
 \subsection{Treatment Model}
 
-Described and illustrated are the treatment model regarding policy function, value function and expected remaining number of fractions.
+Described and illustrated are the treatment model regarding policy, value function and expected remaining number of fractions.
 
-\subsubsection{Policy Functions}
+\subsubsection{Policy}
 
 The optimal policy $\pi_t(\delta, B^{\text{T}})$ for a 5 fraction treatment with normal distribution $\mu=0.75$ and very low standard variation of $\sigma=0.001$ is given in Fig.~\ref{fig:treat_policy_sigma} and Fig.~\ref{fig:treat_policy_single}. The probability distribution $P(\delta)$ is fixed: i.e. the optimal policy for the entire treatment is solved without updating the probability distribution with progressing treatment.
 
@@ -514,7 +512,7 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ finish the 
 
 \begin{table}[!htb]
     \centering
-    \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_t=0.65$}
+    \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_2=0.65$}
     \begin{tabular}{l|cc}
     \toprule
         Fractionation & $B_5^{\text{N}}$ [Gy] & $n_{\text{frac}}$ \\
@@ -542,7 +540,7 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=1.3$ do not fini
 
 \begin{table}[!htb]
     \centering
-    \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_t=0.85$}
+    \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_2=0.85$}
     \begin{tabular}{l|cc}
     \toprule
         Fractionation & $B_5^{\text{N}}$ [Gy] & $n_{\text{frac}}$ \\
@@ -572,25 +570,32 @@ Patient data was collected manually from the treatment planning system to get an
 
 \textbf{OAR:} For each patient at least one of the OAR in proximity was extracted. There were two criteria which qualified an OAR to be registered. The first was if the OAR was dose-limiting and the second if the OAR was in close vicinity: Every OAR in one patient that was as close to the tumor as the dose-limiting OAR in at least one fraction, was tracked as well. Only patients were collected, where the dose-limiting OAR did not change during the treatment.\\
 
-\textbf{Overlap Status:} The overlap was chosen as predictor whether the distance $w$ will be small between target and OAR. In the treatment planning system it was checked if in one of the sagittal, transversal or coronal plane there was an overlap between the target volume and OAR.\\
+% \textbf{Overlap Status:} The overlap was chosen as predictor whether the distance $w$ will be small between target and OAR. In the treatment planning system it was checked if in one of the sagittal, transversal or coronal plane there was an overlap between the target volume and OAR.\\
 
 \textbf{Distance:} Distance between target and OAR was the shortest measured distance in all the sagittal, transversal or coronal plane. In principle no overlap was allowed between GTV and OAR. However, if there was an overlap the furthest radial distance of the overlap was measured.\\
 
-\textbf{Dose to OAR and Target:} For pancreas and adrenal glands dose to OAR $d^{\text{N}}$ and dose to target $d$ were measured according to the definition in Sec.~\ref{sec:sparing_factors}. For prostate the parameter definition was different and can be found in Tab.~\ref{tab:operational_quantity} alongside pancreas and adrenal glands parameter definition. The predictors were directly extracted from the DVH in physical dose calculated in the treatment planning system.\\
+\textbf{OAR/Target Dose:} For pancreas and adrenal glands dose to OAR $d^{\text{N}}$ and dose to target $d$ were measured according to the definition in Sec.~\ref{sec:sparing_factors}. For prostate the parameter definition was different and can be found in Tab.~\ref{tab:operational_quantity} alongside pancreas and adrenal glands parameter definition. The predictors were directly extracted from the DVH in physical dose calculated in the treatment planning system.\\
 
 A table with which operational quantities for each target were chosen as predictors can be seen in Tab.~\ref{tab:operational_quantity}. The predictors were extracted for each tumor-OAR pair for $6$ treatment plans in each patient, corresponding to the $5$ delivered plans and the initial plan based on the planning MR.
 
 \begin{table}[!htb]
     \centering
-    \caption{Operational quantities collected at the MR-Linac. Explained are target dose definition and volume. Targets are PAN (pancreas), ADN (adrenal glands), prostate (PRO) and BST (prostate boost volume). Overlap specifies the volume upon which the binary status was checked to OAR.}
-    \begin{tabular}{l|llll}
+    \caption{Operational quantities collected at the MR-Linac. Explained are target dose definition and volume. Targets are PAN (pancreas), ADN (adrenal glands), prostate (PRO) and BST (prostate boost volume)}
+    \begin{tabular}{l|lll}
+    % \toprule
+    %     Target & Overlap & $w$ & $d^{\text{N}}$ [Gy] & $d$ [Gy] \\
+    % \midrule
+    %    PAN & PTV & GTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
+    %    ADN & PTV & GTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
+    %    PRO & PTV & CTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
+    %    BST & DIL & DIL & $D_{0.1\text{cc}}$ & $D_{95}$ DIL \\
     \toprule
-        Target & Overlap & $w$ & $d^{\text{N}}$ [Gy] & $d$ [Gy] \\
+        Target & $w$ & $d^{\text{N}}$ [Gy] & $d$ [Gy] \\
     \midrule
-       PAN & PTV & GTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
-       ADN & PTV & GTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
-       PRO & PTV & CTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
-       BST & DIL & DIL & $D_{0.1\text{cc}}$ & $D_{95}$ DIL \\
+       PAN & GTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
+       ADN & GTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
+       PRO & CTV & $D_{1\text{cc}}$   & $D_{95}$ PTV \\
+       BST & DIL & $D_{0.1\text{cc}}$ & $D_{95}$ DIL \\
      
     \bottomrule
     \end{tabular}
@@ -715,6 +720,8 @@ Prostate cases are not grouped by OAR but rather specific target volume, since t
     \label{fig:data_pro_1}
 \end{figure}
 
+The sparing factors of the integrated boost volume are misleading. Dose to the tumor for large distances between rectum and boost volume, was not escalated. Instead, clinicians prescribed and deliverd a $D_{95}$ of $40$ Gy physical dose in every fraction. For patients $27$ and $28$ the distance is very large with distance around $1$ respectively $1.5$cm. In regard to the sparing factor the dose could theoretically have been escalated even further than prescribed $D_{95}$ of $40$ Gy physical dose.
+
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/data_pro_2.pdf}
@@ -743,6 +750,12 @@ Prostate cases are not grouped by OAR but rather specific target volume, since t
     \end{tabular}
     \label{tab:prostate_sparing_factors}
 \end{table}
+
+\section{Discussion}
+
+- no patients from prostate suitable
+- misleading sparing factor BST
+- few patients in adrenal glands suitable
 
 
 
@@ -779,13 +792,13 @@ Prostate cases are not grouped by OAR but rather specific target volume, since t
         \ElsIf{$t = F$}
             \State $B_{\text{res}} \gets B_{\text{pres}}^\text{T} - B^\text{T}$ \Comment{residual BED to reach prescription dose}
             \State $d_{\text{res}} \gets d \mid \mathrm{BED}_{10}(d)=B_{\text{res}}$ \Comment{respective physical dose to residual BED}
-            \State $V\left(t, \delta, B^{\text{T}}\right) \leftarrow-\mathrm{BED}_{3}\left(d_{\text {res }}, \delta\right)$ \Comment{penalty from corresponding OAR dose}
-            \State $\pi\left(t, \delta, B^{\text{T}}\right) \leftarrow d_{\text {res }}$ \Comment{optimal policy is residual dose}
+            \State $v_t \left(\delta, B^{\text{T}}\right) \leftarrow-\mathrm{BED}_{3}\left(d_{\text {res }}, \delta\right)$ \Comment{penalty from corresponding OAR dose}
+            \State $\pi_t \left(\delta, B^{\text{T}}\right) \leftarrow d_{\text {res }}$ \Comment{optimal policy is residual dose}
         \Else
-            \State $V_{t+1}\left(d, B^{\text{T}}\right) = \sum_{\delta^{\prime}} P(\delta^{\prime}) \cdot \mathrm{V}\left(t+1, \delta^{\prime}, B^{\text{T}}+\operatorname{BED}_{10}(d)\right)$ \Comment{marginalised future value function}
+            \State $V_{t+1}\left(d, B^{\text{T}}\right) = \sum_{\delta^{\prime}} P(\delta^{\prime}) \cdot v_{t+1}\left(\delta^{\prime}, B^{\text{T}}+\operatorname{BED}_{10}(d)\right)$ \Comment{marginalised future value function}
             \State $r_{t}\left(d, B^{\text{T}}\right) = -\operatorname{BED}_{3}(d, \delta) - c(d, B^{\text{T}})$ \Comment{$c$ is penalty for not reaching prescription}
-            \State $V\left(t, \delta, B^{\text{T}}\right) \gets \max _{d}\left[ V_{t+1}(d, B^{\text{T}}) + r_t(d, B^{\text{T}}) \right]$ \Comment{Bellmann equation}
-            \State $\pi\left(t, \delta, B^{\text{T}}\right) \gets \operatorname{argmax}_{d}\left[V_{t+1}(d, B^{\text{T}}) + r_t(d, B^{\text{T}}) \right]$
+            \State $v_t \left(\delta, B^{\text{T}}\right) \gets \max _{d}\left[ r_t(d, B^{\text{T}}) + V_{t+1}(d, B^{\text{T}})\right]$ \Comment{Bellmann equation}
+            \State $\pi_t \left(\delta, B^{\text{T}}\right) \gets \operatorname{argmax}_{d}\left[r_t(d, B^{\text{T}}) + V_{t+1}(d, B^{\text{T}}) \right]$
         \EndIf
         \EndFor
     \end{algorithmic}
