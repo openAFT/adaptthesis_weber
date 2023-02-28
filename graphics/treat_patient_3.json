@@ -6,13 +6,13 @@
 	{
 	"number_of_fractions": 5,
 	"fraction": 0,
-	"sparing_factors": [0.75, 0.75, 0.85, 0.75, 0.75, 0.75],
+	"sparing_factors": [0.72, 0.79, 0.61, 0.83, 0.77, 0.78],
 	"shape": "invalid",
 	"scale": "invalid",
 	"shape_inv": "invalid",
 	"scale_inv": "invalid",
 	"prob_update": 0,
-	"fixed_mean": 0.75,
+	"fixed_mean": 0.72,
 	"fixed_std": 0.1,
 	"accumulated_oar_dose": 0,
 	"accumulated_tumor_dose": 0,
@@ -37,7 +37,7 @@
 "keys_simulation":
 	{
 	"plot_index": 0,
-	"c_list": [0, 1.2, 3.0],
+	"c_list": [0, 2.82],
 	"save": 1
 	}
 }
