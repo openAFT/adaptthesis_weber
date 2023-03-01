@@ -61,7 +61,7 @@ For the purpose of adaptive fractionation, treatment plans and the daily geometr
 
 where $d_{t}^{\text{N}}$ denotes the dose received by the dose-limiting OAR in fraction $t$ and $d_{t}$ the dose delivered to the tumor. Clinical practice of dose prescription and constraint specification is followed for the definition of $d_{t}^{\text{N}}$ and $d_{t}$: The dose to the OAR $d^{\text{N}}$ is defined as the dose exceeded in $1$cc of the OAR ($D_{1\text{cc}}$), which is a commonly used dose parameter for bowel, stomach or duodenum in SBRT treatments. The tumor dose $d_{t}$ is defined as the dose exceeded in $95\%$ of the PTV volume ($D_{95\%}$), which is a commonly used dose parameter for dose prescription and reporting \cite{ICRU50}\cite{ICRU62}.
 
-Each patient is thus described via a sequence of six sparing factors corresponding to the planning MR and the five treatment fractions. For each tumor every OAR was tracked, that was deemed potentially dose-limiting. For applying adaptive fractionation only patients with not changing dose-limiting OAR were analysed. Further assumed is that inter-fractional motion is random, such that $\delta$ is normal distributed with a patient specific mean $\mu$ and standard deviation $\sigma$
+Each patient is thus described via a sequence of six sparing factors corresponding to the planning MR and the five treatment fractions. For each tumor every OAR was tracked, that was deemed potentially dose-limiting. For applying adaptive fractionation only patients with not changing dose-limiting OAR were analysed. Further, assumed is that inter-fractional motion is random, such that $\delta$ is normal distributed with a patient specific mean $\mu$ and standard deviation $\sigma$
 \begin{equation*}
 \delta_t \sim \mathcal{N}(\mu,\sigma^2)
 \end{equation*}
@@ -183,7 +183,7 @@ yields
 \begin{equation*}
     B^{\text{N}}_n = \delta^2 n d_T(n) \left[ \frac{1}{\delta} - \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}\right] + \delta^2 B^{\text{T}}_n \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}
 \end{equation*}
-Note that the function is continuous and the second term is independent on $n$. Omitting this term and switching from subscript $n$ to a continous function, the BED $\bar{B}^{\text{N}}_n$ can be fitted to
+Note that the function is continuous, and the second term is independent on $n$. Omitting this term and switching from subscript $n$ to a continous function, the BED $\bar{B}^{\text{N}}_n$ can be fitted to
 \begin{equation}
     B^{\text{N}}(n; \delta) = \delta^2 n d_T(n) \left[ \frac{1}{\delta} - \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}\right]
 \end{equation}
@@ -384,7 +384,7 @@ We introduce a synthetic patient is introduced to further demonstrate the model 
 
 \paragraph{Patient Model:} In this case the patient model describes a manually chosen sequence of sparing factors for the synthetic patient. Through the retrospective treatment observed sparing factors of this synthetic patient are $\{\delta_\tau\}_{\tau=1}^{t=5} = \{\mu, \mu \pm \sigma, \mu,\mu, \mu \}$. In the second fraction a deviation from the mean sparing factor will appear to demonstrate the applied policy. Note the first sparing factor in fraction $\tau=0$ is the planning sparing factor and not sampled here, as it is not used. This, the constructed synthetic patient has sparing factor sequence of $0.75$ for all fractions except in the second fraction $\delta_2 = 0.65$. 
 
-\paragraph{Treatment Model:} The treatment model is planned with $n_{\text{max}}=5$ and $4$ desired number of fractions $n_{\text{pres}}=4$. Planned is the same treatment as with the real patient data, with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. For the parameter $C$ two values ($0, 1.2$) are demonstrate optimal policy. In addition, the optimal $C$ is evaluated according to the section about optimal reward. The evaluated $C_4$ to utilise on average $4$ fraction is $3.0$. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = 0.10$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinical case, where the tumor dose may be compromised due to the risk of violating OAR dose constraint.
+\paragraph{Treatment Model:} The treatment model is planned with $n_{\text{max}}=5$ and $4$ desired number of fractions $n_{\text{pres}}=4$. Planned is the same treatment as with the real patient data, with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. For the parameter $C$ two values ($0, 1.2$) are used to demonstrate optimal policy. In addition, the optimal $C$ is evaluated according to the section about optimal reward. The evaluated $C_4$ to utilise on average $4$ fraction is $3.0$. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = 0.10$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinical case, where the tumor dose may be compromised due to the risk of violating OAR dose constraint.
 
 \begin{figure}[!htb]
     \centering
