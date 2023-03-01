@@ -8,6 +8,11 @@
 #MacOS File
 .DS_Store
 
+# Images
+*.png
+*.jpg
+*.jpeg
+
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
 *.pdf
