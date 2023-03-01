@@ -214,7 +214,7 @@ The Bellman equation relates the value function in fraction $t$ to the optimal p
 \begin{equation}\label{eq:value_function}
     \begin{split}
     v_t(\delta, & B^{\text{T}}) = \underset{d}{\text{max}} \Biggr[
-    r_t(d, B^{\text{T}}) + \ldots \Biggr.\\
+    r_t(d, \delta, B^{\text{T}}) + \ldots \Biggr.\\
     & \Biggr. \sum_{\delta'}P(\delta')v_{t+1} \left( \delta', B^{\text{T}} + d + \frac{d^2}{(\alpha / \beta)_\text{T}} \right) \Biggr]
     \end{split}
 \end{equation}
@@ -222,7 +222,7 @@ and the policy reads
 \begin{equation}\label{eq:policy_function}
     \begin{split}
     \pi_t(\delta, & B^{\text{T}}) = \underset{d}{\text{argmax}} \Biggr[
-    r_t(d, B^{\text{T}}) + \ldots \Biggr.\\
+    r_t(d, \delta, B^{\text{T}}) + \ldots \Biggr.\\
     & \Biggr. \sum_{\delta'}P(\delta')v_{t+1} \left( \delta', B^{\text{T}} + d + \frac{d^2}{(\alpha / \beta)_\text{T}} \right) \Biggr]
     \end{split}
 \end{equation}
