@@ -307,9 +307,9 @@ The model described in this work was implemented into the existing codebase that
 
 \subsection{Results Real Data}
 
-For demonstration purposes a sparing factor sequence from real patient is used to apply the model. A patient who's sparing factors are exemplary to demonstrate the model, was chosen. The requirements are specified as: The sparing factors are large enough (between $0.8$ to $1.0$) that it represents a relevant case in which clinicians face the risk of compromising tumor BED, but sparing factors show large deviation to lower sparing factors, such that Adpative Fractionation is a promising strategy to mitigate this risk. In Tab.~\ref{tab:patient_sparing_factors} three candidates are shown that fulfill above requirements. For Adaptive Fractionation to be an advantageous strategy in this test setup, the sparing factors do not necessarily need large standard deviation. It is sufficient that only few sparing factors are exceptionally low compared to the mean, for Adaptive Fractionation to improve treatment quality. However, in clinical practice it is not possible to estimate whether one outling favourable sparing factor will appear through the course of the treatment, from only knowing the planning sparing factor. Rather one needs to estimate the variation of the sparing factor distribution, where outlying sparing factors are more likely for larger variation. For simplicity the treatment model assumes a fixed variation.
+For demonstration purposes a sparing factor sequence from real patients is used to apply the model. A patient who's sparing factors are exemplary to demonstrate the model, was chosen. The requirements are specified as: The sparing factors are large enough (between $0.8$ to $1.0$) that it represents a relevant case in which clinicians face the risk of compromising tumor BED, but sparing factors show large deviation to lower sparing factors, such that Adpative Fractionation is a promising strategy to mitigate this risk. In Tab.~\ref{tab:patient_sparing_factors} three candidates are shown that fulfill above requirements. For Adaptive Fractionation to be an advantageous strategy in this test setup, the sparing factors do not necessarily need large standard deviation. It is sufficient that only few sparing factors are exceptionally low compared to the mean, for Adaptive Fractionation to improve treatment quality. However, in clinical practice it is not possible to estimate whether one outling favourable sparing factor will appear through the course of the treatment, from only knowing the planning sparing factor. Rather one needs to estimate the variation of the sparing factor distribution, where outlying sparing factors are more likely for larger variation. For simplicity the treatment model assumes a fixed variation.
 
-\paragraph{Treatment Model:} The treatment model is the prescription for the patient. It is composed of a defined total number of fractions that can be used $n_{\text{max}}=5$, a constant $C$ steering the desired number of fractions $n_{\text{pres}}=4$ that should be used, tumor dose prescription and an assumption of the sparing factor probability distribution. The variation is chosen in terms of standard deviation $\sigma = 0.10$ and the mean to be the planning sparing factor $\mu=\delta_0$. Planned is a treatment with five fractions with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. For the parameter $C$ two values are chosen to show how the optimal policy behaves. First $C=0$ with no intention of reducing number of fractions, and additionally the optimal $C$ is evaluated according to the optimal reward section. The evaluated $C_4$ are $2.8, 2.0, 2.2$ for patients $3, 7, 13$ and is applied.
+\paragraph{Treatment Model:} The treatment model is the prescription for the patient. It is composed of a defined total number of fractions that can be used $n_{\text{max}}=5$, a constant $C$ steering the desired number of fractions $n_{\text{pres}}=4$ that should be used, tumor dose prescription and an assumption of the sparing factor probability distribution. The variation is chosen in terms of standard deviation $\sigma = 0.10$ and the mean to be the planning sparing factor $\mu=\delta_0$. Planned is a treatment with five fractions with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. For the parameter $C$ two values are chosen to show how the optimal policy behaves. First $C=0$ with no intention of reducing number of fractions, and additionally the optimal $C$ is evaluated according to the section about optimal reward. The evaluated $C_4$ are $2.8, 2.0, 2.2$ for patients $3, 7, 13$ and is applied.
 
 \begin{table}[!htb]
     \centering
@@ -376,9 +376,9 @@ For demonstration purposes a sparing factor sequence from real patient is used t
 
 We introduce a synthetic patient is introduced to further demonstrate the model on a sequence of sparing factors. The synthetic patient is a patient not based on real data, but manually specified data. The sparing factors of the synthetic patient are chosen such, that the patient represents a relevant case in which the prescribed tumor BED may be compromised. In this section we will look at the accumulated BED results, when applying the strategies of adaptive fractionation to the synthetic patient. Hence, an according treatment model is composed, that defines prescription to the patient. Demonstrations based on the synthetic patient and treatment model include: calculation of the optimal policy and retrospective application of this policy to the synthetic patient.
 
-\paragraph{Treatment Model:} The treatment model is planned with $n_{\text{max}}=5$ and $4$ desired number of fractions $n_{\text{pres}}=4$. Planned is the same treatment as with the real patient data, with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. For the parameter $C$ two values ($0, 1,2$) are chosen to show how the optimal policy behaves. In addition, the optimal $C$ is evaluated according to the optimal reward section. The evaluated $C_4$ is $3.0$ and is applied. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = 0.10$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinical case, where the tumor dose may be compromised due to the risk of violating OAR dose constraint.
+\paragraph{Treatment Model:} The treatment model is planned with $n_{\text{max}}=5$ and $4$ desired number of fractions $n_{\text{pres}}=4$. Planned is the same treatment as with the real patient data, with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. For the parameter $C$ two values ($0, 1.2$) are demonstrate optimal policy. In addition, the optimal $C$ is evaluated according to the section about optimal reward. The evaluated $C_4$ to utilise on average $4$ fraction is $3.0$. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = 0.10$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinical case, where the tumor dose may be compromised due to the risk of violating OAR dose constraint.
 
-\paragraph{Patient Model:} In this cas the patient model describes a manually chosen sequence of sparing factors for the synthetic patient. Through the retrospective treatment observed sparing factors of this synthetic patient are $\{\delta_\tau\}_{\tau=1}^{t=5} = \{\mu, \mu \pm \sigma, \mu,\mu, \mu \}$. In the second fraction a deviation from the mean sparing factor will appear to demonstrate the applied policy. Note the first sparing factor in fraction $\tau=0$ is the planning sparing factor and not sampled here, as it is not used.
+\paragraph{Patient Model:} In this case the patient model describes a manually chosen sequence of sparing factors for the synthetic patient. Through the retrospective treatment observed sparing factors of this synthetic patient are $\{\delta_\tau\}_{\tau=1}^{t=5} = \{\mu, \mu \pm \sigma, \mu,\mu, \mu \}$. In the second fraction a deviation from the mean sparing factor will appear to demonstrate the applied policy. Note the first sparing factor in fraction $\tau=0$ is the planning sparing factor and not sampled here, as it is not used.
 
 \begin{figure}[!htb]
     \centering
@@ -387,7 +387,7 @@ We introduce a synthetic patient is introduced to further demonstrate the model 
     \label{fig:treat_patient_synthetic}
 \end{figure}
 
-The constructed synthetic patient has sparing factor sequence of $0.75$ for all fractions except in the second fraction $\delta_2 = 0.65$.  Applying the treatment model to the synthetic patient, the cumulative BED $B_5^{\text{N}}$ for $C=0$ results in $80.8$ Gy. Comparing this to uniform fractionation (delivering $8$ Gy physical dose to the tumor in each fraction) yields a BED$_3$ of $18$ Gy for each fraction with $\delta=0.75$ and a BED$_3$ of $14.21$ Gy for $\delta_2=0.65$, resulting in $86.21$ Gy cumulative BED $B_5^{\text{N}}$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $5.41$ Gy less cumulative BED $B_5^{\text{N}}$ compared to uniform fractionation. Applying Adaptive Fractionation with $C=1.2$ and $C=1.3$ results in the treatment terminating with $4$ respectively $2$ fractions (see Fig.~\ref{fig:treat_patient_synthetic}) while still delivering less cumulative BED $B_5^{\text{N}}$ than uniform fractionation and reaching prescribed tumor dose of $72$ Gy. In Tab.~\ref{tab:result_treat_fraction_4} the comparison is summarised.
+The constructed synthetic patient has sparing factor sequence of $0.75$ for all fractions except in the second fraction $\delta_2 = 0.65$.  Applying the treatment model to the synthetic patient, the cumulative BED $B_5^{\text{N}}$ for $C=0$ results in $80.8$ Gy. Comparing this to uniform fractionation (delivering $8$ Gy physical dose to the tumor in each fraction) yields a BED$_3$ of $18$ Gy for each fraction with $\delta=0.75$ and a BED$_3$ of $14.21$ Gy for $\delta_2=0.65$, resulting in $86.21$ Gy cumulative BED $B_5^{\text{N}}$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $5.41$ Gy less cumulative BED $B_5^{\text{N}}$ compared to uniform fractionation. Applying Adaptive Fractionation with $C=1.2$ and $C=3.0$ results in the treatment terminating with $4$ respectively $2$ fractions (see Fig.~\ref{fig:treat_patient_synthetic}) while still delivering less cumulative BED $B_5^{\text{N}}$ than uniform fractionation and reaching prescribed tumor dose of $72$ Gy. In Tab.~\ref{tab:result_treat_fraction_4} the comparison is summarised.
 
 \begin{table}[!htb]
     \centering
@@ -399,14 +399,16 @@ The constructed synthetic patient has sparing factor sequence of $0.75$ for all 
         Synthetic   & UF &  $86.2$ & 5 \\
                     & AF $C=0$ & $80.8$ & 5 \\
                     & AF $C=1.2$ & $82.0$ & 4 \\
-                    & AF $C=1.3$ & $83.8$ & 2 \\
+                    & AF $C=3.0$ & $83.9$ & 2 \\
      
     \bottomrule
     \end{tabular}
     \label{tab:result_treat_fraction_4}
 \end{table}
 
-Presented are the corresponding value functions. To interpret the results the policy as well as the expected remaining number of fractions for the treatment model are shown.
+Presented are the corresponding value functions in Fig.~\ref{fig:treat_values}, \ref{fig:treat_values_single}, \ref{fig:treat_values_c} and \ref{fig:treat_values_single_c}. To interpret the results of the value function, the policy and the expected remaining number of fractions for the treatment model are shown.
+
+Optimal policy for the treatment model with $\sigma=0.1$ and $C=0$ applied for the synthetic patient can be seen in Fig.~\ref{fig:treat_policy} and Fig.~\ref{fig:treat_policy_single}.
 
 \begin{figure}[!htb]
     \centering
@@ -425,18 +427,16 @@ Presented are the corresponding value functions. To interpret the results the po
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_values.pdf}
-    \caption{Value function for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=1.2$.}
+    \caption{Value function for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=3.0$.}
     \label{fig:treat_values_c}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_values_single.pdf}
-    \caption{Value function in the last fraction for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and arbitrary $C=1.2$.}
+    \caption{Value function in the last fraction for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and arbitrary $C=0$ or $C=3.0$.}
     \label{fig:treat_values_single_c}
 \end{figure}
-
-Optimal policy for the treatment model with $\sigma=0.1$ and $C=0$ applied for the synthetic patient can be seen in Fig.~\ref{fig:treat_policy} and Fig.~\ref{fig:treat_policy_single}.
 
 \begin{figure}[!htb]
     \centering
@@ -445,16 +445,16 @@ Optimal policy for the treatment model with $\sigma=0.1$ and $C=0$ applied for t
     \label{fig:treat_policy}
 \end{figure}
 
-For parameter $C=1.2$ the optimal policy is displayed in Fig.~\ref{fig:treat_policy_c} and Fig.~\ref{fig:treat_policy_single}. In each fraction there is one plateau at in each policy function. Landing on such a plateau in the state space, means the optimal policy is to deliver the remaining dose to finish the treatment in the current fraction.
+For parameter $C=3.0$ the optimal policy is displayed in Fig.~\ref{fig:treat_policy_c} and Fig.~\ref{fig:treat_policy_single}. In each fraction there is a single plateau visible in the policy function. These plateaux are an area in the state space, that deliver exactly the remaining dose. Landing on such a plateau in the state space, means the optimal policy is to deliver the remaining dose to finish the treatment in the current fraction.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_policy_c.pdf}
-    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=1.2$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the sparing factor.}
+    \caption{Optimal policy for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=3.0$. Policy of the last fraction is not shown as it applies the remaining dose regardless of the sparing factor.}
     \label{fig:treat_policy_c}
 \end{figure}
 
-For the case in which $C=0$ and $\sigma=0.1$ in the expected remaining number of fractions Fig.~\ref{fig:treat_remains_c} appears one and very narrow plateau on the bottom for states close to the prescribed tumor dose. This plateau corresponds to the states where the optimal policy will finish the treatment in the current fraction. Realistically this plateau will not be reached if the optimal dose in the previous fraction is delivered.
+For the case $C=0$ and $\sigma=0.1$ in the expected remaining number of fractions Fig.~\ref{fig:treat_remains_c} appears one very narrow plateau on the bottom, for states close to the prescribed tumor dose. The plateau is not visible in the policy. This plateau corresponds to the states where the optimal policy will finish the treatment in the current fraction. Realistically this plateau will not be reached if the optimal dose in the previous fraction is delivered.
 
 \begin{figure}[!htb]
     \centering
@@ -463,21 +463,19 @@ For the case in which $C=0$ and $\sigma=0.1$ in the expected remaining number of
     \label{fig:treat_remains}
 \end{figure}
 
-In Fig.~\ref{fig:treat_remains_c} the case $C=1.2$, $\sigma=0.1$ is displayed. Compared to Fig.~\ref{fig:treat_remains} the plateau in each fraction spans through nearly all the accumulated dose states $B^{\text{T}}$. And compared to Fig.~\ref{fig:treat_remains_c_plat} no plateau steps but rather a pronounced gradient to larger expected remaining number of fractions appear. In fraction $t=4$ the expected remaining number is binary, as the treatment either finishes in the current fraction $t=4$ or one additional fraction will be used, such that the treatment is finished in fraction $t=5$.
+In Fig.~\ref{fig:treat_remains_c} the case $C=3.0$, $\sigma=0.1$ is displayed. Compared to Fig.~\ref{fig:treat_remains} the plateau in each fraction spans through nearly all the accumulated dose states $B^{\text{T}}$. Comparing the plateaux of the expected remaining number of fractions to the policy they cover the same space. In fraction $t=4$ the expected remaining number is binary, as the treatment either finishes in the current fraction $t=4$ or one additional fraction will be used, such that the treatment is finished in fraction $t=5$. Moving one fraction back to $t=3$ a plateau step is visible again. Between the plateau $\varepsilon = 0$ and $\varepsilon = 2$ there is a gradient pronounced where $\varepsilon$ takes values between $0,1$. Such a gradient is also visible for fraction $t=1$ and $t=2$
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_remains_c.pdf}
-    \caption{Expected remaining number of fractions for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=1.2$. Last fraction is not shown as it is zero for every state.}
+    \caption{Expected remaining number of fractions for a 5 fraction treatment with assumed normal distribution $\mu=0.75$, $\sigma=0.1$ and $C=3.0$. Last fraction is not shown as it is zero for every state.}
     \label{fig:treat_remains_c}
 \end{figure}
 
 \section{Patient Data and Treatment Plans}
+In the results section, real patient data was used to evaluate the model. We looked for patients that are relevant in clinical practice e.g. patients with high sparing factors where the risk of compromising tumor dose is high. And additionally, where sparing factor varies greatly, such that applying Adaptive Fractionation is beneficial for the patient. The show that there exist a benefit for the patient in terms of reducing OAR BED we collected data from patients from three target sites, to look for prospective candidates evaluating the model and discuss if either target sites provide patients where Adaptive Fractionation is beneficial.
 
 Considered are patients with abdominal tumors in proximity to either bowel, stomach or duodenum and prostate cancer in proximity to the rectum. For prostate cases urethra and bladder are ignored. These patients received 5-fraction SBRT treatments at the MR-Linac system (MRIdian, Viewray). All patients were planned and treated according to institutional practice. In addition to the simulation MR and CT scans, daily MR scans were performed for on-line adaptive radiotherapy. Tumors and OARs in a $2$cm ring around the tumor were recontoured according to institutional guidelines and daily adaptive treatment plans were created. In each fraction the dose distributions were reoptimised, to adapt to inter-fractional changes, without altering the prescription dose.
-
-\subsection{Motivation}
-Thus far we described and demonstrated the optimal policy with exemplary synthetic patients (sparing factors). In a next step the goal was to find a target in clinical practice which is suitable for applying the model. A prospective candidate target ideally shows large expected variation in sparing factors. We decided to also look at correlation between spatial distance in target-OAR pair and sparing factor to see if one can intuitively guess the quality of the sparing factor.
 
 
 \subsection{Methods}

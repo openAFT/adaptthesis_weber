@@ -19,7 +19,7 @@
 	"min_dose": 0,
 	"max_dose": -1,
 	"tumor_goal": 72,
-	"c": 1.2
+	"c": 3.0
 	},
 "settings":
 	{
