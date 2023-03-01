@@ -9,7 +9,7 @@
 
 \vspace{3cm}
   {\bfseries
-	\Large\textbf{Adaptive Fractionation at the MR-Linac II}
+	\Large\textbf{Adaptive Fractionation for Reducing Number of Fractions}
 	}\\[14pt]
 	{Master Thesis - Medical Physics}\\[1pt]
 	\textsc{University of Zurich, Department of Physics}
@@ -41,8 +41,9 @@ Dr. Riccardo Dal Bello\\[10pt]
 
     Objective: Fractionated radiotherapy typically delivers the same dose in each fraction. Adaptive fractionation is a technique proposed by Pérez Haas \cite{perezhaas_adaptive} to exploit inter-fraction motion by increasing the dose on days when the distance of tumor and dose-limiting OAR is large and decreasing the dose on unfavourable days. Developed is an extension of the adaptive fractionation model to minimise number of fractions used for a treatment. On favourable days the dose is further increased to possibly finish the treatment in an earlier fraction and on unfavourable days dose modification is conformed to adaptive fractionation utilising the prescribed number of fractions. The extended concept is evaluated for patients with pancreas, adrenal glands and prostate tumors previously treated at the MR-Linac in 5 fractions with ablative dose.
 
-    Approach: Given daily adapted treatment plans, inter-fractional changes are quantified by sparing factors $\delta_t$ defined as the OAR-to-tumor dose ratio. The key problem of adaptive fractionation is to decide on the dose to deliver in fraction $t$, given $\delta_t$ and the dose delivered in previous fractions, but not knowing future $\delta_t$s. Optimal doses that minimise the expected biologically effective dose in the OAR BED$_{3}$ and the expected number of remaining fractions, while delivering a minimal tumor BED$_{10}$ prescription dose are computed using dynamic programming, assuming a normal distribution over $\delta$ with mean and variance estimated from previously observed patient-specific $\delta_t$s. The algorithm is evaluated for 10 pancreas and 10 prostate patients in whom tumor dose was compromised due to proximity of bowel, stomach, or duodenum in the former and rectum in the latter. Additionally the algorithm is evaluated with 10 adrenal glands patients in whom tumor dose prescriptions were reliably met and dose limiting OAR dose was substantially below constraints.
-	?? Write discussion ??
+    Approach: Given daily adapted treatment plans, inter-fractional changes are quantified by sparing factors $\delta_t$ defined as the OAR-to-tumor dose ratio. The key problem of adaptive fractionation is to decide on the dose to deliver in fraction $t$, given $\delta_t$ and the dose delivered in previous fractions, but not knowing future $\delta_t$s. Optimal doses that minimise the expected biologically effective dose in the OAR BED$_{3}$ and the expected number of remaining fractions, while delivering a minimal tumor BED$_{10}$ prescription dose are computed using dynamic programming, assuming a normal distribution over $\delta$ with mean and variance estimated from previously observed patient-specific $\delta_t$s. Collected were data of $30$ patients from the MR-Linac treatment planning system for pancreas, adrenal glands and prostate cancer. The algorithm is evaluated for $2$ pancreas and $1$ adrenal glands patients in whom tumor dose was compromised due to proximity of bowel, stomach, or duodenum in the former and rectum in the latter.
+
+	Main Results: 
 	
 \end{abstract}
 
