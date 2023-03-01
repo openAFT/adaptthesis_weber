@@ -171,11 +171,25 @@ The penalty parameter $C$ can be viewed as a marginal cost with units BED per fr
 \begin{equation*}
     \bar{B}^{\text{N}}_{n_{\text{pres}}} - \bar{B}^{\text{N}}_{n_{\text{pres}}+1} \geq C
 \end{equation*}
-To translate the problem into a continuous optimisation problem, the average terminal cumulative BED $\bar{B}^{\text{N}}_n$ will be fitted to the function
+
+\subsubsection{Fractionation Decision}
+To translate the problem into a continuous optimisation problem, the average terminal cumulative BED $\bar{B}^{\text{N}}_n$ will be modeled according to optimal fractionation decision-making. To minimise cumulative OAR BED $B^{\text{N}}_n$ for a fixed fraction size $d_{\tau}$ and constant sparing factor with respect to the number of fractions $n$
+\begin{equation*}
+    \underset{n}{\text{min}} \left[ B^{\text{N}}_n \right] = \underset{n}{\text{min}} \left[ n \delta_\tau d_\tau( 1 +\frac{\delta_\tau d_\tau}{({\alpha}/{\beta})_\text{N}}) \right]
+\end{equation*}
+subject to tumor dose prescription
+\begin{equation*}
+    B^{\text{T}}_n = n d_\tau( 1 +\frac{d_\tau}{({\alpha}/{\beta})_\text{T}})
+\end{equation*}
+yields
+\begin{equation*}
+    B^{\text{N}}_n = \delta^2 n d_T(n) \left[ \frac{1}{\delta} - \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}\right] + \delta^2 B^{\text{T}}_n \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}
+\end{equation*}
+Note that the function is continuous and the second term is independent on $n$. Omitting this term and switching from subscript $n$ to a continous function, the BED $\bar{B}^{\text{N}}_n$ can be fitted to
 \begin{equation}
     B^{\text{N}}(n; \delta) = \delta^2 n d_T(n) \left[ \frac{1}{\delta} - \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}\right]
 \end{equation}
-?? compare $\delta=\mu$ to averaged $B_n$, also explain how one has derived on this??
+$\delta=\mu$ to averaged $B_n$, also explain how one has derived on this??
 where $d_T$ is the physical dose
 \begin{equation*}
     d_T(n) = \frac{\sqrt{n (\alpha / \beta)_T (n (\alpha / \beta)_T + 4 B_{\text{pres}}^{\text{T}})} - n (\alpha / \beta)_T}{2n}
@@ -191,6 +205,7 @@ In Fig.~\ref{fig:cost_function} for $n_{\text{pres}}=5$ prescribed number of fra
 \caption{Cost function $B^{\text{N}}_n$ for a gaussian sparing factor distribution $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Sampled are $1000$ patients with 5 fractiona each that stem from a gaussian distribution with $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Values fitted with $B^{\text{N}}(n; \delta)$.}
 \label{fig:cost_function}
 \end{figure}
+Also plotted in Fig.~\ref{fig:cost_function} is the fitting function $B^{\text{N}}(n; \delta=\mu)$ the cost is slightly higher when compared to the fit $B^{\text{N}}(n; \delta=0.89)$. Averaging the cumulative BED for $1000$ Patients each and fitting to the function $B^{\text{N}}(n;\delta)$ results in the fit parameter ($\delta$) being lower than the sparing mean $\mu=0.9$ from the sample distribution. On average Adaptive Fractionation yields slightly lower cumulative OAR BED $B^{\text{N}}$, which is reflected by a lower sparing factor as fit parameter.
 
 
 \subsection{Dynamic Programming Algorithm}
@@ -256,7 +271,7 @@ as the in the last fraction no additional fractions are used.
 
 \subsection{Quantification of Benefit}
 
-The treatment plans given by Adaptive Fractionation is compared benchmarked with the following treatments:
+The treatment plans given by Adaptive Fractionation is compared benchmarked with the following treatments
 
 \begin{enumerate}
     \item A reference treatment in which $5 \times 8$ Gy physical dose ($14.4$ Gy BED$_{10}$, $72$ Gy $B_5^{\text{T}}$) is prescribed to the tumor in each fraction. Hence, the reference treatment delivers exactly $72$ Gy BED$_{10}$ to the tumor. It is assumed that prescribed tumor BED may be delivered to patients without compromising OAR BED constraint in the dose-limiting OAR.
@@ -271,7 +286,7 @@ The treatment plans given by Adaptive Fractionation is compared benchmarked with
 %    \end{equation}
 %    This treatment would optimally exploit the variation in $\delta$ and can thus be used to benchmark the benefit of adaptive fractionation. However, it represents an unachievable upper bound for any realistic approach to adaptive fractionation where future sparing factors are unknown.
 
-    \item The clinically delivered treatment has an upper limit of $5 \times 6$ Gy physical dose ($18$ Gy BED$_{3}$, $90$ Gy $B_5^{\text{N}}$ cumulative BED on the dose-limiting OAR). The clinical treatment aims to deliver the fixed prescription dose $5 \times 8$ Gy physical dose to the tumor in each fraction and may deliver less than $14.4$ Gy BED$_{10}$, in case the BED$_{3}$ OAR constraint is compromised. ?? remove this ??
+    % \item The clinically delivered treatment has an upper limit of $5 \times 6$ Gy physical dose ($18$ Gy BED$_{3}$, $90$ Gy $B_5^{\text{N}}$ cumulative BED on the dose-limiting OAR). The clinical treatment aims to deliver the fixed prescription dose $5 \times 8$ Gy physical dose to the tumor in each fraction and may deliver less than $14.4$ Gy BED$_{10}$, in case the BED$_{3}$ OAR constraint is compromised.
 \end{enumerate}
 
 \subsection{Code Repository}
@@ -292,7 +307,9 @@ The model described in this work was implemented into the existing codebase that
 
 \subsection{Results Real Data}
 
-For demonstration purposes a sparing factor sequence from real patient is used. A patient who's sparing factors are exemplary to demonstrate the model, was chosen: The sparing factors are large enough (between $0.8$ to $1.0$) that it represents a relevant case in which clinicians face the risk of compromising tumor BED, but sparing factors have such a large variation (standard deviation larger than $0.05$), that Adpative Fractionation is a promising strategy to mitigate this risk. 
+For demonstration purposes a sparing factor sequence from real patient is used to apply the model. A patient who's sparing factors are exemplary to demonstrate the model, was chosen. The requirements are specified as: The sparing factors are large enough (between $0.8$ to $1.0$) that it represents a relevant case in which clinicians face the risk of compromising tumor BED, but sparing factors show large deviation to lower sparing factors, such that Adpative Fractionation is a promising strategy to mitigate this risk. In Tab.~\ref{tab:patient_sparing_factors} three candidates are shown that fulfill above requirements. For Adaptive Fractionation to be an advantageous strategy in this test setup, the sparing factors do not necessarily need large standard deviation. It is sufficient that only few sparing factors are exceptionally low compared to the mean, for Adaptive Fractionation to improve treatment quality. However, in clinical practice it is not possible to estimate whether one outling favourable sparing factor will appear through the course of the treatment, from only knowing the planning sparing factor. Rather one needs to estimate the variation of the sparing factor distribution, where outlying sparing factors are more likely for larger variation. For simplicity the treatment model assumes a fixed variation.
+
+\paragraph{Treatment Model:} The treatment model is the prescription for the patient. It is composed of a defined total number of fractions that can be used $n_{\text{max}}=5$, a constant $C$ steering the desired number of fractions $n_{\text{pres}}=4$ that should be used, tumor dose prescription and an assumption of the sparing factor probability distribution. The variation is chosen in terms of standard deviation $\sigma = 0.10$ and the mean to be the planning sparing factor $\mu=\delta_0$. Planned is a treatment with five fractions with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. For the parameter $C$ two values are chosen to show how the optimal policy behaves. First $C=0$ with no intention of reducing number of fractions, and additionally the optimal $C$ is evaluated according to the optimal reward section. The evaluated $C_4$ are $2.8, 2.0, 2.2$ for patients $3, 7, 13$ and is applied.
 
 \begin{table}[!htb]
     \centering
@@ -307,7 +324,7 @@ For demonstration purposes a sparing factor sequence from real patient is used. 
      
     \bottomrule
     \end{tabular}
-    \label{tab:pancreas_sparing_factors}
+    \label{tab:patient_sparing_factors}
 \end{table}
 
 \begin{figure}[!htb]
@@ -320,24 +337,48 @@ For demonstration purposes a sparing factor sequence from real patient is used. 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_patient_7.pdf}
-    \caption{Adaptive fractionated therapy for a 5 fraction treatment applied to patient $7$. Normal distribution is estimated from the planning sparing factor $\mu=\delta_0=0.75$, $\sigma=0.1$.}
+    \caption{Adaptive fractionated therapy for a 5 fraction treatment applied to patient $7$. Normal distribution is estimated from the planning sparing factor $\mu=\delta_0=0.64$, $\sigma=0.1$.}
     \label{fig:treat_patient_7}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_patient_13.pdf}
-    \caption{Adaptive fractionated therapy for a 5 fraction treatment applied to patient $13$. Normal distribution is estimated from the planning sparing factor $\mu=\delta_0=0.75$, $\sigma=0.1$.}
+    \caption{Adaptive fractionated therapy for a 5 fraction treatment applied to patient $13$. Normal distribution is estimated from the planning sparing factor $\mu=\delta_0=0.84$, $\sigma=0.1$.}
     \label{fig:treat_patient_13}
 \end{figure}
 
+\begin{table}[!htb]
+    \centering
+    \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$.}
+    \begin{tabular}{cl|cc}
+    \toprule
+        Patient & Fractionation & $B_5^{\text{N}}$ [Gy] & $n_{\text{frac}}$ \\
+    \midrule
+        3  & UF         & $91.8$ & 5 \\
+           & AF $C=0$   & $75.1$ & 5 \\
+           & AF $C=2.8$ & $75.6$ & 2 \\
+    \midrule
+        7  & UF         & $79.0$ & 5 \\
+           & AF $C=0$   & $76.2$ & 5 \\
+           & AF $C=2.0$ & $79.5$ & 4 \\
+    \midrule
+        13 & UF        & $120.3$ & 5 \\
+          & AF $C=0$   & $123.1$ & 5 \\
+          & AF $C=2.2$ & $123.1$ & 5 \\
+     
+    \bottomrule
+    \end{tabular}
+    \label{tab:result_treat_patient}
+\end{table}
+
 \subsection{Results Synthetic Data}
 
-In this section a synthetic patient is introduced to further demonstrate the model on a sequence of sparing factor. The synthetic patient is a patient not based on real data, but manually specified data. The sparing factors of the synthetic patient are chosen such, that the patient represents a relevant case in which the prescribed tumor BED may be compromised. In this section we will look at the accumulated BED results when applying the strategies of adaptive fractionation to both patients. Hence, an according treatment model is composed, that defines prescription to a patient. Demonstrations based on the synthetic patient and treatment model include: calculation of the optimal policy and retrospective application of this policy to the synthetic patient.
+We introduce a synthetic patient is introduced to further demonstrate the model on a sequence of sparing factors. The synthetic patient is a patient not based on real data, but manually specified data. The sparing factors of the synthetic patient are chosen such, that the patient represents a relevant case in which the prescribed tumor BED may be compromised. In this section we will look at the accumulated BED results, when applying the strategies of adaptive fractionation to the synthetic patient. Hence, an according treatment model is composed, that defines prescription to the patient. Demonstrations based on the synthetic patient and treatment model include: calculation of the optimal policy and retrospective application of this policy to the synthetic patient.
 
-\paragraph{Treatment Model:} The treatment model is defined as the prescription, including assumptions for the sparing factor distribution. It is composed of a defined total number of fractions that can be used, a constant $C$ steering the desired number of fractions that should be used, tumor dose prescription and an assumption of the sparing factor probability distribution. Planned is a treatment with five fractions with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. For the parameter $C$ multiple values are chosen to show how the optimal policy behaves. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = 0.10$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinical, where the tumor dose may be compromised due to the risk of reaching OAR dose constraint.
+\paragraph{Treatment Model:} The treatment model is planned with $n_{\text{max}}=5$ and $4$ desired number of fractions $n_{\text{pres}}=4$. Planned is the same treatment as with the real patient data, with a tumor BED prescription of $72$ Gy which corresponds to a physical fraction dose of $8$ Gy delivered in $5$ fractions. For the parameter $C$ two values ($0, 1,2$) are chosen to show how the optimal policy behaves. In addition, the optimal $C$ is evaluated according to the optimal reward section. The evaluated $C_4$ is $3.0$ and is applied. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = 0.10$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinical case, where the tumor dose may be compromised due to the risk of violating OAR dose constraint.
 
-\paragraph{Patient Model:} For the synthetic patient, the patient model describes a manually chosen sequence of sparing factors. Through the retrospective treatment observed sparing factors of this synthetic patient are $\{\delta_\tau\}_{\tau=1}^{t=5} = \{\mu, \mu \pm \sigma, \mu,\mu, \mu \}$. In the second fraction a deviation from the mean sparing factor will appear to demonstrate the applied policy. Note the first sparing factor in fraction $\tau=0$ is the planning sparing factor and not sampled here, as it is not used.
+\paragraph{Patient Model:} In this cas the patient model describes a manually chosen sequence of sparing factors for the synthetic patient. Through the retrospective treatment observed sparing factors of this synthetic patient are $\{\delta_\tau\}_{\tau=1}^{t=5} = \{\mu, \mu \pm \sigma, \mu,\mu, \mu \}$. In the second fraction a deviation from the mean sparing factor will appear to demonstrate the applied policy. Note the first sparing factor in fraction $\tau=0$ is the planning sparing factor and not sampled here, as it is not used.
 
 \begin{figure}[!htb]
     \centering
@@ -346,26 +387,26 @@ In this section a synthetic patient is introduced to further demonstrate the mod
     \label{fig:treat_patient_synthetic}
 \end{figure}
 
-Applying the treatment model to the synthetic patient with a sparing factor sequence of $0.75$ for all fractions except in the second fraction $\delta_2 = 0.65$, the cumulative BED $B_5^{\text{N}}$ for $C=0$ is $80.8$ Gy. Comparing this to uniform fractionation (delivering $8$ Gy physical dose to the tumor in each fraction) yields a BED$_3$ of $18$ Gy for each fraction with $\delta=0.75$ and a BED$_3$ of $14.21$ Gy for $\delta_2=0.65$, resulting in $86.21$ Gy cumulative BED $B_5^{\text{N}}$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $5.41$ Gy less cumulative BED $B_5^{\text{N}}$ compared to uniform fractionation. Applying Adaptive Fractionation with $C=1.2$ and $C=1.3$ results in the treatment terminating with $4$ respectively $2$ fractions (see Fig.~\ref{fig:treat_patient_synthetic}) while still delivering less cumulative BED $B_5^{\text{N}}$ than uniform fractionation and reaching prescribed tumor dose of $72$ Gy. In Tab.~\ref{tab:result_treat_fraction_4} the comparison is summarised.
+The constructed synthetic patient has sparing factor sequence of $0.75$ for all fractions except in the second fraction $\delta_2 = 0.65$.  Applying the treatment model to the synthetic patient, the cumulative BED $B_5^{\text{N}}$ for $C=0$ results in $80.8$ Gy. Comparing this to uniform fractionation (delivering $8$ Gy physical dose to the tumor in each fraction) yields a BED$_3$ of $18$ Gy for each fraction with $\delta=0.75$ and a BED$_3$ of $14.21$ Gy for $\delta_2=0.65$, resulting in $86.21$ Gy cumulative BED $B_5^{\text{N}}$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $5.41$ Gy less cumulative BED $B_5^{\text{N}}$ compared to uniform fractionation. Applying Adaptive Fractionation with $C=1.2$ and $C=1.3$ results in the treatment terminating with $4$ respectively $2$ fractions (see Fig.~\ref{fig:treat_patient_synthetic}) while still delivering less cumulative BED $B_5^{\text{N}}$ than uniform fractionation and reaching prescribed tumor dose of $72$ Gy. In Tab.~\ref{tab:result_treat_fraction_4} the comparison is summarised.
 
 \begin{table}[!htb]
     \centering
     \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_2=0.65$}
-    \begin{tabular}{l|cc}
+    \begin{tabular}{cl|cc}
     \toprule
-        Fractionation & $B_5^{\text{N}}$ [Gy] & $n_{\text{frac}}$ \\
+        Patient & Fractionation & $B_5^{\text{N}}$ [Gy] & $n_{\text{frac}}$ \\
     \midrule
-       UF &  $86.2$ & 5 \\
-       AF $C=0$ & $80.8$ & 5 \\
-       AF $C=1.2$ & $82.0$ & 4 \\
-       AF $C=1.3$ & $83.8$ & 2 \\
+        Synthetic   & UF &  $86.2$ & 5 \\
+                    & AF $C=0$ & $80.8$ & 5 \\
+                    & AF $C=1.2$ & $82.0$ & 4 \\
+                    & AF $C=1.3$ & $83.8$ & 2 \\
      
     \bottomrule
     \end{tabular}
     \label{tab:result_treat_fraction_4}
 \end{table}
 
-Presented are the corresponding value functions and policy for the treatment model.
+Presented are the corresponding value functions. To interpret the results the policy as well as the expected remaining number of fractions for the treatment model are shown.
 
 \begin{figure}[!htb]
     \centering
@@ -614,7 +655,7 @@ Described and illustrated are the other treatment model regarding policy, value 
 
 \subsubsection{Treatment Model}
 
-For the parameter $C$ multiple values are chosen to show how the optimal policy behaves. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = \{ 0.001, 0.05, 0.10, 0.15\}$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinically interesting case, where the tumor dose may be compromised due to the risk of reaching OAR dose constraint. Provided enough variation in such a case Adaptive Fractionation could bring a benefit to patients, by reducing cumulative dose to OAR.
+For the parameter $C$ multiple values are chosen to show how the optimal policy behaves. The sparing factor probability distribution is assumed to be normal distributed with mean $\mu=0.75$ and standard deviation $\sigma = \{ 0.001, 0.05, 0.10, 0.15\}$. A sequence of sparing factors close to $0.75$ in every fraction, corresponds to the clinically interesting case, where the tumor dose may be compromised due to the risk of violating OAR dose constraint. Provided enough variation in such a case Adaptive Fractionation could bring a benefit to patients, by reducing cumulative dose to OAR.
 
 \subsubsection{Policy}
 
