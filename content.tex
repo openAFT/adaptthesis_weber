@@ -155,7 +155,7 @@ A characteristic of the specified MDP model is that the cumulative BED delivered
 \paragraph{Environment Model:} The model of the environment provides the probability of    arriving in state $s_{t+1} = (\delta_{t+1}, B^T_{t})$ with reward $r_t$, starting from state $s_t$ and choosing action $d_t$. Arriving at the cumulative tumor BED $B^T_{t}$ is deterministic, as it is dependent on the previous delivered tumor BED plus action $d_t$. Arriving at the sparing factor $\delta_{t+1}$ however is a stochastic process, where $\delta$ is assumed to be normal distributed. Establishing an assumption of the environment model, completely characterises the dynamics of the Markov Process.
 
 \subsubsection{Reward Construction}
-??be more clear about rational?? Achieved should be an adaptive fractionation model that accurately steers the expected number of fractions necessary to attain a prescription tumor BED for a treatment. To determine the optimal parameter $C$ a discrete optimisation problem is formulated. To that end a penalty in the form of Eq.~\eqref{eq:penalty} with $C=0$, prescription dose $B_{\text{pres}}^{\text{T}}$ and expected probability distribution $P(\delta)$ is set. Defining a treatment for $n$ number of fractions, calculating the Bellmann Equations with these stipulations and applying the optimal policy to a set of sparing factors $\{\delta_\tau\}_{\tau=1}^{n}$, yields terminal cumulative BED $B^{\text{N}}_n$. Repeating this process by sampling sets of $\{\delta_\tau\}_{\tau=1}^{n}$ and averaging $B^{\text{N}}_n$ yields an estimate of the average terminal accumulated BED in the OAR written as $\bar{B}^{\text{N}}_n$. This is interpreted as a cost function, seeked to be minimal. In Fig.~\ref{fig:treat_policy_sigma} the qualitative example with terminal cumulative BED's $B^{\text{N}}_n$ can be seen.
+Achieved should be an adaptive fractionation model that accurately steers the expected number of fractions necessary to attain a prescription tumor BED for a treatment. To determine the optimal parameter $C$ a discrete optimisation problem is formulated. To that end a penalty in the form of Eq.~\eqref{eq:penalty} with $C=0$, prescription dose $B_{\text{pres}}^{\text{T}}$ and expected probability distribution $P(\delta)$ is set. Defining a treatment for $n$ number of fractions, calculating the Bellmann Equations with these stipulations and applying the optimal policy to a set of sparing factors $\{\delta_\tau\}_{\tau=1}^{n}$, yields terminal cumulative BED $B^{\text{N}}_n$. Repeating this process by sampling sets of $\{\delta_\tau\}_{\tau=1}^{n}$ and averaging $B^{\text{N}}_n$ yields an estimate of the average terminal accumulated BED in the OAR written as $\bar{B}^{\text{N}}_n$. This is interpreted as a cost function, seeked to be minimal. In Fig.~\ref{fig:treat_policy_sigma} the qualitative example with terminal cumulative BED's $B^{\text{N}}_n$ can be seen.
 
 To finishing the treatment with prescribed number of fraction $n_{\text{pres}}$ the reward function is constructed with a penalty parameter. The penalty parameter is given by $C$ and penalises each additional fraction  that is used for the treatment. The cost can thus be extended by linearly adding $C$ for every fraction $n$ to $\bar{B}^{\text{N}}_n$ which yields the total cost function
 \begin{equation*}
@@ -187,7 +187,6 @@ Note that the function is continuous, and the second term is independent on $n$.
 \begin{equation}
     B^{\text{N}}(n; \delta) = \delta^2 n d_T(n) \left[ \frac{1}{\delta} - \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}\right]
 \end{equation}
-$\delta=\mu$ to averaged $B_n$, also explain how one has derived on this??
 where $d_T$ is the physical dose
 \begin{equation*}
     d_T(n) = \frac{\sqrt{n (\alpha / \beta)_T (n (\alpha / \beta)_T + 4 B_{\text{pres}}^{\text{T}})} - n (\alpha / \beta)_T}{2n}
@@ -200,10 +199,10 @@ In Fig.~\ref{fig:cost_function} for $n_{\text{pres}}=5$ prescribed number of fra
 
 \begin{figure}[!htb]
     \input{tikz_graphics/cost_function.tex}
-\caption{Cost function $B^{\text{N}}_n$ for a gaussian sparing factor distribution $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Sampled are $1000$ patients with 5 fractiona each that stem from a gaussian distribution with $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Values fitted with $B^{\text{N}}(n; \delta)$.}
+\caption{Negative immediate reward or cost $B^{\text{N}}_n$ for a gaussian sparing factor distribution $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Sampled are $1000$ patients with 5 fractions each that stem from a gaussian distribution with $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Values fitted with $B^{\text{N}}(n; \delta)$.}
 \label{fig:cost_function}
 \end{figure}
-Also plotted in Fig.~\ref{fig:cost_function} is the fitting function $B^{\text{N}}(n; \delta=\mu)$ the cost is slightly higher when compared to the fit $B^{\text{N}}(n; \delta=0.89)$. Averaging the cumulative BED for $1000$ Patients each and fitting to the function $B^{\text{N}}(n;\delta)$ results in the fit parameter ($\delta$) being lower than the sparing mean $\mu=0.9$ from the sample distribution. On average Adaptive Fractionation yields slightly lower cumulative OAR BED $B^{\text{N}}$, which is reflected by a lower sparing factor as fit parameter.
+Also plotted in Fig.~\ref{fig:cost_function} is the fitting function $B^{\text{N}}(n; \delta=\mu)$, being the cumulative OAR BED for Uniform fractionation. Cumulative BED is slightly higher compared to $B^{\text{N}}(n; \delta=0.89)$ fitted to the Adaptive Fraction results. Results stem from simulated treatments, where cumulative BED was averaged for $1000$ Patients for each $n$ where $\delta$ is the fit parameter. The fit parameter is lower than the distribution sparing mean $\mu=0.9$.
 
 
 \subsection{Dynamic Programming Algorithm}
@@ -594,7 +593,7 @@ Sparing factors dependent on spatial distance between target-OAR pair are shown 
 
 \subsubsection{Prostate Patients}
 
-Prostate cases are not grouped by OAR but rather specific target volume, since the OAR registered was only rectum. There is no variation in spatial distance when looking at prostate CTV in Fig.~\ref{fig:data_pro_0}. The volumes always touched but did not overlap in any fraction. Fig.~\ref{fig:data_pro_1} and Fig.~\ref{fig:data_pro_2} shows sparing factors ranging between $0.97$ to $1.06$ for prostate CTV and $0.89$ to $0.97$ for boost volume which is lower. Sparing factors between the two target volumes are overall similar in variation, however Fig.~\ref{fig:data_pro_1} displays larger variation in spatial distance in boost volume compared to prostate CTV. In Fig.~\ref{fig:data_pro_3} it is well visible that there is no variation in spatial distance for each patient, when looking at patients with prostate CTV registered.
+Prostate cases are not grouped by OAR but rather by target volume. Only rectum was registered as OAR. There is no variation in spatial distance when looking at prostate CTV in Fig.~\ref{fig:data_pro_0}. The volumes always touched but did not overlap in any fraction. Fig.~\ref{fig:data_pro_1} and Fig.~\ref{fig:data_pro_2} shows sparing factors ranging between $0.97$ to $1.06$ for prostate CTV and $0.89$ to $0.97$ for boost volume which is lower. Sparing factors between the two target volumes are overall similar in variation, however Fig.~\ref{fig:data_pro_1} displays larger variation in spatial distance in boost volume compared to prostate CTV. In Fig.~\ref{fig:data_pro_3} it is visible, that there is no variation in spatial distance for prostate.
 
 \begin{figure}[!htb]
     \centering
@@ -628,11 +627,14 @@ The sparing factors of the integrated boost volume are misleading. Dose to the t
 
 \section{Discussion}
 
-- no patients from prostate suitable
-- misleading sparing factor BST
-- few patients in adrenal glands suitable
-- high sparing factors for patient $13$
+We investigated whether Adaptive Fractionation may improve OAR sparing and reduce number of fractions. Studied were patient cases at risk of compromising tumor dose prescription, due to high sparing factors. If Adaptive Fractionation provided a benefit was measured whether cumulative OAR dose was smaller compared to Uniform Fractionation and the treatment used less number of fractions. Two of the three patients showed a benefit in terms of OAR sparing and reducing number of fractions. For patient $13$ the OAR BED was higher compared to Uniform Fractionation while also using $5$ number of fractions. This can be explained with a planning sparing factor of $0.84$ that is not representative of the sparing factor distribution. All sparing factors that appear from fraction $1$ to $4$ are larger than the expected mean of $\mu$, such that the algorithm hesitates applying large fraction sizes until the last fraction. In the last fraction a sparing factor appears that is marginally smaller than the expected mean.
 
+Prostate patient's sparing factors are not suitable for Adaptive Fractionation, as there is little variation in the sparing factors. Sparing factors from boost volume are not misleading, as clinicians delivered a fixed prescribed dose of $D_{90}$ of $40$ Gy regardless of distance to rectum.
+
+
+\section{Conclusion}
+
+The Adaptive Fractionation paradigm exploiting day-to-day variations in the distance of the tumor from the dose-limiting OAR was successfully extended to reducing number of fractions. Based on this study considering 5-fraction SBRT treatments of two pancreas tumor patients in proximity to bowel and one adrenal glands tumor in proximity to stomach, it is concluded that the extension brings a benefit to the pancreas patients in terms of OAR dose sparing and reducing number of fractions. However, no other patients show a similar amount of interfraction motion and OAR-to-tumor proximity to substantially benefit from Adaptive Fraction with reduced number of fractions. For the adrenal glands patient Adaptive Fractionation for reducing number of fractions did not bring a benefit to the patient. There is very small amount of inter-fractional motion for prostate patients in proximity to rectum for either CTV or integrated boost volume for Adaptive Fractionation to be beneficial.
 
 
 \clearpage
