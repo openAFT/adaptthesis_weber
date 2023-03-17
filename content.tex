@@ -181,17 +181,17 @@ subject to tumor dose prescription
 \end{equation*}
 yields
 \begin{equation*}
-    B^{\text{N}}_n = \delta^2 n d_T(n) \left[ \frac{1}{\delta} - \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}\right] + \delta^2 B^{\text{T}}_n \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}
+    B^{\text{N}}_n = \delta^2 n d_T(n) \left[ \frac{1}{\delta} - \frac{(\alpha / \beta) _T}{(\alpha / \beta)_N}\right] + \delta^2 B^{\text{T}}_n \frac{(\alpha / \beta) _T}{(\alpha / \beta)_N}
 \end{equation*}
-Note that the function is continuous, and the second term is independent on $n$. Omitting this term and switching from subscript $n$ to a continous function, the BED $\bar{B}^{\text{N}}_n$ can be fitted to
-\begin{equation}
-    B^{\text{N}}(n; \delta) = \delta^2 n d_T(n) \left[ \frac{1}{\delta} - \frac{(\alpha / \beta) _N}{(\alpha / \beta)_T}\right]
-\end{equation}
 where $d_T$ is the physical dose
 \begin{equation*}
-    d_T(n) = \frac{\sqrt{n (\alpha / \beta)_T (n (\alpha / \beta)_T + 4 B_{\text{pres}}^{\text{T}})} - n (\alpha / \beta)_T}{2n}
+    d_T(n) = \frac{(\alpha / \beta)_T}{2n} \left[ \sqrt{n^2 + \frac{4 B_{\text{pres}}^{\text{T}}}{(\alpha / \beta)_T} n } - n \right]
 \end{equation*}
-Note that now there is no subscript to $B^{\text{N}}$ as it is a continuous function. This allows for a continuous objective function to be minimised for finding $C$. In the continuous case after fitting $B^{\text{N}}(n; \delta)$, $C$ can be determined analytically
+Derived from the optimal fraction decision-making the function $B^{\text{N}}(n; a, b)$ is defined to fit BED $\bar{B}^{\text{N}}_n$ with fit parameter $a,b$, where parameter $b$ is strictly positive and parameter $a$ may assume negative values if ${1}/{\delta}$ is larger than ${(\alpha / \beta) _T}/{(\alpha / \beta)_N}$.
+\begin{equation}
+    B^{\text{N}}(n; a, b) = a \left[ n - \sqrt{n^2 +  \frac{4 B_{\text{pres}}^{\text{T}}}{(\alpha / \beta)_T} n} \right] + b
+\end{equation}
+Note that now there is no subscript to $B^{\text{N}}$ as it is a continuous function. This allows minimising the continuous objective function with regard to $C$. In the continuous case after fitting $B^{\text{N}}(n; \delta)$, $C$ can be determined analytically
 \begin{equation*}
     C_{n_{\text{pres}}} = \left.\frac{\text{d} B^{\text{N}}(n; \delta)}{\text{d} n}\right|_{n=n_{\text{pres}}}
 \end{equation*}
