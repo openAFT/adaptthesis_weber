@@ -37,7 +37,7 @@
 "keys_simulation":
 	{
 	"figsize": [5, 3.1],
-	"data_filepath": "~/Downloads/jupyter_env/adaptsim/data/sf_clean.csv",
+	"data_filepath": "../Patientdata_thesis/sf_clean.csv",
 	"data_selection": ["Target", "Adrenal Glands", 0, 0],
 	"data_row_hue": "OAR",
 	"save": 1

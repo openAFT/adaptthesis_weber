@@ -37,7 +37,7 @@
 "keys_simulation":
 	{
 	"figsize": [6, 3.7],
-	"data_filepath": "~/Downloads/jupyter_env/adaptsim/data/sf_clean.csv",
+	"data_filepath": "../Patientdata_thesis/sf_clean.csv",
 	"data_selection": ["Target", "Pancreas"],
 	"data_row_hue": "OAR",
 	"save": 1
