@@ -193,16 +193,16 @@ Derived from the optimal fraction decision-making the function $B^{\text{N}}(n; 
 \end{equation}
 Note that now there is no subscript to $B^{\text{N}}$ as it is a continuous function. This allows minimising the continuous objective function with regard to $C$. In the continuous case after fitting $B^{\text{N}}(n; \delta)$, $C$ can be determined analytically
 \begin{equation*}
-    C_{n_{\text{pres}}} = \left.\frac{\text{d} B^{\text{N}}(n; \delta)}{\text{d} n}\right|_{n=n_{\text{pres}}}
+    C_{n_{\text{pres}}} = \left.\frac{\text{d} B^{\text{N}}(n; a, b)}{\text{d} n}\right|_{n=n_{\text{pres}}}
 \end{equation*}
 In Fig.~\ref{fig:cost_function} for $n_{\text{pres}}=5$ prescribed number of fractions the parameter $C_5=4.36$Gy was determined.
 
 \begin{figure}[!htb]
     \input{tikz_graphics/cost_function.tex}
-\caption{Negative immediate reward or cost $B^{\text{N}}_n$ for a gaussian sparing factor distribution $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Sampled are $1000$ patients with 5 fractions each that stem from a gaussian distribution with $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Values fitted with $B^{\text{N}}(n; \delta)$.}
+\caption{Total average cost $B^{\text{N}}_n$ for a gaussian sparing factor distribution $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Sampled are $1000$ patients with 5 fractions each that stem from a gaussian distribution with $\mu=0.9$, $\sigma=0.04$, $B_{\text{pres}}^{\text{T}}=72$. Fit of total cost for Uniform Fractionation is shown with $B^{\text{N}}_n(\delta=\mu)$.}
 \label{fig:cost_function}
 \end{figure}
-Also plotted in Fig.~\ref{fig:cost_function} is the fitting function $B^{\text{N}}(n; \delta=\mu)$, being the cumulative OAR BED for Uniform fractionation. Cumulative BED is slightly higher compared to $B^{\text{N}}(n; \delta=0.89)$ fitted to the Adaptive Fraction results. Results stem from simulated treatments, where cumulative BED was averaged for $1000$ Patients for each $n$ where $\delta$ is the fit parameter. The fit parameter is lower than the distribution sparing mean $\mu=0.9$.
+Also plotted in Fig.~\ref{fig:cost_function} is the fitting function $B^{\text{N}}(n)$ fitted to the cumulative OAR BED for Uniform Fractionation. Cumulative BED is slightly higher compared to $B^{\text{N}}(n; \delta=0.89)$ fitted to the Adaptive Fractionation results. Results stem from simulated treatments, where cumulative BED was averaged for $1000$ Patients for each $n$ where $\delta$ is the fit parameter. The fit parameter is lower than the distribution sparing mean $\mu=0.9$.
 
 
 \subsection{Dynamic Programming Algorithm}
