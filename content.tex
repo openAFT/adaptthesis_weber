@@ -349,33 +349,33 @@ For demonstration purposes a sparing factor sequence from real patients is used 
 
 \begin{table}[!htb]
     \centering
-    \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$.}
+    \caption{Comparison of accumulated BED$_3$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$.}
     \begin{tabular}{cl|cc}
     \toprule
         Patient & Fractionation & $B_5^{\text{N}}$ [Gy] & $n_{\text{frac}}$ \\
     \midrule
         3  & UF         & $91.8$ & 5 \\
-           & AF $C=0$   & $75.1$ & 5 \\
-           & AF $C=2.8$ & $75.6$ & 2 \\
+           & AF $C=0$   & $76.4$ & 5 \\
+           & AF $C=2.8$ & $75.0$ & 2 \\
     \midrule
         7  & UF         & $79.0$ & 5 \\
-           & AF $C=0$   & $76.2$ & 5 \\
-           & AF $C=2.0$ & $79.5$ & 4 \\
+           & AF $C=0$   & $68.4$ & 5 \\
+           & AF $C=2.0$ & $68.4$ & 5 \\
     \midrule
         13 & UF        & $120.3$ & 5 \\
-          & AF $C=0$   & $123.1$ & 5 \\
-          & AF $C=2.2$ & $123.1$ & 5 \\
+          & AF $C=0$   & $119.6$ & 5 \\
+          & AF $C=2.2$ & $119.6$ & 5 \\
      
     \bottomrule
     \end{tabular}
     \label{tab:result_treat_patient}
 \end{table}
 
-\paragraph{Patient $3$:} Applying the treatment model to the real sparing factor data of patient $3$, the cumulative BED $B_5^{\text{N}}$ for $C=0$ results in $75.1$ Gy. Comparing this to Uniform Fractionation, delivering $8$ Gy physical dose to the tumor in each fraction yields $91.8$ Gy cumulative BED $B_5^{\text{N}}$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $16.7$ Gy less cumulative BED $B_5^{\text{N}}$ compared to Uniform Fractionation. Applying Adaptive Fractionation with the optimal parameter $C_4=2.8$ results in the treatment terminating with $2$ fractions, while delivering less cumulative BED $B_5^{\text{N}}$ than Uniform Fractionation and reaching prescribed tumor dose of $72$ Gy. On average, it is expected that the treatment is finished in $4$ fractions, but for patient $3$ the treatment is terminated after two fractions while accumulating $0.5$ BED more compared to Adpative Fractionation $C=0$. In Tab.~\ref{tab:result_treat_patient} the comparison is summarised.
+\paragraph{Patient $3$:} Applying the treatment model to the real sparing factor data of patient $3$, the cumulative BED$_3$ for $C=0$ results in $76.4$ Gy. Comparing this to Uniform Fractionation, delivering $8$ Gy physical dose to the tumor in each fraction yields $91.8$ Gy cumulative BED BED$_3$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $15.4$ Gy less cumulative BED$_3$ compared to Uniform Fractionation. Applying Adaptive Fractionation with the optimal parameter $C_4=2.8$ results in the treatment terminating with $2$ fractions, while delivering less cumulative BED BED$_3$ than Adaptive Fractionation $C=0$. On average, it is expected that the treatment is finished in $4$ fractions, but for patient $3$ the treatment is terminated after two fractions while accumulating $1.4$ BED less compared to Adpative Fractionation $C=0$. In Tab.~\ref{tab:result_treat_patient} the comparison is summarised.
 
-\paragraph{Patient $7$:} Applying the treatment model to the real sparing factor data of patient $7$, the cumulative BED $B_5^{\text{N}}$ for $C=0$ results in $76.2$ Gy. Comparing this to Uniform Fractionation, delivering $8$ Gy physical dose to the tumor in each fraction yields $79.0$ Gy cumulative BED $B_5^{\text{N}}$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $2.8$ Gy less cumulative BED $B_5^{\text{N}}$ compared to Uniform Fractionation. Applying Adaptive Fractionation with the optimal parameter $C_4=2.0$ results in the treatment terminating with $4$ fractions, while delivering $0.5$ Gy more cumulative BED $B_5^{\text{N}}$ than Uniform Fractionation and reaching prescribed tumor dose of $72$ Gy. For patient after $4$ fractions the treatment is terminated while accumulating $3.3$ Gy more BED compared to Adpative Fractionation $C=0$.
+\paragraph{Patient $7$:} Applying the treatment model to the real sparing factor data of patient $7$, the cumulative BED$_3$ for $C=0$ results in $68.4$ Gy. Comparing this to Uniform Fractionation, delivering $8$ Gy physical dose to the tumor in each fraction yields $79.0$ Gy cumulative BED$_3$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $10.6$ Gy less cumulative BED$_3$ compared to Uniform Fractionation. Applying Adaptive Fractionation with the optimal parameter $C_4=2.0$ results in the same treatment, terminating with $5$ fractions, while delivering the same cumulative BED$_3$ as Adaptive Fractionation $C=0$.
 
-\paragraph{Patient $13$:} For patient $13$ the cumulative BED $B_5^{\text{N}}$ for Adaptive Fractionation $C=0$ results in $120.3$ Gy. Comparing this to Uniform Fractionation, delivering $8$ Gy physical dose to the tumor in each fraction yields $123.1$ Gy cumulative BED $B_5^{\text{N}}$. Thus, Adaptive Fractionation delivers $2.8$ Gy more cumulative BED $B_5^{\text{N}}$ compared to Uniform Fractionation. Applying Adaptive Fractionation with the optimal parameter $C_4=2.0$ gives the same results, while using all $5$ fractions.
+\paragraph{Patient $13$:} For patient $13$ the cumulative BED$_3$ for Adaptive Fractionation $C=0$ results in $120.3$ Gy. Comparing this to Uniform Fractionation, delivering $8$ Gy physical dose to the tumor in each fraction yields $119.6$ Gy cumulative BED$_3$. Thus, Adaptive Fractionation delivers $0.7$ Gy less cumulative BED$_3$ compared to Uniform Fractionation. Applying Adaptive Fractionation with the optimal parameter $C_4=2.0$ gives the same results, while using all $5$ fractions.
 
 \subsection{Results Synthetic Data}
 
@@ -392,11 +392,11 @@ We introduce a synthetic patient is introduced to further demonstrate the model 
     \label{fig:treat_patient_synthetic}
 \end{figure}
 
-Applying the treatment model to the synthetic patient, the cumulative BED $B_5^{\text{N}}$ for $C=0$ results in $80.8$ Gy. Comparing this to uniform fractionation (delivering $8$ Gy physical dose to the tumor in each fraction) yields an immediate OAR BED of $18$ Gy for each fraction with $\delta=0.75$ and an immediate OAR BED of $14.21$ Gy for $\delta_2=0.65$, resulting in $86.2$ Gy (rounded) cumulative BED $B_5^{\text{N}}$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $5.4$ Gy less cumulative BED $B_5^{\text{N}}$ compared to uniform fractionation. Applying Adaptive Fractionation with $C=1.2$ and $C=3.0$ results in the treatment terminating with $4$ respectively $2$ fractions (see Fig.~\ref{fig:treat_patient_synthetic}) while still delivering less cumulative BED $B_5^{\text{N}}$ than uniform fractionation and reaching prescribed tumor dose of $72$ Gy. In Tab.~\ref{tab:result_treat_fraction_4} the comparison is summarised.
+Applying the treatment model to the synthetic patient, the cumulative BED$_3$ for $C=0$ results in $80.8$ Gy. Comparing this to uniform fractionation (delivering $8$ Gy physical dose to the tumor in each fraction) yields an immediate OAR BED of $18$ Gy for each fraction with $\delta=0.75$ and an immediate OAR BED of $14.21$ Gy for $\delta_2=0.65$, resulting in $86.2$ Gy (rounded) cumulative BED$_3$. Thus, Adaptive Fractionation for this specific patient and treatment model surpasses OAR sparing by delivering $5.4$ Gy less cumulative BED$_3$ compared to uniform fractionation. Applying Adaptive Fractionation with $C=1.2$ and $C=3.0$ results in the treatment terminating with $4$ respectively $2$ fractions (see Fig.~\ref{fig:treat_patient_synthetic}) while still delivering less cumulative BED$_3$ than uniform fractionation and reaching prescribed tumor dose of $72$ Gy. In Tab.~\ref{tab:result_treat_fraction_4} the comparison is summarised.
 
 \begin{table}[!htb]
     \centering
-    \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_2=0.65$}
+    \caption{Comparison of accumulated BED$_3$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_2=0.65$}
     \begin{tabular}{cl|cc}
     \toprule
         Patient & Fractionation & $B_5^{\text{N}}$ [Gy] & $n_{\text{frac}}$ \\
@@ -627,14 +627,14 @@ The sparing factors of the integrated boost volume are misleading. Dose to the t
 
 \section{Discussion}
 
-We investigated whether Adaptive Fractionation may improve OAR sparing and reduce number of fractions. Studied were patient cases at risk of compromising tumor dose prescription, due to high sparing factors. If Adaptive Fractionation provided a benefit was measured whether cumulative OAR dose was smaller compared to Uniform Fractionation and the treatment used less number of fractions. Two of the three patients showed a benefit in terms of OAR sparing and reducing number of fractions. For patient $13$ the OAR BED was higher compared to Uniform Fractionation while also using $5$ number of fractions. This can be explained with a planning sparing factor of $0.84$ that is not representative of the sparing factor distribution. All sparing factors that appear from fraction $1$ to $4$ are larger than the expected mean of $\mu$, such that the algorithm hesitates applying large fraction sizes until the last fraction. In the last fraction a sparing factor appears that is marginally smaller than the expected mean.
+We investigated whether Adaptive Fractionation may improve OAR sparing and reduce number of fractions. Studied were patient cases at risk of compromising tumor dose prescription, due to high sparing factors. If Adaptive Fractionation provided a benefit was measured whether cumulative OAR dose was smaller compared to Uniform Fractionation and the treatment used less number of fractions. Patient $3$ showed a benefit in terms of OAR sparing and reducing number of fractions. Patient $7$ showed a benefit in terms of OAR sparing, while in patient $13$ the OAR BED was higher compared to Uniform Fractionation while also using $5$ number of fractions. This can be explained with a planning sparing factor of $0.84$ that is not representative of the sparing factor distribution. All sparing factors that appear from fraction $1$ to $4$ are larger than the expected mean of $\mu$, such that the algorithm hesitates applying large fraction sizes until the last fraction. In the last fraction a sparing factor appears that is marginally smaller than the expected mean.
 
 Prostate patient's sparing factors are not suitable for Adaptive Fractionation, as there is little variation in the sparing factors. Sparing factors from boost volume are not misleading, as clinicians delivered a fixed prescribed dose of $D_{90}$ of $40$ Gy regardless of distance to rectum.
 
 
 \section{Conclusion}
 
-The Adaptive Fractionation paradigm exploiting day-to-day variations in the distance of the tumor from the dose-limiting OAR was successfully extended to reducing number of fractions. Based on this study considering 5-fraction SBRT treatments of two pancreas tumor patients in proximity to bowel and one adrenal glands tumor in proximity to stomach, it is concluded that the extension brings a benefit to the pancreas patients in terms of OAR dose sparing and reducing number of fractions. However, no other patients show a similar amount of interfraction motion and OAR-to-tumor proximity to substantially benefit from Adaptive Fraction with reduced number of fractions. For the adrenal glands patient Adaptive Fractionation for reducing number of fractions did not bring a benefit to the patient. There is very small amount of inter-fractional motion for prostate patients in proximity to rectum for either CTV or integrated boost volume for Adaptive Fractionation to be beneficial.
+The Adaptive Fractionation paradigm exploiting day-to-day variations in the distance of the tumor from the dose-limiting OAR was successfully extended to reducing number of fractions. Based on this study considering 5-fraction SBRT treatments of two pancreas tumor patients in proximity to bowel and one adrenal glands tumor in proximity to stomach, it is concluded that the extension brings a benefit to one pancreas patients in terms of OAR dose sparing and reducing number of fractions. However, no other patients show a similar amount of interfraction motion and OAR-to-tumor proximity to substantially benefit from Adaptive Fraction with reduced number of fractions. For one pancreas and one adrenal glands patient Adaptive Fractionation did not bring a benefit to the patients in terms of reducing number of fractions. There is very small amount of inter-fractional motion for prostate patients in proximity to rectum for either CTV or integrated boost volume for Adaptive Fractionation to be beneficial.
 
 
 \clearpage
@@ -727,7 +727,7 @@ Since the policy is known for every state the expected remaining number of fract
 Described and illustrated are the treatment models applied to a synthetic patient with varying observed sparing factors chosen for demonstration. 
 
 \subsubsection{Constant Sparing Factor}
-If a synthetic patient shows no deviation at all with sparing factors appearing at $\mu = 0.75$. A uniformly fractionated treatment plan yields the limiting $90$ Gy cumulative OAR BED $B_5^{\text{N}}$ for a tumor prescription dose of $72$ Gy. Assuming an Adaptive Fractionation treatment model with a low variation in sparing factors, such that practically there is no variation expected at all and a constant $C=0$ (see Fig.~\ref{fig:treat_fraction_0}), the policy conforms to uniform fractionation. Increasing $C$ yields uniform fractionation policy using fewer fractions and resulting in higher $B_5^{\text{N}}$.
+If a synthetic patient shows no deviation at all with sparing factors appearing at $\mu = 0.75$. A uniformly fractionated treatment plan yields the limiting $90$ Gy cumulative BED$_3$ for a tumor prescription dose of $72$ Gy. Assuming an Adaptive Fractionation treatment model with a low variation in sparing factors, such that practically there is no variation expected at all and a constant $C=0$ (see Fig.~\ref{fig:treat_fraction_0}), the policy conforms to uniform fractionation. Increasing $C$ yields uniform fractionation policy using fewer fractions and resulting in higher $B_5^{\text{N}}$.
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=1\linewidth]{graphics/treat_fraction_0.pdf}
@@ -735,7 +735,7 @@ If a synthetic patient shows no deviation at all with sparing factors appearing 
     \label{fig:treat_fraction_0}
 \end{figure}
 
-Increasing the expected variation in sparing factors to a standard deviation of $\sigma=0.05$ seen in Fig.~\ref{fig:treat_fraction_1} for otherwise equal treatment model, yields higher cumulative BED $B_5^{\text{N}}$ compared to a $\sigma=0.001$. For $C=0$ less dose is applied in the first three fractions compared to the treatment model with $\sigma=0.001$, as a variation in favour of lower sparing factors is expected. As no lower sparing factors appear the dose is steadily increased. Looking at the treatment model with $C=4.4$ the treatment is finished after 4 fractions with a cumulative BED $B_5^{\text{N}}$ $3.5$ Gy higher compared to uniform fractionation.
+Increasing the expected variation in sparing factors to a standard deviation of $\sigma=0.05$ seen in Fig.~\ref{fig:treat_fraction_1} for otherwise equal treatment model, yields higher cumulative BED$_3$ compared to a $\sigma=0.001$. For $C=0$ less dose is applied in the first three fractions compared to the treatment model with $\sigma=0.001$, as a variation in favour of lower sparing factors is expected. As no lower sparing factors appear the dose is steadily increased. Looking at the treatment model with $C=4.4$ the treatment is finished after 4 fractions with a cumulative BED$_3$ $3.5$ Gy higher compared to uniform fractionation.
 
 \begin{figure}[!htb]
     \centering
@@ -753,7 +753,7 @@ Increasing the expected variation in sparing factors even further to a standard 
     \label{fig:treat_fraction_2}
 \end{figure}
 
-For a patient model with zero variation in sparing factor and treatment model with large expected variation the optimal policy yields a suboptimal dose delivery reflected by the higher cumulative BED $B_5^{\text{N}}$ compared to a treatment model that assumes low variation.
+For a patient model with zero variation in sparing factor and treatment model with large expected variation the optimal policy yields a suboptimal dose delivery reflected by the higher cumulative BED$_3$ compared to a treatment model that assumes low variation.
 
 \begin{figure}[!htb]
     \centering
@@ -764,9 +764,9 @@ For a patient model with zero variation in sparing factor and treatment model wi
 
 \subsubsection{Deviation from the Sparing Factor}
 
-Applying a treatment model with an expected standard deviation $\sigma=0.1$ to a patient model with a sparing factor sequence of $0.75$ for all fractions except in the second fraction $\delta_2 = 0.85$, the cumulative BED $B_5^{\text{N}}$ compared to a patient model with no variation is lower. The uniform fractionation (delivering $8$ Gy physical dose to the tumor in each fraction) yields an immediate OAR BED of $18$ Gy for each fraction with sparing factor $0.75$ and an immediate OAR BED of $22.21$ Gy for $\delta_2=0.85$, resulting in $94.21$ Gy. Adaptive Fractionation for 5 fraction treatment ($C=0$) surpasses OAR sparing by delivering $1.81$ Gy less cumulative BED $B_5^{\text{N}}$ compared to uniform fractionation.
+Applying a treatment model with an expected standard deviation $\sigma=0.1$ to a patient model with a sparing factor sequence of $0.75$ for all fractions except in the second fraction $\delta_2 = 0.85$, the cumulative BED$_3$ compared to a patient model with no variation is lower. The uniform fractionation (delivering $8$ Gy physical dose to the tumor in each fraction) yields an immediate OAR BED of $18$ Gy for each fraction with sparing factor $0.75$ and an immediate OAR BED of $22.21$ Gy for $\delta_2=0.85$, resulting in $94.21$ Gy. Adaptive Fractionation for 5 fraction treatment ($C=0$) surpasses OAR sparing by delivering $1.81$ Gy less cumulative BED$_3$ compared to uniform fractionation.
 
-Adaptive Fractionation with a treatment model of $C=1.2$ and $C=3$ do not finish the treatment earlier than 5 fractions (see Fig.~\ref{fig:treat_fraction_5}) and deliver the same cumulative BED $B_5^{\text{N}}$ as the treatment model with $C=0$. Nevertheless, the cumulative BED $B_5^{\text{N}}$ is still lower than uniform fractionation while reaching prescribed tumor dose of $72$ Gy. The optimal policy does not allow increasing dose to omit fractions, due to the exceptional high sparing factor of $0.85$. In Tab.~\ref{tab:result_treat_fraction_5} the comparison is summarised.
+Adaptive Fractionation with a treatment model of $C=1.2$ and $C=3$ do not finish the treatment earlier than 5 fractions (see Fig.~\ref{fig:treat_fraction_5}) and deliver the same cumulative BED$_3$ as the treatment model with $C=0$. Nevertheless, the cumulative BED$_3$ is still lower than uniform fractionation while reaching prescribed tumor dose of $72$ Gy. The optimal policy does not allow increasing dose to omit fractions, due to the exceptional high sparing factor of $0.85$. In Tab.~\ref{tab:result_treat_fraction_5} the comparison is summarised.
 
 \begin{figure}[!htb]
     \centering
@@ -777,7 +777,7 @@ Adaptive Fractionation with a treatment model of $C=1.2$ and $C=3$ do not finish
 
 \begin{table}[!htb]
     \centering
-    \caption{Comparison of accumulated OAR BED $B_5^{\text{N}}$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_2=0.85$}
+    \caption{Comparison of accumulated BED$_3$ for Uniform Fractionation (UF) and Adaptive Fractionation (AF). The number of fraction used to complete the tumor prescription dose of $72$ Gy is given by $n_{\text{frac}}$. Sparing factors are $\delta_t=0.75$ except for $\delta_2=0.85$}
     \begin{tabular}{l|cc}
     \toprule
         Fractionation & $B_5^{\text{N}}$ [Gy] & $n_{\text{frac}}$ \\
